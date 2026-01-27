@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://c1luinx26ton6"]
+
+[ext_resource type="Script" uid="uid://ssiak0cvnwsg" path="res://scripts/custom-classes/keygroup.gd" id="1_ie7v7"]
+[ext_resource type="Script" uid="uid://cliqac454gmai" path="res://scripts/custom-classes/platform_polygon_2d.gd" id="2_le1x0"]
+
+[node name="1" type="Node2D" unique_id=410265806]
+
+[node name="Keygroup1" type="Node" parent="." unique_id=218320152]
+script = ExtResource("1_ie7v7")
+metadata/_custom_type_script = "uid://ssiak0cvnwsg"
+
+[node name="PlatformPolygon2D" type="Polygon2D" parent="Keygroup1" unique_id=1717823106]
+polygon = PackedVector2Array(124, 127, 47, 218, 311, 218, 237, 119)
+script = ExtResource("2_le1x0")
+metadata/_custom_type_script = "uid://cliqac454gmai"
+
+[node name="PlatformPolygon2D2" type="Polygon2D" parent="Keygroup1" unique_id=46259074]
+polygon = PackedVector2Array(505, 130, 446, 207, 827, 242, 737, 136)
+script = ExtResource("2_le1x0")
+metadata/_custom_type_script = "uid://cliqac454gmai"
+
+[node name="Keygroup2" type="Node" parent="." unique_id=1523062697]
+script = ExtResource("1_ie7v7")
+group_id = 2
+metadata/_custom_type_script = "uid://ssiak0cvnwsg"
+
+[node name="PlatformPolygon2D" type="Polygon2D" parent="Keygroup2" unique_id=580099150]
+color = Color(1, 0, 1, 1)
+polygon = PackedVector2Array(374, 301, 233, 442, 601, 452, 521, 380, 423, 371, 416, 298)
+script = ExtResource("2_le1x0")
+metadata/_custom_type_script = "uid://cliqac454gmai"
+
+[node name="Keygroup3" type="Node" parent="." unique_id=95544490]
+script = ExtResource("1_ie7v7")
+group_id = 3
+metadata/_custom_type_script = "uid://ssiak0cvnwsg"
+
+[node name="PlatformPolygon2D" type="Polygon2D" parent="Keygroup3" unique_id=1415358873]
+color = Color(0, 1, 0, 1)
+polygon = PackedVector2Array(923, 336, 742, 331, 742, 479, 944, 478)
+script = ExtResource("2_le1x0")
+metadata/_custom_type_script = "uid://cliqac454gmai"
