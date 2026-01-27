@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cp0bf0rdxvw1s"]
+
+[ext_resource type="Script" uid="uid://dbyeb2a26hs3p" path="res://scenes/player/player.gd" id="1_8afob"]
+[ext_resource type="Texture2D" uid="uid://c7w58kxcgg6fp" path="res://scenes/player/placeholder_sprite/mario.png" id="2_dovo2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmlin"]
+atlas = ExtResource("2_dovo2")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvxji"]
+atlas = ExtResource("2_dovo2")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p47bc"]
+atlas = ExtResource("2_dovo2")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_75vfm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gmlin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvxji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p47bc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dovo2"]
+radius = 8.0
+
+[node name="Player" type="CharacterBody2D" unique_id=758385320 node_paths=PackedStringArray("collision_shape", "sprite")]
+script = ExtResource("1_8afob")
+speed = 100.0
+collision_shape = NodePath("CollisionShape2D")
+sprite = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1608630114]
+sprite_frames = SubResource("SpriteFrames_75vfm")
+autoplay = "default"
+frame_progress = 0.4837037
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1025843108]
+shape = SubResource("CapsuleShape2D_dovo2")

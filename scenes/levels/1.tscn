@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ssiak0cvnwsg" path="res://scripts/custom-classes/keygroup.gd" id="1_ie7v7"]
 [ext_resource type="Script" uid="uid://cliqac454gmai" path="res://scripts/custom-classes/platform_polygon_2d.gd" id="2_le1x0"]
+[ext_resource type="PackedScene" uid="uid://cp0bf0rdxvw1s" path="res://scenes/player/player.tscn" id="3_x3ltn"]
 
 [node name="1" type="Node2D" unique_id=410265806]
 
@@ -10,12 +11,13 @@ script = ExtResource("1_ie7v7")
 metadata/_custom_type_script = "uid://ssiak0cvnwsg"
 
 [node name="PlatformPolygon2D" type="Polygon2D" parent="Keygroup1" unique_id=1717823106]
-polygon = PackedVector2Array(124, 127, 47, 218, 311, 218, 237, 119)
+polygon = PackedVector2Array(64, 32, 160, 32, 160, 96, 224, 96, 224, 128, 128, 128, 128, 64, 64, 64)
 script = ExtResource("2_le1x0")
 metadata/_custom_type_script = "uid://cliqac454gmai"
 
 [node name="PlatformPolygon2D2" type="Polygon2D" parent="Keygroup1" unique_id=46259074]
-polygon = PackedVector2Array(505, 130, 446, 207, 827, 242, 737, 136)
+position = Vector2(0, 32)
+polygon = PackedVector2Array(320, 96, 224, 192, 288, 192, 544, 192, 544, 96, 544, 64, 352, 64)
 script = ExtResource("2_le1x0")
 metadata/_custom_type_script = "uid://cliqac454gmai"
 
@@ -26,7 +28,7 @@ metadata/_custom_type_script = "uid://ssiak0cvnwsg"
 
 [node name="PlatformPolygon2D" type="Polygon2D" parent="Keygroup2" unique_id=580099150]
 color = Color(1, 0, 1, 1)
-polygon = PackedVector2Array(374, 301, 233, 442, 601, 452, 521, 380, 423, 371, 416, 298)
+polygon = PackedVector2Array(64, 224, 32, 224, 32, 384, 576, 384, 608, 384, 608, 256, 512, 352, 64, 352)
 script = ExtResource("2_le1x0")
 metadata/_custom_type_script = "uid://cliqac454gmai"
 
@@ -37,6 +39,9 @@ metadata/_custom_type_script = "uid://ssiak0cvnwsg"
 
 [node name="PlatformPolygon2D" type="Polygon2D" parent="Keygroup3" unique_id=1415358873]
 color = Color(0, 1, 0, 1)
-polygon = PackedVector2Array(923, 336, 742, 331, 742, 479, 944, 478)
+polygon = PackedVector2Array(608, 256, 608, 288, 832, 288, 832, 160, 800, 160, 800, 256)
 script = ExtResource("2_le1x0")
 metadata/_custom_type_script = "uid://cliqac454gmai"
+
+[node name="Player" parent="." unique_id=758385320 instance=ExtResource("3_x3ltn")]
+position = Vector2(208, 80)
