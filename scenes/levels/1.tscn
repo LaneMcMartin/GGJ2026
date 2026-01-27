@@ -4,16 +4,13 @@
 [ext_resource type="Script" uid="uid://cliqac454gmai" path="res://scripts/custom-classes/platform_polygon_2d.gd" id="2_le1x0"]
 [ext_resource type="PackedScene" uid="uid://cp0bf0rdxvw1s" path="res://scenes/player/player.tscn" id="3_x3ltn"]
 [ext_resource type="PackedScene" uid="uid://lssqn0ldesc" path="res://scenes/objects/spring/spring.tscn" id="4_f00r8"]
+[ext_resource type="PackedScene" uid="uid://cbeskhe10musv" path="res://scenes/objects/goal/goal.tscn" id="5_0absb"]
 
 [node name="1" type="Node2D" unique_id=410265806]
 
 [node name="Keygroup1" type="Node" parent="." unique_id=218320152]
 script = ExtResource("1_ie7v7")
 metadata/_custom_type_script = "uid://ssiak0cvnwsg"
-
-[node name="Spring" parent="Keygroup1" unique_id=449720975 instance=ExtResource("4_f00r8")]
-z_index = 1
-position = Vector2(616, 264)
 
 [node name="PlatformPolygon2D" type="Polygon2D" parent="Keygroup1" unique_id=1717823106]
 polygon = PackedVector2Array(64, 32, 160, 32, 160, 96, 224, 96, 224, 128, 128, 128, 128, 64, 64, 64)
@@ -48,5 +45,12 @@ polygon = PackedVector2Array(608, 256, 608, 288, 832, 288, 832, 160, 800, 160, 8
 script = ExtResource("2_le1x0")
 metadata/_custom_type_script = "uid://cliqac454gmai"
 
+[node name="Spring" parent="Keygroup3" unique_id=449720975 instance=ExtResource("4_f00r8")]
+z_index = 1
+position = Vector2(616, 264)
+
 [node name="Player" parent="." unique_id=758385320 instance=ExtResource("3_x3ltn")]
-position = Vector2(783, 235)
+position = Vector2(727, 235)
+
+[node name="Goal" parent="." unique_id=613892377 instance=ExtResource("5_0absb")]
+position = Vector2(367, 336)
