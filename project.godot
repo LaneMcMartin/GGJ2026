@@ -18,6 +18,12 @@ config/features=PackedStringArray("4.6", "Forward Plus")
 
 KeygroupManager="*uid://d4hlb8ridn5mb"
 
+[display]
+
+window/size/viewport_width=960
+window/size/viewport_height=540
+window/stretch/mode="viewport"
+
 [input]
 
 toggle_group_1={
@@ -47,4 +53,5 @@ toggle_group_4={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
