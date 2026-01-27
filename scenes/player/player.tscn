@@ -36,6 +36,7 @@ animations = [{
 radius = 8.0
 
 [node name="Player" type="CharacterBody2D" unique_id=758385320 node_paths=PackedStringArray("collision_shape", "sprite")]
+floor_snap_length = 32.0
 script = ExtResource("1_8afob")
 speed = 100.0
 collision_shape = NodePath("CollisionShape2D")
