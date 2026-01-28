@@ -4,13 +4,23 @@ class_name LevelManager
 extends Node
 
 const LEVEL_DIRECTORY: String = "res://scenes/levels/"
-const level_order: Array[String] = ["nico-test", "1", "2"]
+const level_order: Array[String] = ["nico-test", "1", "2", "nico-test-clone"]
 
 var _current_level_index: int = 0
 var _current_level: Node2D = null
 
 func _ready() -> void:
 	_load_level(_current_level_index)
+	
+	# In debug builds (or editor) conenct to debug signals.
+	_try_connect_debug_signals()
+
+
+## Debug exclusive function: connect to level skip hotkey.
+func _try_connect_debug_signals() -> void:
+	if OS.is_debug_build():
+		GameManager.level_back.connect(func(): _load_level(_current_level_index - 1))
+		GameManager.level_forward.connect(func(): _load_level(_current_level_index + 1))
 
 
 ## Load a new level.
@@ -20,7 +30,7 @@ func _load_level(level_index: int) -> void:
 		_current_level.queue_free()
 	
 	# Load the new one and conenct to the goal. Failsafe if the level index is out of range.
-	if level_index >= level_order.size():
+	if (level_index >= level_order.size()) or (level_index < 0):
 		_current_level_index = 0
 	else:
 		_current_level_index = level_index

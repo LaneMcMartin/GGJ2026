@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cp0bf0rdxvw1s" path="res://scenes/player/player.tscn" id="4_ijh0y"]
 [ext_resource type="PackedScene" uid="uid://cbeskhe10musv" path="res://scenes/objects/goal/goal.tscn" id="5_ql3nd"]
 
-[node name="2" type="Node2D" unique_id=410265806]
+[node name="NicoTest" type="Node2D" unique_id=410265806]
 
 [node name="Keygroup1" type="Node" parent="." unique_id=218320152]
 script = ExtResource("1_0absb")

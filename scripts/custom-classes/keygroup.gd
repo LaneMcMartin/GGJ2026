@@ -10,7 +10,7 @@ extends Node
 @export_range(1, 4) var group_id: int = 1:
 	set(value):
 		group_id = clampi(value, 1, 4)
-		#_update_children_appearance() # TODO
+		_update_children_appearance()
 		# Re-register with manager if group changes.
 		if _is_registered and not Engine.is_editor_hint():
 			KeygroupManager.unregister_keygroup(self, group_id)
@@ -59,6 +59,11 @@ func _notification(what: int) -> void:
 		#_update_children_appearance()  # TODO
 		pass
 
+## Update child node appearance (mostly for tilemap).
+func _update_children_appearance() -> void:
+	for child in get_children():
+		if child.has_method("_update_preview"):
+			child._update_preview()
 
 ## Called by the KeygroupManager when this group is toggled.
 func _on_manager_toggled(toggled_group_id: int, enabled: bool) -> void:

@@ -1,9 +1,10 @@
-[gd_scene format=3 uid="uid://c1luinx26ton6"]
+[gd_scene format=4 uid="uid://c1luinx26ton6"]
 
 [ext_resource type="Script" uid="uid://ssiak0cvnwsg" path="res://scripts/custom-classes/keygroup.gd" id="1_ie7v7"]
-[ext_resource type="Script" uid="uid://cliqac454gmai" path="res://scripts/custom-classes/platform_polygon_2d.gd" id="2_le1x0"]
+[ext_resource type="TileSet" uid="uid://nvbusorob0c6" path="res://assets/tilesets/tileset.tres" id="3_kpjit"]
 [ext_resource type="PackedScene" uid="uid://cp0bf0rdxvw1s" path="res://scenes/player/player.tscn" id="3_x3ltn"]
 [ext_resource type="PackedScene" uid="uid://lssqn0ldesc" path="res://scenes/objects/spring/spring.tscn" id="4_f00r8"]
+[ext_resource type="Script" uid="uid://bt8ibkyymyd37" path="res://scripts/custom-classes/palette_tile_map_layer.gd" id="4_ijh0y"]
 [ext_resource type="PackedScene" uid="uid://cbeskhe10musv" path="res://scenes/objects/goal/goal.tscn" id="5_0absb"]
 
 [node name="1" type="Node2D" unique_id=410265806]
@@ -12,42 +13,38 @@
 script = ExtResource("1_ie7v7")
 metadata/_custom_type_script = "uid://ssiak0cvnwsg"
 
-[node name="PlatformPolygon2D" type="Polygon2D" parent="Keygroup1" unique_id=1717823106]
-polygon = PackedVector2Array(64, 32, 160, 32, 160, 96, 224, 96, 224, 128, 128, 128, 128, 64, 64, 64)
-script = ExtResource("2_le1x0")
-metadata/_custom_type_script = "uid://cliqac454gmai"
-
-[node name="PlatformPolygon2D2" type="Polygon2D" parent="Keygroup1" unique_id=46259074]
-position = Vector2(0, 32)
-polygon = PackedVector2Array(320, 96, 224, 192, 288, 192, 544, 192, 544, 96, 544, 64, 352, 64)
-script = ExtResource("2_le1x0")
-metadata/_custom_type_script = "uid://cliqac454gmai"
+[node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup1" unique_id=825179981]
+tile_map_data = PackedByteArray("AAAXAAgAAAAAAAAAAAAWAAgAAAAAAAAAAAAVAAgAAAAAAAAAAAAUAAgAAAAAAAAAAAATAAgAAAAAAAAAAAASAAgAAAAAAAAAAAARAAgAAAAAAAAAAAAQAAgAAAAAAAAAAAAPAAgAAAAAAAAAAAAYAAgAAAAAAAAAAAAYAAcAAAAAAAAAAAAYAAYAAAAAAAAAAAAYAAUAAAAAAAAAAAAJAAwAAAAAAAAAAAAKAAsAAAABAAAAAAAKAAwAAAAAAAAAAAALAAsAAAAAAAAAAAALAAwAAAAAAAAAAAAMAAwAAAAAAAAAAAAMAAsAAAACAAAAAAANAAwAAAAAAAAAAAAOAAwAAAAAAAAAAAAPAAwAAAAAAAAAAAAYAAkAAAAAAAAAAAAYAAoAAAAAAAAAAAAYAAsAAAAAAAAAAAAYAAwAAAAAAAAAAAAXAAwAAAAAAAAAAAAWAAwAAAAAAAAAAAAVAAwAAAAAAAAAAAAUAAwAAAAAAAAAAAATAAwAAAAAAAAAAAASAAwAAAAAAAAAAAARAAwAAAAAAAAAAAAQAAwAAAAAAAAAAAAWAAkAAAABAAEAAAAXAAoAAAABAAEAAAAXAAkAAAAAAAAAAAAYAAQAAAAAAAAAAAAYAAMAAAAAAAAAAAAYAAIAAAAAAAAAAAAYAAEAAAAAAAAAAAAYAAAAAAAAAAAAAAAXAAAAAAAAAAAAAAAWAAAAAAAAAAAAAAAVAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAUAAEAAAABAAEAAAAVAAIAAAABAAEAAAAWAAMAAAABAAEAAAAXAAQAAAABAAEAAAAXAAMAAAAAAAAAAAAXAAIAAAAAAAAAAAAXAAEAAAAAAAAAAAAVAAEAAAAAAAAAAAAWAAEAAAAAAAAAAAAWAAIAAAAAAAAAAAATAAAAAAAAAAAAAAASAAAAAAAAAAAAAAARAAAAAAAAAAAAAAA=")
+tile_set = ExtResource("3_kpjit")
+script = ExtResource("4_ijh0y")
 
 [node name="Keygroup2" type="Node" parent="." unique_id=1523062697]
 script = ExtResource("1_ie7v7")
 group_id = 2
 metadata/_custom_type_script = "uid://ssiak0cvnwsg"
 
-[node name="PlatformPolygon2D" type="Polygon2D" parent="Keygroup2" unique_id=580099150]
-color = Color(1, 0, 1, 1)
-polygon = PackedVector2Array(64, 224, 32, 224, 32, 384, 576, 384, 608, 384, 608, 256, 512, 352, 64, 352)
-script = ExtResource("2_le1x0")
-metadata/_custom_type_script = "uid://cliqac454gmai"
+[node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup2" unique_id=1763991637]
+modulate = Color(0.6, 1, 0.6, 1)
+tile_map_data = PackedByteArray("AAARAAUAAAAAAAAAAAAQAAUAAAAAAAAAAAAPAAUAAAAAAAAAAAAOAAUAAAAAAAAAAAANAAUAAAAAAAAAAAAMAAUAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAsAAAAAAAAAAAABAAcAAAACAAAAAAACAAgAAAACAAAAAAADAAkAAAACAAAAAAAEAAoAAAACAAAAAAAFAAsAAAACAAAAAAAEAAsAAAAAAAAAAAADAAsAAAAAAAAAAAACAAsAAAAAAAAAAAABAAsAAAAAAAAAAAADAAoAAAAAAAAAAAACAAoAAAAAAAAAAAABAAoAAAAAAAAAAAACAAkAAAAAAAAAAAABAAkAAAAAAAAAAAABAAgAAAAAAAAAAAAGAAwAAAAAAAAAAAAHAAwAAAAAAAAAAAAIAAwAAAAAAAAAAAAFAAwAAAAAAAAAAAAEAAwAAAAAAAAAAAADAAwAAAAAAAAAAAACAAwAAAAAAAAAAAABAAwAAAAAAAAAAAAAAAwAAAAAAAAAAAA=")
+tile_set = ExtResource("3_kpjit")
+script = ExtResource("4_ijh0y")
+metadata/_custom_type_script = "uid://bt8ibkyymyd37"
+
+[node name="Spring" parent="Keygroup2" unique_id=449720975 instance=ExtResource("4_f00r8")]
+z_index = 1
+position = Vector2(616, 264)
 
 [node name="Keygroup3" type="Node" parent="." unique_id=95544490]
 script = ExtResource("1_ie7v7")
 group_id = 3
 metadata/_custom_type_script = "uid://ssiak0cvnwsg"
 
-[node name="PlatformPolygon2D" type="Polygon2D" parent="Keygroup3" unique_id=1415358873]
-color = Color(0, 1, 0, 1)
-polygon = PackedVector2Array(608, 256, 608, 288, 832, 288, 832, 160, 800, 160, 800, 256)
-script = ExtResource("2_le1x0")
-metadata/_custom_type_script = "uid://cliqac454gmai"
-
-[node name="Spring" parent="Keygroup3" unique_id=449720975 instance=ExtResource("4_f00r8")]
-z_index = 1
-position = Vector2(616, 264)
+[node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup3" unique_id=1716492289]
+modulate = Color(1, 0.6, 0.6, 1)
+tile_map_data = PackedByteArray("AAALAAUAAAAAAAAAAAAKAAUAAAAAAAAAAAAJAAUAAAAAAAAAAAAIAAUAAAAAAAAAAAAHAAUAAAAAAAAAAAAHAAQAAAACAAAAAAAGAAMAAAACAAAAAAAFAAIAAAACAAAAAAAGAAUAAAAAAAAAAAAGAAQAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAAMAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAACAAIAAAAAAAAAAAADAAIAAAAAAAAAAAA=")
+tile_set = ExtResource("3_kpjit")
+script = ExtResource("4_ijh0y")
+metadata/_custom_type_script = "uid://bt8ibkyymyd37"
 
 [node name="Player" parent="." unique_id=758385320 instance=ExtResource("3_x3ltn")]
 position = Vector2(727, 235)

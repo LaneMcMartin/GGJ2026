@@ -1,0 +1,55 @@
+[gd_scene format=4 uid="uid://r1cob3alxpp6"]
+
+[ext_resource type="Script" uid="uid://ssiak0cvnwsg" path="res://scripts/custom-classes/keygroup.gd" id="1_fjg3i"]
+[ext_resource type="TileSet" uid="uid://nvbusorob0c6" path="res://assets/tilesets/tileset.tres" id="2_3x8ql"]
+[ext_resource type="Script" uid="uid://bt8ibkyymyd37" path="res://scripts/custom-classes/palette_tile_map_layer.gd" id="3_82wim"]
+[ext_resource type="PackedScene" uid="uid://lssqn0ldesc" path="res://scenes/objects/spring/spring.tscn" id="4_gduew"]
+[ext_resource type="PackedScene" uid="uid://cp0bf0rdxvw1s" path="res://scenes/player/player.tscn" id="5_rqpvy"]
+[ext_resource type="PackedScene" uid="uid://cbeskhe10musv" path="res://scenes/objects/goal/goal.tscn" id="6_i1afa"]
+
+[node name="NicoTestClone" type="Node2D" unique_id=410265806]
+
+[node name="Keygroup1" type="Node" parent="." unique_id=218320152]
+script = ExtResource("1_fjg3i")
+metadata/_custom_type_script = "uid://ssiak0cvnwsg"
+
+[node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup1" unique_id=1515519611]
+modulate = Color(0.6, 0.6, 1, 1)
+tile_map_data = PackedByteArray("AAASAA0AAAAAAAAAAAARAA0AAAAAAAAAAAAQAA0AAAAAAAAAAAAPAA0AAAAAAAAAAAAOAA0AAAAAAAAAAAANAA0AAAAAAAAAAAAMAA0AAAAAAAAAAAALAAoAAAAAAAAAAAATAAoAAAAAAAAAAAA=")
+tile_set = ExtResource("2_3x8ql")
+script = ExtResource("3_82wim")
+metadata/_custom_type_script = "uid://bt8ibkyymyd37"
+
+[node name="Keygroup2" type="Node" parent="." unique_id=1523062697]
+script = ExtResource("1_fjg3i")
+group_id = 2
+metadata/_custom_type_script = "uid://ssiak0cvnwsg"
+
+[node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup2" unique_id=122192405]
+modulate = Color(0.6, 1, 0.6, 1)
+tile_map_data = PackedByteArray("AAALAAsAAAAAAAAAAAAMAAsAAAAAAAAAAAANAAsAAAAAAAAAAAAOAAsAAAAAAAAAAAAPAAsAAAAAAAAAAAAQAAsAAAAAAAAAAAARAAsAAAAAAAAAAAASAAsAAAAAAAAAAAATAAsAAAAAAAAAAAALAAUAAAAAAAAAAAALAAYAAAAAAAAAAAALAAcAAAAAAAAAAAALAAgAAAAAAAAAAAAMAAUAAAAAAAAAAAANAAUAAAAAAAAAAAAOAAUAAAAAAAAAAAAPAAUAAAAAAAAAAAAQAAUAAAAAAAAAAAARAAUAAAAAAAAAAAASAAUAAAAAAAAAAAATAAUAAAAAAAAAAAATAAYAAAAAAAAAAAATAAcAAAAAAAAAAAATAAgAAAAAAAAAAAA=")
+tile_set = ExtResource("2_3x8ql")
+script = ExtResource("3_82wim")
+metadata/_custom_type_script = "uid://bt8ibkyymyd37"
+
+[node name="Keygroup3" type="Node" parent="." unique_id=95544490]
+script = ExtResource("1_fjg3i")
+group_id = 3
+metadata/_custom_type_script = "uid://ssiak0cvnwsg"
+
+[node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup3" unique_id=799479854]
+modulate = Color(1, 0.6, 0.6, 1)
+tile_map_data = PackedByteArray("AAALAAkAAAAAAAAAAAAMAAkAAAAAAAAAAAANAAkAAAAAAAAAAAAOAAkAAAAAAAAAAAAPAAkAAAAAAAAAAAAQAAkAAAAAAAAAAAARAAkAAAAAAAAAAAASAAkAAAAAAAAAAAATAAkAAAAAAAAAAAA=")
+tile_set = ExtResource("2_3x8ql")
+script = ExtResource("3_82wim")
+metadata/_custom_type_script = "uid://bt8ibkyymyd37"
+
+[node name="Spring" parent="Keygroup3" unique_id=449720975 instance=ExtResource("4_gduew")]
+position = Vector2(496, 432)
+scale = Vector2(2, 2)
+
+[node name="Player" parent="." unique_id=758385320 instance=ExtResource("5_rqpvy")]
+position = Vector2(496, 337)
+
+[node name="Goal" parent="." unique_id=613892377 instance=ExtResource("6_i1afa")]
+position = Vector2(496, 272)

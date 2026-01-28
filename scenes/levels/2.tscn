@@ -1,8 +1,9 @@
-[gd_scene format=3 uid="uid://c638b3ym3wd06"]
+[gd_scene format=4 uid="uid://c638b3ym3wd06"]
 
 [ext_resource type="Script" uid="uid://ssiak0cvnwsg" path="res://scripts/custom-classes/keygroup.gd" id="1_afygv"]
 [ext_resource type="PackedScene" uid="uid://lssqn0ldesc" path="res://scenes/objects/spring/spring.tscn" id="2_8jtne"]
-[ext_resource type="Script" uid="uid://cliqac454gmai" path="res://scripts/custom-classes/platform_polygon_2d.gd" id="3_mp0kl"]
+[ext_resource type="TileSet" uid="uid://nvbusorob0c6" path="res://assets/tilesets/tileset.tres" id="2_mp0kl"]
+[ext_resource type="Script" uid="uid://bt8ibkyymyd37" path="res://scripts/custom-classes/palette_tile_map_layer.gd" id="3_souht"]
 [ext_resource type="PackedScene" uid="uid://cp0bf0rdxvw1s" path="res://scenes/player/player.tscn" id="4_souht"]
 [ext_resource type="PackedScene" uid="uid://cbeskhe10musv" path="res://scenes/objects/goal/goal.tscn" id="5_8jtne"]
 
@@ -12,66 +13,60 @@
 script = ExtResource("1_afygv")
 metadata/_custom_type_script = "uid://ssiak0cvnwsg"
 
-[node name="PlatformPolygon2D" type="Polygon2D" parent="Keygroup1" unique_id=464658140]
-polygon = PackedVector2Array(0, 256, 32, 256, 32, 352, 192, 352, 192, 384, 0, 384)
-script = ExtResource("3_mp0kl")
-metadata/_custom_type_script = "uid://cliqac454gmai"
-
-[node name="PlatformPolygon2D2" type="Polygon2D" parent="Keygroup1" unique_id=1801333232]
-polygon = PackedVector2Array(288, 352, 288, 384, 416, 384, 416, 352)
-script = ExtResource("3_mp0kl")
-metadata/_custom_type_script = "uid://cliqac454gmai"
-
-[node name="PlatformPolygon2D3" type="Polygon2D" parent="Keygroup1" unique_id=1800601591]
-polygon = PackedVector2Array(512, 352, 512, 384, 640, 384, 640, 352)
-script = ExtResource("3_mp0kl")
-metadata/_custom_type_script = "uid://cliqac454gmai"
+[node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup1" unique_id=1585861909]
+modulate = Color(0.6, 0.6, 1, 1)
+tile_map_data = PackedByteArray("AAAAAAgAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAsAAAAAAAAAAAABAAsAAAAAAAAAAAACAAsAAAAAAAAAAAADAAsAAAAAAAAAAAAEAAsAAAAAAAAAAAAFAAsAAAAAAAAAAAAJAAsAAAAAAAAAAAAKAAsAAAAAAAAAAAALAAsAAAAAAAAAAAAMAAsAAAAAAAAAAAAQAAsAAAAAAAAAAAARAAsAAAAAAAAAAAASAAsAAAAAAAAAAAATAAsAAAAAAAAAAAA=")
+tile_set = ExtResource("2_mp0kl")
+script = ExtResource("3_souht")
+metadata/_custom_type_script = "uid://bt8ibkyymyd37"
 
 [node name="Keygroup2" type="Node" parent="." unique_id=1523062697]
 script = ExtResource("1_afygv")
 group_id = 2
 metadata/_custom_type_script = "uid://ssiak0cvnwsg"
 
-[node name="PlatformPolygon2D" type="Polygon2D" parent="Keygroup2" unique_id=1402643907]
-color = Color(1, 0, 1, 1)
-polygon = PackedVector2Array(736, 352, 736, 384, 928, 384, 928, 256, 896, 256, 896, 352)
-script = ExtResource("3_mp0kl")
-metadata/_custom_type_script = "uid://cliqac454gmai"
+[node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup2" unique_id=272197897]
+modulate = Color(0.6, 1, 0.6, 1)
+tile_map_data = PackedByteArray("AAAXAAsAAAAAAAAAAAAYAAsAAAAAAAAAAAAZAAsAAAAAAAAAAAAaAAsAAAAAAAAAAAAbAAsAAAAAAAAAAAAcAAsAAAAAAAAAAAAcAAoAAAAAAAAAAAAcAAkAAAAAAAAAAAAcAAgAAAAAAAAAAAA=")
+tile_set = ExtResource("2_mp0kl")
+script = ExtResource("3_souht")
+metadata/_custom_type_script = "uid://bt8ibkyymyd37"
+
+[node name="Spring" parent="Keygroup2" unique_id=449720975 instance=ExtResource("2_8jtne")]
+z_index = 1
+position = Vector2(200, 360)
+
+[node name="Spring2" parent="Keygroup2" unique_id=1671493636 instance=ExtResource("2_8jtne")]
+z_index = 1
+position = Vector2(280, 360)
+
+[node name="Spring3" parent="Keygroup2" unique_id=954932360 instance=ExtResource("2_8jtne")]
+z_index = 1
+position = Vector2(424, 360)
+
+[node name="Spring4" parent="Keygroup2" unique_id=1260428590 instance=ExtResource("2_8jtne")]
+z_index = 1
+position = Vector2(504, 360)
+
+[node name="Spring5" parent="Keygroup2" unique_id=777787679 instance=ExtResource("2_8jtne")]
+z_index = 1
+position = Vector2(648, 360)
+
+[node name="Spring6" parent="Keygroup2" unique_id=1100541267 instance=ExtResource("2_8jtne")]
+z_index = 1
+position = Vector2(728, 360)
 
 [node name="Keygroup3" type="Node" parent="." unique_id=95544490]
 script = ExtResource("1_afygv")
 group_id = 3
 metadata/_custom_type_script = "uid://ssiak0cvnwsg"
 
-[node name="Spring" parent="Keygroup3" unique_id=449720975 instance=ExtResource("2_8jtne")]
-z_index = 1
-position = Vector2(200, 360)
-
-[node name="Spring2" parent="Keygroup3" unique_id=1671493636 instance=ExtResource("2_8jtne")]
-z_index = 1
-position = Vector2(280, 360)
-
-[node name="Spring3" parent="Keygroup3" unique_id=954932360 instance=ExtResource("2_8jtne")]
-z_index = 1
-position = Vector2(424, 360)
-
-[node name="Spring4" parent="Keygroup3" unique_id=1260428590 instance=ExtResource("2_8jtne")]
-z_index = 1
-position = Vector2(504, 360)
-
-[node name="Spring5" parent="Keygroup3" unique_id=777787679 instance=ExtResource("2_8jtne")]
-z_index = 1
-position = Vector2(648, 360)
-
-[node name="Spring6" parent="Keygroup3" unique_id=1100541267 instance=ExtResource("2_8jtne")]
-z_index = 1
-position = Vector2(728, 360)
-
-[node name="PlatformPolygon2D" type="Polygon2D" parent="Keygroup3" unique_id=556310469]
-color = Color(0, 1, 0, 1)
-polygon = PackedVector2Array(160, 416, 192, 416, 192, 480, 736, 480, 736, 416, 768, 416, 768, 512, 160, 512)
-script = ExtResource("3_mp0kl")
-metadata/_custom_type_script = "uid://cliqac454gmai"
+[node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup3" unique_id=2103063962]
+modulate = Color(1, 0.6, 0.6, 1)
+tile_map_data = PackedByteArray("AAAFAA0AAAAAAAAAAAAFAA4AAAAAAAAAAAAFAA8AAAAAAAAAAAAGAA8AAAAAAAAAAAAHAA8AAAAAAAAAAAAIAA8AAAAAAAAAAAAJAA8AAAAAAAAAAAAKAA8AAAAAAAAAAAALAA8AAAAAAAAAAAAMAA8AAAAAAAAAAAANAA8AAAAAAAAAAAAOAA8AAAAAAAAAAAAPAA8AAAAAAAAAAAAQAA8AAAAAAAAAAAARAA8AAAAAAAAAAAASAA8AAAAAAAAAAAATAA8AAAAAAAAAAAAUAA8AAAAAAAAAAAAVAA8AAAAAAAAAAAAWAA8AAAAAAAAAAAAXAA8AAAAAAAAAAAAXAA4AAAAAAAAAAAAXAA0AAAAAAAAAAAA=")
+tile_set = ExtResource("2_mp0kl")
+script = ExtResource("3_souht")
+metadata/_custom_type_script = "uid://bt8ibkyymyd37"
 
 [node name="Player" parent="." unique_id=758385320 instance=ExtResource("4_souht")]
 position = Vector2(871, 334)
