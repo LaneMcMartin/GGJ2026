@@ -4,6 +4,8 @@
 class_name PaletteTileMapLayer
 extends TileMapLayer
 
+signal tileset_toggled
+
 # Editor preview colors for each Keygroup.
 const GROUP_COLORS: Dictionary = {
 	1: Color(0.6, 0.6, 1.0),  # Blue
@@ -43,6 +45,8 @@ func _ready() -> void:
 	else:
 		modulate = Color.WHITE
 		_remap_source_ids()
+		
+	add_to_group("Tilesets")
 
 ## Update hue for editor preview.
 func _update_preview() -> void:
@@ -61,3 +65,4 @@ func _remap_source_ids() -> void:
 ## Custom implementation of the _on_keygroup_toggled that Keygroup calls. Toggles collision (via the flag that TileMapLayers look for).
 func _on_keygroup_toggled(state: bool) -> void:
 	collision_enabled = state
+	tileset_toggled.emit(self)
