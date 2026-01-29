@@ -1,0 +1,58 @@
+[gd_scene format=4 uid="uid://wedmy0jgg2y8"]
+
+[ext_resource type="Script" uid="uid://ssiak0cvnwsg" path="res://scripts/custom-classes/keygroup.gd" id="1_r44xb"]
+[ext_resource type="Texture2D" uid="uid://k6uq5ddh330p" path="res://assets/tilesets/test_tileset_plain.png" id="2_qrc0q"]
+[ext_resource type="PackedScene" uid="uid://lssqn0ldesc" path="res://scenes/objects/spring/spring.tscn" id="4_8ktvx"]
+[ext_resource type="PackedScene" uid="uid://cp0bf0rdxvw1s" path="res://scenes/player/player.tscn" id="5_5qt40"]
+[ext_resource type="PackedScene" uid="uid://cbeskhe10musv" path="res://scenes/objects/goal/goal.tscn" id="6_54e2k"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r44xb"]
+texture = ExtResource("2_qrc0q")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(32, -32, 32, 32, -32, 32)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, 32, -32, 32)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, -32, 32)
+
+[sub_resource type="TileSet" id="TileSet_b14wo"]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_r44xb")
+
+[node name="NewTileset" type="Node2D" unique_id=410265806]
+
+[node name="Keygroup1" type="Node" parent="." unique_id=218320152]
+script = ExtResource("1_r44xb")
+metadata/_custom_type_script = "uid://ssiak0cvnwsg"
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Keygroup1" unique_id=963714719]
+tile_map_data = PackedByteArray("AAAVAAgAAAAAAAAAAAAUAAgAAAAAAAAAAAATAAgAAAAAAAAAAAASAAgAAAAAAAAAAAARAAgAAAAAAAAAAAAQAAgAAAAAAAAAAAAPAAgAAAAAAAAAAAAOAAgAAAAAAAAAAAANAAgAAAAAAAAAAAAMAAgAAAAAAAAAAAALAAgAAAAAAAAAAAAKAAgAAAAAAAAAAAAJAAgAAAAAAAAAAAAIAAgAAAAAAAAAAAAHAAgAAAAAAAAAAAAGAAgAAAAAAAAAAAAFAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAADAAcAAAAAAAAAAAACAAYAAAAAAAAAAAAOAAcAAAABAAAAAAAPAAYAAAABAAAAAAAQAAUAAAABAAAAAAARAAQAAAABAAAAAAASAAMAAAABAAAAAAASAAQAAAAAAAAAAAASAAUAAAAAAAAAAAASAAYAAAAAAAAAAAASAAcAAAAAAAAAAAARAAYAAAAAAAAAAAARAAUAAAAAAAAAAAARAAcAAAAAAAAAAAAQAAcAAAAAAAAAAAAQAAYAAAAAAAAAAAAPAAcAAAAAAAAAAAATAAIAAAAAAAAAAAATAAMAAAAAAAAAAAATAAQAAAAAAAAAAAATAAUAAAAAAAAAAAATAAYAAAAAAAAAAAATAAcAAAAAAAAAAAATAAEAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_b14wo")
+
+[node name="Keygroup2" type="Node" parent="." unique_id=1523062697]
+script = ExtResource("1_r44xb")
+group_id = 2
+metadata/_custom_type_script = "uid://ssiak0cvnwsg"
+
+[node name="Spring" parent="Keygroup2" unique_id=449720975 instance=ExtResource("4_8ktvx")]
+z_index = 1
+position = Vector2(768, 520)
+
+[node name="Keygroup3" type="Node" parent="." unique_id=95544490]
+script = ExtResource("1_r44xb")
+group_id = 3
+metadata/_custom_type_script = "uid://ssiak0cvnwsg"
+
+[node name="Player" parent="." unique_id=758385320 instance=ExtResource("5_5qt40")]
+position = Vector2(1183, 184)
+rising_gravity = 653.3333333333334
+falling_gravity = 980.0
+
+[node name="Goal" parent="." unique_id=613892377 instance=ExtResource("6_54e2k")]
+position = Vector2(367, 336)
