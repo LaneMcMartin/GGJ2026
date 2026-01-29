@@ -9,6 +9,7 @@ size = Vector2(16, 16)
 [node name="Spring" type="CharacterBody2D" unique_id=449720975 node_paths=PackedStringArray("ray_cast_2d")]
 script = ExtResource("1_f3rwu")
 ray_cast_2d = NodePath("RayCast2D")
+applied_spring_velocity = 600.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=154285537]
 texture = ExtResource("1_6bpwo")

@@ -13,6 +13,12 @@ enum Direction {
 	RIGHT = 1,
 }
 
+## The movement states the player can be in.
+enum State {
+	WALKING, FALLING, SPRING
+}
+var current_state: State = State.WALKING: set = set_state
+
 @export_category("Movement")
 ## The horizontal movement speed in pixels per second.
 @export_range(50.0, 250.0, 10.0) var speed: float = 200.0
@@ -24,10 +30,11 @@ enum Direction {
 		queue_redraw()  # Redraw direction indicator.
 
 @export_category("Physics")
-## Gravity strength in pixels per second squared.
-@export var gravity: float = 980.0
+## Gravity strengths in pixels per second squared.
+@export var rising_gravity: float = 2500.0
+@export var falling_gravity: float = 4500.0
 ## Maximum fall speed to prevent infinite acceleration.
-@export var max_fall_speed: float = 1000.0
+@export var max_fall_speed: float = 1500.0
 
 @export_category("Collision")
 ## The collision shape for the player.
@@ -59,7 +66,10 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	# Apply gravity.
-	velocity.y += gravity * delta
+	if velocity.y < 0.0:
+		velocity.y += rising_gravity * delta
+	else:
+		velocity.y += falling_gravity * delta
 	velocity.y = minf(velocity.y, max_fall_speed)
 	
 	# Apply horizontal movement.
@@ -71,7 +81,29 @@ func _physics_process(delta: float) -> void:
 	# Check for wall collision and turn around.
 	if is_on_wall():
 		_turn_around()
+		
+	# Check for ground collision.
+	if is_on_floor() and (current_state != State.WALKING):
+		current_state = State.WALKING
+		
+	# Check for slope rotation.
+	if is_on_floor() and (current_state == State.WALKING):
+		align_to_slope(delta)
 
+## Align the player normal to the slope.
+func align_to_slope(delta: float, rotation_speed: float = 10.0) -> void:
+	var target_angle: float = 0.0
+	if is_on_floor():
+		target_angle = get_floor_normal().angle() + PI/2
+	rotation = lerp_angle(rotation, target_angle, rotation_speed * delta)
+
+## Function that is called automatically when the player state is changed.
+## Can handle specific behaviour that happens WHEN a state is changed.
+func set_state(new_state: State) -> void:
+	#var previous_state = current_state
+	# Can implement on-transition state stuff here.
+	current_state = new_state
+	
 
 ## Reverses the player's direction.
 func _turn_around() -> void:
