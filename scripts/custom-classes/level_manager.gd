@@ -12,6 +12,7 @@ var _current_level: Node2D = null
 func _ready() -> void:
 	_load_level(_current_level_index)
 	
+	_connect_reset_key()
 	# In debug builds (or editor) conenct to debug signals.
 	_try_connect_debug_signals()
 
@@ -22,6 +23,8 @@ func _try_connect_debug_signals() -> void:
 		GameManager.level_back.connect(func(): _load_level(_current_level_index - 1))
 		GameManager.level_forward.connect(func(): _load_level(_current_level_index + 1))
 
+func _connect_reset_key() -> void:
+	GameManager.level_reset.connect(func(): _reset_level())
 
 ## Load a new level.
 func _load_level(level_index: int) -> void:
@@ -37,13 +40,21 @@ func _load_level(level_index: int) -> void:
 	_current_level = load(LEVEL_DIRECTORY + level_order[_current_level_index] + ".tscn").instantiate()
 	self.add_child(_current_level)
 	_connect_goal()
-
+	_connect_player_death()
+	
+func _reset_level() -> void:
+	_load_level(_current_level_index)
 
 ## Finds the Goal node in the current level and connects to the goal_reached signal.
 func _connect_goal() -> void:
 	var goal: Area2D = _current_level.find_child("Goal", true, false)
 	if goal and goal.has_signal("goal_reached"):
 		goal.goal_reached.connect(_on_goal_reached)
+		
+func _connect_player_death() -> void:
+	var player: Player = _current_level.get_node("Player")
+	if player and player.has_signal("player_died"):
+		player.player_died.connect(_reset_level)
 
 
 ## Call when we got to the goal and go to the next level.

@@ -4,6 +4,9 @@ extends Node
 ## Debug switch level back and forward with "[" and "]" keys.
 signal level_back
 signal level_forward
+## Reset level with "R" key
+signal level_reset
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not OS.is_debug_build():
 		return
@@ -14,3 +17,5 @@ func _unhandled_input(event: InputEvent) -> void:
 			level_back.emit()
 		elif key.keycode == KEY_BRACKETRIGHT:
 			level_forward.emit()
+		elif key.keycode == KEY_R:
+			level_reset.emit()

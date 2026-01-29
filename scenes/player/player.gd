@@ -4,6 +4,9 @@
 class_name Player
 extends CharacterBody2D
 
+# Emitted when the player exits the screen
+signal player_died
+
 ## The direction the player is moving.
 enum Direction {
 	LEFT = -1,
@@ -96,3 +99,6 @@ func _on_keygroup_toggled(enabled: bool) -> void:
 	# Stop movement when disabled.
 	if not enabled:
 		velocity = Vector2.ZERO
+		
+func _player_died():
+	player_died.emit()
