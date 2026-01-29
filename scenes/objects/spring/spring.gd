@@ -7,7 +7,7 @@ extends CharacterBody2D
 
 @export_category("Variables")
 ## The applied velocity to the player.
-@export_range(50.0, 500.0, 10.0) var applied_spring_velocity: float = 500.0
+@export_range(50.0, 1000.0, 10.0) var applied_spring_velocity: float = 1000.0
 ## The debounce time on the spring (cooldown so we can't rapidly trigger it while overlapping).
 @export var spring_cooldown_seconds: float = 1.0
 
