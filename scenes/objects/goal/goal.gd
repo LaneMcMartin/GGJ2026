@@ -1,9 +1,6 @@
 ## The goal area that the player must reach to complete a level.
 extends Area2D
 
-## Emitted when a player enters the goal area.
-signal goal_reached
-
 @export var sprite_2d: Sprite2D
 
 const FRAME_POSITIONS := [0, 128, 256]
@@ -31,4 +28,6 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
-		goal_reached.emit()
+		var level_manager = get_tree().get_first_node_in_group("LevelManager")
+		if level_manager:
+			level_manager._on_goal_reached()
