@@ -19,7 +19,6 @@ config/features=PackedStringArray("4.6", "Forward Plus")
 KeygroupManager="*uid://d4hlb8ridn5mb"
 GameManager="*uid://cwjqqx051kdi2"
 SoundManager="*uid://b1d8rnc2dnotj"
-LevelManager="*res://scripts/custom-classes/level_manager.gd"
 
 [display]
 
