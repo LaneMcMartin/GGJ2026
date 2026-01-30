@@ -7,6 +7,7 @@ const CYCLE_TIME := 0.5
 
 var current_frame := 0
 var timer := 0.0
+var _is_enabled: bool = true
 
 func _ready() -> void:
 	sprite_2d.region_enabled = true
@@ -25,5 +26,9 @@ func _update_region() -> void:
 	sprite_2d.region_rect.position.x = FRAME_POSITIONS[current_frame]
 
 func on_body_entered(body: Node2D) -> void:
-	if body is Player:
+	if _is_enabled and body is Player:
 		body._player_died()
+
+## Called by parent Keygroup when this spike is toggled.
+func _on_keygroup_toggled(state: bool) -> void:
+	_is_enabled = state
