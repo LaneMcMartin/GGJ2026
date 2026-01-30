@@ -4,7 +4,13 @@ class_name LevelManager
 extends Node
 
 const LEVEL_DIRECTORY: String = "res://scenes/levels/"
-const level_order: Array[String] = ["1", "new_tileset"]
+const level_order: Array[String] = [
+	"_tutorial-1",
+	"_tutorial-2",
+	"_tutorial-3",
+	"_tutorial-4",
+	"level-1"
+]
 
 var _current_level_index: int = 0
 var _current_level: Node2D = null

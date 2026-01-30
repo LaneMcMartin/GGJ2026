@@ -1,26 +1,27 @@
-[gd_scene format=4 uid="uid://wedmy0jgg2y8"]
+[gd_scene format=4 uid="uid://cwehrt7yxm1th"]
 
-[ext_resource type="Script" uid="uid://ssiak0cvnwsg" path="res://scripts/custom-classes/keygroup.gd" id="1_r44xb"]
-[ext_resource type="Shader" uid="uid://crjaf6ve1nb80" path="res://scripts/shaders/hue_shift.gdshader" id="2_2lw6t"]
-[ext_resource type="Texture2D" uid="uid://dwsxfnd8qih7t" path="res://assets/tilesets/3d_tiles/3d_tiles_canvas_texture.tres" id="3_b14wo"]
-[ext_resource type="TileSet" uid="uid://cjk0ssha1qje4" path="res://assets/tilesets/3d_tiles/3d_tiles.tres" id="3_r44xb"]
-[ext_resource type="Script" path="res://scripts/custom-classes/palette_tile_map_layer.gd" id="4_b14wo"]
-[ext_resource type="PackedScene" uid="uid://cp0bf0rdxvw1s" path="res://scenes/player/player.tscn" id="5_5qt40"]
+[ext_resource type="Script" uid="uid://ssiak0cvnwsg" path="res://scripts/custom-classes/keygroup.gd" id="1_rgh5q"]
+[ext_resource type="Shader" uid="uid://crjaf6ve1nb80" path="res://scripts/shaders/hue_shift.gdshader" id="2_qq5jo"]
+[ext_resource type="TileSet" uid="uid://cjk0ssha1qje4" path="res://assets/tilesets/3d_tiles/3d_tiles.tres" id="3_o168i"]
+[ext_resource type="Script" path="res://scripts/custom-classes/palette_tile_map_layer.gd" id="4_r7bo6"]
+[ext_resource type="PackedScene" uid="uid://cbeskhe10musv" path="res://scenes/objects/goal/goal.tscn" id="5_3imbq"]
+[ext_resource type="Texture2D" uid="uid://dwsxfnd8qih7t" path="res://assets/tilesets/3d_tiles/3d_tiles_canvas_texture.tres" id="6_yjaj5"]
+[ext_resource type="PackedScene" uid="uid://cp0bf0rdxvw1s" path="res://scenes/player/player.tscn" id="7_lkmys"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r44xb"]
-shader = ExtResource("2_2lw6t")
+shader = ExtResource("2_qq5jo")
 shader_parameter/hue_shift = 0.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2lw6t"]
-shader = ExtResource("2_2lw6t")
+shader = ExtResource("2_qq5jo")
 shader_parameter/hue_shift = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_54e2k"]
-shader = ExtResource("2_2lw6t")
+shader = ExtResource("2_qq5jo")
 shader_parameter/hue_shift = 0.65
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yompg"]
-texture = ExtResource("3_b14wo")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t1004"]
+texture = ExtResource("6_yjaj5")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
@@ -58,14 +59,14 @@ texture_region_size = Vector2i(64, 64)
 [sub_resource type="TileSet" id="TileSet_kj8ux"]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
-sources/1 = SubResource("TileSetAtlasSource_yompg")
+sources/1 = SubResource("TileSetAtlasSource_t1004")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8of48"]
-shader = ExtResource("2_2lw6t")
+shader = ExtResource("2_qq5jo")
 shader_parameter/hue_shift = 0.35
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m0iuv"]
-texture = ExtResource("3_b14wo")
+texture = ExtResource("6_yjaj5")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
@@ -106,50 +107,63 @@ physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_m0iuv")
 
 [node name="NewTileset" type="Node2D" unique_id=410265806]
+position = Vector2(-48, -322)
 
 [node name="Keygroup0" type="Node2D" parent="." unique_id=1657449644]
-script = ExtResource("1_r44xb")
+position = Vector2(-317, 407)
+script = ExtResource("1_rgh5q")
 group_id = 0
 metadata/_custom_type_script = "uid://ssiak0cvnwsg"
 
 [node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup0" unique_id=187260101]
 material = SubResource("ShaderMaterial_r44xb")
-tile_set = ExtResource("3_r44xb")
-script = ExtResource("4_b14wo")
+tile_map_data = PackedByteArray("AAALAAkAAQACAAIAAAALAAoAAQABAAIAAAALAAsAAQACAAIAAAAMAAsAAQABAAAAAAANAAsAAQADAAAAAAAOAAsAAQADAAIAAAAPAAsAAQABAAAAAAAQAAsAAQAAAAEAAAARAAsAAQADAAEAAAASAAsAAQABAAEAAAATAAsAAQACAAIAAAAUAAsAAQACAAEAAAAVAAsAAQACAAAAAAAWAAgAAQAAAAEAAAATAAoAAAAAAAAAAQAUAAoAAAAAAAAAAQAVAAgAAQAAAAAAAAAVAAkAAQADAAAAAAAVAAoAAQAAAAIAAAAWAAoAAQACAAEAAAAWAAkAAQAAAAEAAAAWAAsAAQABAAAAAAA=")
+tile_set = ExtResource("3_o168i")
+script = ExtResource("4_r7bo6")
+
+[node name="Goal" parent="Keygroup0" unique_id=613892377 instance=ExtResource("5_3imbq")]
+position = Vector2(1407, 514)
 
 [node name="Keygroup1" type="Node2D" parent="." unique_id=1538438303]
-script = ExtResource("1_r44xb")
+position = Vector2(-317, 407)
+script = ExtResource("1_rgh5q")
+starts_enabled = false
 metadata/_custom_type_script = "uid://ssiak0cvnwsg"
 
 [node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup1" unique_id=466081606]
 material = SubResource("ShaderMaterial_2lw6t")
-tile_map_data = PackedByteArray("AAAXAAQAAQACAAEAAAAWAAQAAQADAAEAAAAVAAQAAQADAAEAAAAUAAQAAQADAAAAAAATAAQAAQACAAEAAAASAAQAAQACAAIAAAARAAQAAQABAAEAAAAQAAQAAQACAAIAAAAPAAQAAQAAAAEAAAAOAAQAAQACAAAAAAANAAQAAAAAAAAAAgALAAQAAQAAAAIAAAAGAAYAAQABAAEAAAAGAAUAAQABAAAAAAAGAAQAAQADAAEAAAAGAAMAAQAAAAIAAAAGAAIAAQADAAEAAAAKAAYAAAAAAAAAAQALAAYAAAAAAAAAAQAHAAoAAAAAAAAAAwAMAAQAAAAAAAAAAgAJAAYAAAAAAAAAAQA=")
-tile_set = ExtResource("3_r44xb")
-script = ExtResource("4_b14wo")
+position = Vector2(0, 385)
+tile_map_data = PackedByteArray("AAATAAIAAQAEAAIAAAASAAMAAQAEAAIAAAARAAQAAQAEAAIAAAASAAQAAQACAAEAAAATAAQAAQABAAAAAAAUAAQAAQABAAIAAAAUAAMAAQADAAEAAAAUAAIAAQADAAIAAAATAAMAAQACAAAAAAA=")
+tile_set = ExtResource("3_o168i")
+script = ExtResource("4_r7bo6")
 
 [node name="Keygroup2" type="Node2D" parent="." unique_id=230039721]
-script = ExtResource("1_r44xb")
+position = Vector2(-317, 407)
+script = ExtResource("1_rgh5q")
 group_id = 2
+starts_enabled = false
 metadata/_custom_type_script = "uid://ssiak0cvnwsg"
 
 [node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup2" unique_id=1279972592]
 material = SubResource("ShaderMaterial_54e2k")
-tile_map_data = PackedByteArray("AAAGAAcAAQABAAEAAAAHAAcAAQADAAEAAAAIAAcAAQAAAAIAAAAJAAcAAQACAAEAAAAKAAcAAQAAAAEAAAALAAcAAQADAAEAAAAMAAcAAQAAAAAAAAANAAcAAQAAAAIAAAAOAAcAAQAAAAIAAAAPAAcAAQACAAAAAAAQAAcAAQADAAEAAAARAAcAAQACAAIAAAAXAAUAAQADAAEAAAAXAAYAAQAAAAAAAAAXAAcAAQACAAAAAAAXAAgAAQABAAIAAAAXAAkAAQADAAIAAAAXAAoAAQADAAEAAAAHAAYAAQAFAAIAAAA=")
 tile_set = SubResource("TileSet_kj8ux")
-script = ExtResource("4_b14wo")
+script = ExtResource("4_r7bo6")
 
 [node name="Keygroup3" type="Node2D" parent="." unique_id=1096777438]
-script = ExtResource("1_r44xb")
+position = Vector2(-317, 407)
+script = ExtResource("1_rgh5q")
 group_id = 3
+starts_enabled = false
 metadata/_custom_type_script = "uid://ssiak0cvnwsg"
 
 [node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup3" unique_id=172123274]
 material = SubResource("ShaderMaterial_8of48")
-tile_map_data = PackedByteArray("AAAWAAoAAQAAAAAAAAAVAAoAAQAAAAEAAAAUAAoAAQACAAIAAAATAAoAAQADAAEAAAASAAoAAQACAAAAAAARAAoAAQABAAEAAAAQAAoAAQAAAAIAAAAPAAoAAQABAAEAAAAOAAoAAQAAAAIAAAANAAoAAQAAAAEAAAAMAAoAAQAAAAEAAAALAAoAAQAAAAEAAAAKAAoAAQADAAIAAAAJAAoAAQABAAAAAAAIAAoAAQAAAAEAAAAHAAoAAQABAAAAAAAGAAoAAQAAAAEAAAAWAAkAAQAEAAIAAAAGAAkAAQABAAEAAAAGAAgAAQABAAEAAAA=")
+position = Vector2(319, 65)
 tile_set = SubResource("TileSet_ie8b6")
-script = ExtResource("4_b14wo")
+script = ExtResource("4_r7bo6")
 
-[node name="Player" parent="." unique_id=758385320 instance=ExtResource("5_5qt40")]
-position = Vector2(1323, 588)
+[node name="Player" parent="." unique_id=758385320 instance=ExtResource("7_lkmys")]
+position = Vector2(483, 1078)
+starting_direction = 1
 rising_gravity = 653.3333333333334
 falling_gravity = 980.0
