@@ -20,12 +20,14 @@ normal_texture = SubResource("AtlasTexture_4vdkc")
 size = Vector2(64, 64)
 
 [node name="Spring" type="CharacterBody2D" unique_id=449720975 node_paths=PackedStringArray("ray_cast_2d", "sprite_2d")]
+use_parent_material = true
 script = ExtResource("1_f3rwu")
 ray_cast_2d = NodePath("RayCast2D")
 sprite_2d = NodePath("Sprite2D")
 applied_spring_velocity = 900.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=154285537]
+use_parent_material = true
 texture = SubResource("CanvasTexture_74w0e")
 region_enabled = true
 region_rect = Rect2(0, 0, 64, 64)

@@ -7,6 +7,9 @@ signal level_forward
 ## Reset level with "R" key
 signal level_reset
 
+func _ready() -> void:
+	SoundManager.play_music(preload("uid://c4glypdeg4xok"))
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not OS.is_debug_build():
 		return
