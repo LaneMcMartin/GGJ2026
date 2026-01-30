@@ -13,9 +13,12 @@ func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
 		var right_collison: Object = ray_cast_2dr.get_collider()
 		var left_collison: Object = ray_cast_2dl.get_collider()
-		if (right_collison != null) and (left_collison != null):
+		# If both raycasts detect player, they're directly above/below - ignore.
+		if (right_collison is Player) and (left_collison is Player):
 			return
+		# Player approached from the right (detected by right raycast) -> exit left.
 		if right_collison is Player:
-			right_collison.start_climbing(Player.Direction.LEFT)
-		if left_collison is Player:
-			right_collison.start_climbing(Player.Direction.RIGHT)
+			right_collison.start_climbing(Player.Direction.LEFT, global_position.x)
+		# Player approached from the left (detected by left raycast) -> exit right.
+		elif left_collison is Player:
+			left_collison.start_climbing(Player.Direction.RIGHT, global_position.x)

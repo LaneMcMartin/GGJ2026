@@ -163,43 +163,61 @@ func _player_died():
 	player_died.emit()
 
 
-func start_climbing(exit_direction: Direction) -> void:
+func start_climbing(exit_direction: Direction, ladder_x: float) -> void:
 	# Set climbing state.
 	if !set_state(State.CLIMBING):
 		return
-	
+
+	# Snap to ladder center so raycasts align properly.
+	global_position.x = ladder_x
+
+	# Force raycasts to update immediately after position change.
+	ray_cast_2d_ladder_up.force_raycast_update()
+	ray_cast_2d_ladder_down.force_raycast_update()
+
 	# Set exit direction.
 	_climbing_exit_direction = exit_direction
-	
-	# Figure out if we are going up or down.
+
+	# Figure out if we are going up or down based on which direction has more ladder.
 	var up_collision: Object = ray_cast_2d_ladder_up.get_collider()
 	var down_collision: Object = ray_cast_2d_ladder_down.get_collider()
-	if (up_collision != null) and (down_collision != null):
-		# Special case, if we land on a ladder in the middle, resolve up.
+	if (up_collision is Ladder) and (down_collision is Ladder):
+		# In the middle of a ladder stack - default to climbing up.
 		_climbing_vertical_direction = VerticalDirection.UP
-	if up_collision is Ladder:
+	elif up_collision is Ladder:
+		# Ladder above, so climb up.
 		_climbing_vertical_direction = VerticalDirection.UP
-	if down_collision is Ladder:
+	elif down_collision is Ladder:
+		# Ladder below, so climb down.
 		_climbing_vertical_direction = VerticalDirection.DOWN
+	else:
+		# No ladder detected in either direction - this shouldn't happen normally.
+		# Default to up.
+		_climbing_vertical_direction = VerticalDirection.UP
 	
 	
 func resume_climbing() -> void:
 	# Apply no horizontal movement and velocity in our climb direction.
 	var current_climb_speed = climb_speed * -1.0 * _climbing_vertical_direction
 	velocity = Vector2(0.0, current_climb_speed)
-	
+
 	# Move and check for collisions.
 	move_and_slide()
-	
-	# Check for the presence of a ladder above or below, depending on climb direction.
-	var up_collision: Object = ray_cast_2d_ladder_up.get_collider()
-	var down_collision: Object = ray_cast_2d_ladder_down.get_collider()
-	if ((up_collision is not Ladder) or (up_collision == null)) and (_climbing_vertical_direction == VerticalDirection.UP):
-		stop_climbing()
-	if ((down_collision is not Ladder) or (down_collision == null)) and (_climbing_vertical_direction == VerticalDirection.DOWN):
+
+	# Check if we should stop climbing.
+	# We exit when NEITHER raycast detects a ladder anymore.
+	# This means we've fully exited the ladder column.
+	ray_cast_2d_ladder_up.force_raycast_update()
+	ray_cast_2d_ladder_down.force_raycast_update()
+
+	var ladder_above := ray_cast_2d_ladder_up.is_colliding()
+	var ladder_below := ray_cast_2d_ladder_down.is_colliding()
+
+	if not ladder_above and not ladder_below:
 		stop_climbing()
 
 func stop_climbing() -> void:
 	# Set player direction to the cached one and set movement to walking.
 	_current_direction = _climbing_exit_direction
+	update_sprite_direction()
 	current_state = State.WALKING
