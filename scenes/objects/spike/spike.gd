@@ -32,3 +32,13 @@ func on_body_entered(body: Node2D) -> void:
 ## Called by parent Keygroup when this spike is toggled.
 func _on_keygroup_toggled(state: bool) -> void:
 	_is_enabled = state
+	
+	# Disable all collision shapes on parent (the CharacterBody2D)
+	var parent = get_parent()
+	for child in parent.get_children():
+		if child is CollisionShape2D or child is CollisionPolygon2D:
+			child.disabled = not state
+		# Also check nested collision shapes (like in Area2D)
+		for grandchild in child.get_children():
+			if grandchild is CollisionShape2D or grandchild is CollisionPolygon2D:
+				grandchild.disabled = not state

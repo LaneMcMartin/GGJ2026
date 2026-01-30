@@ -50,7 +50,11 @@ func _physics_process(delta: float) -> void:
 					detected_collision.velocity.y -= applied_spring_velocity
 					_debounce_timer = spring_cooldown_seconds
 
-
-## Executed according to state of Keygroup.
+## Called by Keygroup when toggled.
 func _on_keygroup_toggled(state: bool) -> void:
 	_is_enabled = state
+	
+	# Disable all collision shapes so player can walk through disabled springs
+	for child in get_children():
+		if child is CollisionShape2D or child is CollisionPolygon2D:
+			child.disabled = not state
