@@ -4,17 +4,31 @@
 class_name PaletteTileMapLayer
 extends TileMapLayer
 
+const HUE_SHIFT_MATERIAL = preload("uid://dj5g3bffvpah4")
+const _3D_TILES = preload("uid://cjk0ssha1qje4")
+
 signal tileset_toggled
 
-# Editor preview colors for each Keygroup.
+# Hue colors for each keygroup.
 const GROUP_COLORS: Dictionary = {
-	1: Color(0.6, 0.6, 1.0),  # Blue
-	2: Color(0.6, 1.0, 0.6),  # Green
-	3: Color(1.0, 0.6, 0.6),  # Red
+	0: 0.5, # Yellow
+	1: 0.0,  # Blue
+	2: 0.65,  # Green
+	3: 0.35,  # Red
 }
 
 # Reference to parent Keygroup.
 var _keygroup: Keygroup = null
+
+# Auto add the correct tileset and shader.
+func _enter_tree() -> void:
+	# Set up TileSet if missing.
+	if tile_set == null:
+		tile_set = _3D_TILES.duplicate()
+	
+	# Set up ShaderMaterial if missing.
+	if material == null:
+		material = HUE_SHIFT_MATERIAL.duplicate()
 
 ## Display a warning if the parent isn't a Keygroup.
 func _get_configuration_warnings() -> PackedStringArray:
@@ -39,28 +53,11 @@ func _ready() -> void:
 	_keygroup = get_parent()
 	
 	# IF we are in the editor, update hue to make it easier to see waht we are doing.
-	if Engine.is_editor_hint():
-		_update_preview()
-	# Otherwise, set modualtion to white (default) BUT remap the tileset image that the TileMapLayer looks at.
-	else:
-		modulate = Color.WHITE
-		_remap_source_ids()
+	var group_id: int = _keygroup.group_id
+	var shader_material: ShaderMaterial = self.material
+	shader_material.set_shader_parameter("hue_shift", GROUP_COLORS.get(group_id, 0))
 		
 	add_to_group("Tilesets")
-
-## Update hue for editor preview.
-func _update_preview() -> void:
-	var group_id: int = _keygroup.group_id
-	modulate = GROUP_COLORS.get(group_id, Color.MAGENTA)
-
-## Remap the tileset image that the TileMapLayer uses.
-func _remap_source_ids() -> void:
-	var source_id: int = _keygroup.group_id
-	
-	for cell in get_used_cells():
-		var atlas_coords = get_cell_atlas_coords(cell)
-		var alt_tile = get_cell_alternative_tile(cell)
-		set_cell(cell, source_id, atlas_coords, alt_tile)
 
 ## Custom implementation of the _on_keygroup_toggled that Keygroup calls. Toggles collision (via the flag that TileMapLayers look for).
 func _on_keygroup_toggled(state: bool) -> void:

@@ -71,6 +71,7 @@ metadata/_custom_type_script = "uid://bt8ibkyymyd37"
 
 [node name="Player" parent="." unique_id=758385320 instance=ExtResource("4_souht")]
 position = Vector2(871, 334)
+floor_snap_length = 32.0
 
 [node name="Goal" parent="." unique_id=613892377 instance=ExtResource("5_8jtne")]
 position = Vector2(466, 464)
