@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://c72mi42frgsm5"]
+
+[ext_resource type="Texture2D" uid="uid://bjr5jia74ty3m" path="res://scenes/title/font sample.png" id="1_5vtrw"]
+[ext_resource type="Script" uid="uid://c5xbp0xny2817" path="res://scenes/title/title_button.gd" id="2_ds13r"]
+[ext_resource type="Script" uid="uid://c48bvyqdns1l8" path="res://scenes/title/logo_tween.gd" id="2_gl121"]
+
+[node name="Title Screen" type="Control" unique_id=378913116]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1514527782]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 300
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 300
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=637073193]
+layout_mode = 2
+
+[node name="Logo" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=1704262118]
+layout_mode = 2
+focus_mode = 2
+texture = ExtResource("1_5vtrw")
+expand_mode = 5
+stretch_mode = 4
+script = ExtResource("2_gl121")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=123807693]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=2011284316]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Start" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1604768838]
+custom_minimum_size = Vector2(450, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("2_ds13r")
+
+[node name="Options" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1213002975]
+custom_minimum_size = Vector2(450, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("2_ds13r")
+
+[node name="Credits" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1029478166]
+custom_minimum_size = Vector2(450, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("2_ds13r")
+
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/Logo" to="MarginContainer/VBoxContainer/Logo" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/Logo" to="MarginContainer/VBoxContainer/Logo" method="_on_mouse_exited"]
+[connection signal="start_pressed" from="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Start" to="MarginContainer/VBoxContainer/Logo" method="_on_title_button_pressed"]

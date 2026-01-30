@@ -7,15 +7,12 @@ signal level_forward
 ## Reset level with "R" key
 signal level_reset
 
-func _unhandled_input(event: InputEvent) -> void:
-	if not OS.is_debug_build():
-		return
-	
+func _unhandled_input(event: InputEvent) -> void:	
 	var key := event as InputEventKey
-	if key and key.pressed and not key.echo:
+	if key and key.pressed and not key.echo && OS.is_debug_build():
 		if key.keycode == KEY_BRACKETLEFT:
 			level_back.emit()
-		elif key.keycode == KEY_BRACKETRIGHT:
+		elif key.keycode == KEY_BRACKETRIGHT && OS.is_debug_build():
 			level_forward.emit()
 		elif key.keycode == KEY_R:
 			level_reset.emit()
