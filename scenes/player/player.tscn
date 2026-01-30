@@ -34,19 +34,23 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dovo2"]
 radius = 16.0
-height = 60.0
+height = 64.0
 
-[node name="Player" type="CharacterBody2D" unique_id=758385320 node_paths=PackedStringArray("collision_shape", "sprite")]
+[node name="Player" type="CharacterBody2D" unique_id=758385320 node_paths=PackedStringArray("collision_shape", "ray_cast_2d_ladder_up", "ray_cast_2d_ladder_down", "sprite")]
 floor_constant_speed = true
 floor_snap_length = 32.0
 script = ExtResource("1_8afob")
+climb_speed = null
 rising_gravity = 2500.0
 falling_gravity = 4500.0
 max_fall_speed = 1000.0
 collision_shape = NodePath("CollisionShape2D")
+ray_cast_2d_ladder_up = NodePath("RayCast2DLadderUp")
+ray_cast_2d_ladder_down = NodePath("RayCast2DLadderDown")
 sprite = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1608630114]
+texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_75vfm")
 autoplay = "default"
@@ -57,5 +61,11 @@ shape = SubResource("CapsuleShape2D_dovo2")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1780311045]
 rect = Rect2(-8, -15, 16, 30)
+
+[node name="RayCast2DLadderUp" type="RayCast2D" parent="." unique_id=637491832]
+target_position = Vector2(0, -64)
+
+[node name="RayCast2DLadderDown" type="RayCast2D" parent="." unique_id=1881507425]
+target_position = Vector2(0, -64)
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_player_died"]

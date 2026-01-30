@@ -4,11 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://dwsxfnd8qih7t" path="res://assets/tilesets/3d_tiles/3d_tiles_canvas_texture.tres" id="1_sjw61"]
 [ext_resource type="PackedScene" uid="uid://lssqn0ldesc" path="res://scenes/objects/spring/spring.tscn" id="2_gmt6e"]
 [ext_resource type="PackedScene" uid="uid://cbeskhe10musv" path="res://scenes/objects/goal/goal.tscn" id="3_uc38e"]
+[ext_resource type="PackedScene" uid="uid://cnleki8tyyat2" path="res://scenes/objects/ladder/ladder.tscn" id="4_gmt6e"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_2lw6t"]
 scenes/1/scene = ExtResource("1_fgsge")
 scenes/2/scene = ExtResource("2_gmt6e")
 scenes/3/scene = ExtResource("3_uc38e")
+scenes/4/scene = ExtResource("4_gmt6e")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8ktvx"]
 texture = ExtResource("1_sjw61")
