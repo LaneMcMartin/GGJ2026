@@ -31,8 +31,8 @@ var current_state: State = State.WALKING: set = set_state
 
 @export_category("Physics")
 ## Gravity strengths in pixels per second squared.
-@export var rising_gravity: float = 2500.0
-@export var falling_gravity: float = 4500.0
+@export var rising_gravity: float = 1500.0
+@export var falling_gravity: float = 1500.0
 ## Maximum fall speed to prevent infinite acceleration.
 @export var max_fall_speed: float = 1500.0
 

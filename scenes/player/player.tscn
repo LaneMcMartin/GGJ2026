@@ -38,8 +38,10 @@ height = 60.0
 
 [node name="Player" type="CharacterBody2D" unique_id=758385320 node_paths=PackedStringArray("collision_shape", "sprite")]
 floor_constant_speed = true
-floor_snap_length = 16.0
+floor_snap_length = 32.0
 script = ExtResource("1_8afob")
+rising_gravity = 2500.0
+falling_gravity = 4500.0
 max_fall_speed = 1000.0
 collision_shape = NodePath("CollisionShape2D")
 sprite = NodePath("AnimatedSprite2D")

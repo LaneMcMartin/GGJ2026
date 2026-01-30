@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export_category("Children")
 ## The raycast node used for collision detection with an object above the spring.
 @export var ray_cast_2d: RayCast2D
+@export var sprite_2d: Sprite2D
 
 @export_category("Variables")
 ## The applied velocity to the player.
@@ -11,8 +12,29 @@ extends CharacterBody2D
 ## The debounce time on the spring (cooldown so we can't rapidly trigger it while overlapping).
 @export var spring_cooldown_seconds: float = 1.0
 
+const FRAME_POSITIONS := [0, 64, 128]
+const CYCLE_TIME := 0.5
+
 var _debounce_timer: float = 0.0
 var _is_active: bool = true
+var current_frame := 0
+var timer := 0.0
+
+func _ready() -> void:
+	sprite_2d.region_enabled = true
+	# Each instance starts at a different frame
+	current_frame = randi() % FRAME_POSITIONS.size()
+	_update_region()
+	
+func _process(delta: float) -> void:
+	timer += delta
+	if timer >= CYCLE_TIME:
+		timer -= CYCLE_TIME
+		current_frame = (current_frame + 1) % FRAME_POSITIONS.size()
+		_update_region()
+
+func _update_region() -> void:
+	sprite_2d.region_rect.position.x = FRAME_POSITIONS[current_frame]
 
 ## Executed every physics frame.
 func _physics_process(delta: float) -> void:

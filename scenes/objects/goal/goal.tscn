@@ -1,16 +1,34 @@
 [gd_scene format=3 uid="uid://cbeskhe10musv"]
 
-[ext_resource type="Texture2D" uid="uid://cny15qalvdtmy" path="res://scenes/objects/goal/goal_placeholder.png" id="1_481go"]
 [ext_resource type="Script" uid="uid://b4eexmcbyfses" path="res://scenes/objects/goal/goal.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dusbbtg0sdl7g" path="res://scenes/objects/goal/goalsprite.png" id="2_snpuw"]
+[ext_resource type="Texture2D" uid="uid://q5l17iqan583" path="res://scenes/objects/goal/goalnormal.png" id="3_yfjey"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yfjey"]
+atlas = ExtResource("2_snpuw")
+region = Rect2(0, 0, 128, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dfvxj"]
+atlas = ExtResource("3_yfjey")
+region = Rect2(0, 0, 128, 192)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_dfvxj"]
+diffuse_texture = SubResource("AtlasTexture_yfjey")
+normal_texture = SubResource("AtlasTexture_dfvxj")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_snpuw"]
-size = Vector2(14, 32)
+size = Vector2(64, 94)
 
-[node name="Goal" type="Area2D" unique_id=613892377]
+[node name="Goal" type="Area2D" unique_id=613892377 node_paths=PackedStringArray("sprite_2d")]
 script = ExtResource("1_script")
+sprite_2d = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1908564816]
-texture = ExtResource("1_481go")
+position = Vector2(32, -128)
+texture = SubResource("CanvasTexture_dfvxj")
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 192)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=999836773]
+position = Vector2(32, -81)
 shape = SubResource("RectangleShape2D_snpuw")
