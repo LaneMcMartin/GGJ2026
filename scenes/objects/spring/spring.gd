@@ -16,7 +16,7 @@ const FRAME_POSITIONS := [0, 64, 128]
 const CYCLE_TIME := 0.5
 
 var _debounce_timer: float = 0.0
-var _is_active: bool = true
+var _is_enabled: bool = true
 var current_frame := 0
 var timer := 0.0
 
@@ -46,11 +46,11 @@ func _physics_process(delta: float) -> void:
 		var detected_collision: Object = ray_cast_2d.get_collider()
 		if detected_collision is Player:
 			if _debounce_timer == 0.0:
-				if _is_active:
+				if _is_enabled:
 					detected_collision.velocity.y -= applied_spring_velocity
 					_debounce_timer = spring_cooldown_seconds
 
 
 ## Executed according to state of Keygroup.
 func _on_keygroup_toggled(state: bool) -> void:
-	_is_active = state
+	_is_enabled = state

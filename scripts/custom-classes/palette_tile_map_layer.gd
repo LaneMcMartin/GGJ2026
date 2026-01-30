@@ -20,6 +20,9 @@ const GROUP_COLORS: Dictionary = {
 # Reference to parent Keygroup.
 var _keygroup: Keygroup = null
 
+# Track enabled state to apply to scene tile children
+var _is_enabled: bool = true
+
 # Stuff to faciliate cool texture animation.
 # Ripped from other object nodes...
 const FRAME_POSITIONS := [0, 384, 768]
@@ -62,6 +65,9 @@ func _ready() -> void:
 	# Yes! Store reference.
 	_keygroup = get_parent()
 	
+	# Sync initial enabled state from parent
+	_is_enabled = _keygroup.is_enabled
+	
 	# IF we are in the editor, update hue to make it easier to see waht we are doing.
 	var group_id: int = _keygroup.group_id
 	var shader_material: ShaderMaterial = self.material
@@ -75,6 +81,9 @@ func _ready() -> void:
 	canvas_texture = source.texture as CanvasTexture
 	diffuse_atlas = canvas_texture.diffuse_texture as AtlasTexture
 	normal_atlas = canvas_texture.normal_texture as AtlasTexture
+	
+	# Connect to child_entered_tree to handle scene tiles
+	child_entered_tree.connect(_on_child_entered_tree)
 
 
 ## Count time and cycle the frames by calling the region script.
@@ -105,5 +114,17 @@ func _update_region() -> void:
 
 ## Custom implementation of the _on_keygroup_toggled that Keygroup calls. Toggles collision (via the flag that TileMapLayers look for).
 func _on_keygroup_toggled(state: bool) -> void:
+	_is_enabled = state
 	collision_enabled = state
 	tileset_toggled.emit(self)
+	
+	# Apply state to any existing scene tile children
+	for child in get_children():
+		if child.has_method("_on_keygroup_toggled"):
+			child._on_keygroup_toggled(state)
+
+## Called when a new child (like a scene tile) is added
+func _on_child_entered_tree(node: Node) -> void:
+	# Apply current enabled state to newly instantiated scene tiles
+	if node.has_method("_on_keygroup_toggled"):
+		node._on_keygroup_toggled(_is_enabled)
