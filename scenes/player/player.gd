@@ -124,7 +124,7 @@ func _on_keygroup_toggled(enabled: bool) -> void:
 	if collision_shape:
 		collision_shape.disabled = not enabled
 	
-	# Update sprite opacity.
+	# Update sprite opacity.]]][]][][]
 	if sprite and sprite is CanvasItem:
 		sprite.modulate.a = 1.0 if enabled else 0.1
 	

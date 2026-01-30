@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bt8ibkyymyd37" path="res://scripts/custom-classes/palette_tile_map_layer.gd" id="3_souht"]
 [ext_resource type="PackedScene" uid="uid://cp0bf0rdxvw1s" path="res://scenes/player/player.tscn" id="4_souht"]
 [ext_resource type="PackedScene" uid="uid://cbeskhe10musv" path="res://scenes/objects/goal/goal.tscn" id="5_8jtne"]
+[ext_resource type="PackedScene" uid="uid://buf77k6omvkkr" path="res://scenes/objects/spike/spike.tscn" id="7_souht"]
 
 [node name="2" type="Node2D" unique_id=410265806]
 
@@ -73,3 +74,6 @@ position = Vector2(871, 334)
 
 [node name="Goal" parent="." unique_id=613892377 instance=ExtResource("5_8jtne")]
 position = Vector2(466, 464)
+
+[node name="Spike" parent="." unique_id=1022542973 instance=ExtResource("7_souht")]
+position = Vector2(525, 458)
