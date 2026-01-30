@@ -1,0 +1,8 @@
+[gd_resource type="CanvasTexture" format=3 uid="uid://dwsxfnd8qih7t"]
+
+[ext_resource type="Texture2D" uid="uid://crjjnwxjcwti5" path="res://assets/tilesets/3d_tiles/paintcolor.png" id="1_pnc44"]
+[ext_resource type="Texture2D" uid="uid://c0fpodwo2hw22" path="res://assets/tilesets/3d_tiles/paintnormal.png" id="2_srfpv"]
+
+[resource]
+diffuse_texture = ExtResource("1_pnc44")
+normal_texture = ExtResource("2_srfpv")
