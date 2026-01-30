@@ -24,11 +24,11 @@ script = ExtResource("1_script")
 sprite_2d = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1908564816]
-position = Vector2(1, -96)
+position = Vector2(1, -63)
 texture = SubResource("CanvasTexture_dfvxj")
 region_enabled = true
 region_rect = Rect2(0, 0, 128, 192)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=999836773]
-position = Vector2(0, -48)
+position = Vector2(0, -15)
 shape = SubResource("RectangleShape2D_snpuw")
