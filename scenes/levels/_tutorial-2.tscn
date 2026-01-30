@@ -4,7 +4,6 @@
 [ext_resource type="Shader" uid="uid://crjaf6ve1nb80" path="res://scripts/shaders/hue_shift.gdshader" id="2_qq5jo"]
 [ext_resource type="TileSet" uid="uid://cjk0ssha1qje4" path="res://assets/tilesets/3d_tiles/3d_tiles.tres" id="3_o168i"]
 [ext_resource type="Script" path="res://scripts/custom-classes/palette_tile_map_layer.gd" id="4_r7bo6"]
-[ext_resource type="PackedScene" uid="uid://cbeskhe10musv" path="res://scenes/objects/goal/goal.tscn" id="5_3imbq"]
 [ext_resource type="Texture2D" uid="uid://dwsxfnd8qih7t" path="res://assets/tilesets/3d_tiles/3d_tiles_canvas_texture.tres" id="6_yjaj5"]
 [ext_resource type="PackedScene" uid="uid://cp0bf0rdxvw1s" path="res://scenes/player/player.tscn" id="7_lkmys"]
 
@@ -117,12 +116,9 @@ metadata/_custom_type_script = "uid://ssiak0cvnwsg"
 
 [node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup0" unique_id=187260101]
 material = SubResource("ShaderMaterial_r44xb")
-tile_map_data = PackedByteArray("AAALAAkAAQACAAIAAAALAAoAAQABAAIAAAALAAsAAQACAAIAAAAMAAsAAQABAAAAAAANAAsAAQADAAAAAAAOAAsAAQADAAIAAAAPAAsAAQABAAAAAAAQAAsAAQAAAAEAAAARAAsAAQADAAEAAAASAAsAAQABAAEAAAATAAsAAQACAAIAAAAUAAsAAQACAAEAAAAVAAsAAQACAAAAAAAWAAgAAQAAAAEAAAATAAoAAAAAAAAAAQAUAAoAAAAAAAAAAQAVAAgAAQAAAAAAAAAVAAkAAQADAAAAAAAVAAoAAQAAAAIAAAAWAAoAAQACAAEAAAAWAAkAAQAAAAEAAAAWAAsAAQABAAAAAAA=")
+tile_map_data = PackedByteArray("AAALAAkAAQACAAIAAAALAAoAAQABAAIAAAALAAsAAQACAAIAAAAMAAsAAQABAAAAAAANAAsAAQADAAAAAAAOAAsAAQADAAIAAAAPAAsAAQABAAAAAAAQAAsAAQAAAAEAAAARAAsAAQADAAEAAAASAAsAAQABAAEAAAATAAsAAQACAAIAAAAUAAsAAQACAAEAAAAVAAsAAQACAAAAAAAWAAgAAQAAAAEAAAATAAoAAAAAAAAAAQAUAAoAAAAAAAAAAQAVAAgAAQAAAAAAAAAVAAkAAQADAAAAAAAVAAoAAQAAAAIAAAAWAAcAAAAAAAAAAwAXAAgAAQAAAAEAAAA=")
 tile_set = ExtResource("3_o168i")
 script = ExtResource("4_r7bo6")
-
-[node name="Goal" parent="Keygroup0" unique_id=613892377 instance=ExtResource("5_3imbq")]
-position = Vector2(1407, 514)
 
 [node name="Keygroup1" type="Node2D" parent="." unique_id=1538438303]
 position = Vector2(-317, 407)

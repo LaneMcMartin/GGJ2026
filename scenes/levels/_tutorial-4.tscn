@@ -4,10 +4,7 @@
 [ext_resource type="Shader" uid="uid://crjaf6ve1nb80" path="res://scripts/shaders/hue_shift.gdshader" id="2_wgdyd"]
 [ext_resource type="TileSet" uid="uid://cjk0ssha1qje4" path="res://assets/tilesets/3d_tiles/3d_tiles.tres" id="3_1s7k0"]
 [ext_resource type="Script" path="res://scripts/custom-classes/palette_tile_map_layer.gd" id="4_eggwx"]
-[ext_resource type="PackedScene" uid="uid://cbeskhe10musv" path="res://scenes/objects/goal/goal.tscn" id="5_lue1w"]
-[ext_resource type="PackedScene" uid="uid://lssqn0ldesc" path="res://scenes/objects/spring/spring.tscn" id="6_dvcst"]
 [ext_resource type="Texture2D" uid="uid://dwsxfnd8qih7t" path="res://assets/tilesets/3d_tiles/3d_tiles_canvas_texture.tres" id="7_2vns2"]
-[ext_resource type="PackedScene" uid="uid://buf77k6omvkkr" path="res://scenes/objects/spike/spike.tscn" id="7_wgdyd"]
 [ext_resource type="PackedScene" uid="uid://cp0bf0rdxvw1s" path="res://scenes/player/player.tscn" id="8_juarb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r44xb"]
@@ -119,38 +116,9 @@ metadata/_custom_type_script = "uid://ssiak0cvnwsg"
 
 [node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup0" unique_id=187260101]
 material = SubResource("ShaderMaterial_r44xb")
-tile_map_data = PackedByteArray("AAATAAEAAQABAAEAAAAJAAoAAQABAAAAAAAMAAoAAQADAAIAAAALAAoAAQABAAAAAAAKAAoAAQAAAAEAAAAJAAEAAQADAAAAAAAKAAEAAQAAAAEAAAALAAEAAQAAAAAAAAAMAAEAAQABAAIAAAANAAEAAQADAAAAAAAOAAEAAQADAAEAAAAPAAEAAQACAAAAAAAQAAEAAQABAAEAAAARAAEAAQACAAIAAAASAAEAAQAAAAAAAAATAAoAAQAAAAEAAAAUAAoAAQACAAAAAAAVAAoAAQAAAAEAAAAWAAoAAQAAAAAAAAAUAAEAAQADAAAAAAAVAAEAAQADAAEAAAAWAAEAAQACAAIAAAAIAAEAAQAAAAIAAAAIAAIAAQACAAEAAAAIAAMAAQACAAEAAAAIAAQAAQADAAIAAAAIAAUAAQACAAIAAAAIAAYAAQABAAEAAAAIAAcAAQAAAAIAAAAIAAgAAQABAAAAAAAIAAkAAQABAAAAAAAIAAoAAQADAAIAAAASAAoAAQACAAEAAAAXAAEAAQACAAIAAAAYAAEAAQABAAEAAAAYAAIAAQABAAAAAAAYAAMAAQADAAAAAAAYAAQAAQAAAAIAAAAYAAUAAQADAAEAAAAYAAYAAQACAAAAAAAYAAcAAQADAAEAAAAYAAgAAQABAAEAAAAYAAkAAQACAAIAAAAYAAoAAQAAAAEAAAAXAAoAAQACAAEAAAA=")
+tile_map_data = PackedByteArray("AAATAAEAAQABAAEAAAAJAAoAAQABAAAAAAAMAAoAAQADAAIAAAALAAoAAQABAAAAAAAKAAoAAQAAAAEAAAAJAAEAAQADAAAAAAAKAAEAAQAAAAEAAAALAAEAAQAAAAAAAAAMAAEAAQABAAIAAAANAAEAAQADAAAAAAAOAAEAAQADAAEAAAAPAAEAAQACAAAAAAAQAAEAAQABAAEAAAARAAEAAQACAAIAAAASAAEAAQAAAAAAAAATAAoAAQAAAAEAAAAUAAoAAQACAAAAAAAVAAoAAQAAAAEAAAAWAAoAAQAAAAAAAAAUAAEAAQADAAAAAAAVAAEAAQADAAEAAAAWAAEAAQACAAIAAAAIAAEAAQAAAAIAAAAIAAIAAQACAAEAAAAIAAMAAQACAAEAAAAIAAQAAQADAAIAAAAIAAUAAQACAAIAAAAIAAYAAQABAAEAAAAIAAcAAQAAAAIAAAAIAAgAAQABAAAAAAAIAAkAAQABAAAAAAAIAAoAAQADAAIAAAASAAoAAQACAAEAAAAXAAEAAQACAAIAAAAYAAEAAQABAAEAAAAYAAIAAQABAAAAAAAYAAMAAQADAAAAAAAYAAQAAQAAAAIAAAAYAAUAAQADAAEAAAAYAAYAAQACAAAAAAAYAAcAAQADAAEAAAAYAAgAAQABAAEAAAAYAAkAAQACAAIAAAAYAAoAAQAAAAEAAAAXAAoAAQACAAEAAAANAAoAAAAAAAAAAgARAAoAAAAAAAAAAgAWAAUAAAAAAAAAAwANAAIAAAAAAAAAATAOAAIAAAAAAAAAATAPAAIAAAAAAAAAATAQAAIAAAAAAAAAATARAAIAAAAAAAAAATA=")
 tile_set = ExtResource("3_1s7k0")
 script = ExtResource("4_eggwx")
-
-[node name="Spring" parent="Keygroup0/PaletteTileMapLayer" unique_id=449720975 instance=ExtResource("6_dvcst")]
-position = Vector2(862, 670)
-
-[node name="Spring2" parent="Keygroup0/PaletteTileMapLayer" unique_id=584429453 instance=ExtResource("6_dvcst")]
-position = Vector2(1118, 670)
-
-[node name="Spike" parent="Keygroup0/PaletteTileMapLayer" unique_id=535580133 instance=ExtResource("7_wgdyd")]
-position = Vector2(926, 156)
-rotation = 3.1415925
-
-[node name="Spike5" parent="Keygroup0/PaletteTileMapLayer" unique_id=840012108 instance=ExtResource("7_wgdyd")]
-position = Vector2(861, 156)
-rotation = 3.1415925
-
-[node name="Spike2" parent="Keygroup0/PaletteTileMapLayer" unique_id=1662609439 instance=ExtResource("7_wgdyd")]
-position = Vector2(992, 156)
-rotation = 3.1415925
-
-[node name="Spike3" parent="Keygroup0/PaletteTileMapLayer" unique_id=929904783 instance=ExtResource("7_wgdyd")]
-position = Vector2(1056, 156)
-rotation = 3.1415925
-
-[node name="Spike4" parent="Keygroup0/PaletteTileMapLayer" unique_id=1688797201 instance=ExtResource("7_wgdyd")]
-position = Vector2(1119, 156)
-rotation = 3.1415925
-
-[node name="Goal" parent="Keygroup0" unique_id=613892377 instance=ExtResource("5_lue1w")]
-position = Vector2(1490, 385)
 
 [node name="Keygroup1" type="Node2D" parent="." unique_id=1538438303]
 position = Vector2(-317, 407)
