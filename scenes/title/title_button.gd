@@ -53,7 +53,6 @@ func _on_button_down() -> void:
 
 # TODO: Hook up these buttons
 func _execute_on_click() -> void:
-	print(self)
 	if self.name == "Start":
 		start_pressed.emit()
 	elif self.name == "Options":
