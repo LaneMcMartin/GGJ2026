@@ -25,5 +25,5 @@ func _update_region() -> void:
 	sprite_2d.region_rect.position.x = FRAME_POSITIONS[current_frame]
 
 func on_body_entered(body: Node2D) -> void:
-	if body.name == "Player":
+	if body is Player:
 		body._player_died()
