@@ -290,7 +290,7 @@ metadata/_custom_type_script = "uid://dfu4dbx3m51uj"
 position = Vector2(-1.2230549, 1.582447)
 shape = SubResource("RectangleShape2D_rtgr4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D" unique_id=1310844731]
+[node name="Title Background" type="AnimatedSprite2D" parent="Node2D" unique_id=1310844731]
 z_index = -1
 sprite_frames = SubResource("SpriteFrames_c7od3")
 autoplay = "default"

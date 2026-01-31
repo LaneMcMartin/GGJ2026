@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://cbb3or5xy2s23"]
+
+[ext_resource type="Texture2D" uid="uid://bjr5jia74ty3m" path="res://scenes/title/font sample.png" id="1_ac427"]
+[ext_resource type="Script" uid="uid://dpgpmdqf1ujcv" path="res://scenes/options/options.gd" id="1_qe4tn"]
+
+[node name="Options" type="Control" unique_id=1889841919]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qe4tn")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=860936264]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 600
+theme_override_constants/margin_top = 250
+theme_override_constants/margin_right = 600
+theme_override_constants/margin_bottom = 250
+
+[node name="Button Container" type="VBoxContainer" parent="MarginContainer" unique_id=1319436529]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Music Volume" type="HBoxContainer" parent="MarginContainer/Button Container" unique_id=1175705195]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Button Container/Music Volume" unique_id=1976013847]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+texture = ExtResource("1_ac427")
+expand_mode = 3
+
+[node name="Music Volume Slider" type="HSlider" parent="MarginContainer/Button Container/Music Volume" unique_id=320298058]
+custom_minimum_size = Vector2(350, 100)
+layout_mode = 2
+size_flags_horizontal = 10
+max_value = 1.0
+step = 0.01
+
+[node name="SFX Volume" type="HBoxContainer" parent="MarginContainer/Button Container" unique_id=148994208]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Button Container/SFX Volume" unique_id=2087516884]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+texture = ExtResource("1_ac427")
+expand_mode = 3
+
+[node name="SFX Volume Slider" type="HSlider" parent="MarginContainer/Button Container/SFX Volume" unique_id=314521187]
+custom_minimum_size = Vector2(350, 100)
+layout_mode = 2
+size_flags_horizontal = 10
+max_value = 1.0
+step = 0.01
+
+[node name="Enable Shaders" type="HBoxContainer" parent="MarginContainer/Button Container" unique_id=932044254]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Button Container/Enable Shaders" unique_id=2033958027]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+texture = ExtResource("1_ac427")
+expand_mode = 3
+
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/Button Container/Enable Shaders" unique_id=367317184]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Button Container" unique_id=977032604]
+layout_mode = 2
+theme_override_constants/margin_top = 30
+
+[node name="Exit game" type="Button" parent="MarginContainer/Button Container/MarginContainer" unique_id=2034654639]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Button Container/MarginContainer/Exit game" unique_id=482935860]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -59.731667
+offset_top = -20.0
+offset_right = 59.731667
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ac427")
+expand_mode = 2
+stretch_mode = 5
+
+[connection signal="mouse_entered" from="MarginContainer/Button Container/Music Volume/Music Volume Slider" to="." method="_on_mouse_enter"]
+[connection signal="value_changed" from="MarginContainer/Button Container/Music Volume/Music Volume Slider" to="." method="_on_music_volume_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/Button Container/SFX Volume/SFX Volume Slider" to="." method="_on_sfx_volume_slider_value_changed"]
+[connection signal="mouse_entered" from="MarginContainer/Button Container/MarginContainer/Exit game" to="." method="_on_mouse_enter"]
+[connection signal="mouse_exited" from="MarginContainer/Button Container/MarginContainer/Exit game" to="." method="_on_mouse_leave"]
+[connection signal="pressed" from="MarginContainer/Button Container/MarginContainer/Exit game" to="." method="_on_exit_game_pressed"]
