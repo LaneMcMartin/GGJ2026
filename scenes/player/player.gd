@@ -24,7 +24,7 @@ enum State {
 	WALKING, FALLING, SPRING, CLIMBING
 }
 var current_state: State = State.WALKING: set = set_state
-const STATE_ANIMATIONS: Array[String] = ["default", "air", "air", "default"]
+const STATE_ANIMATIONS: Array[String] = ["default", "air", "air", "climb"]
 
 @export_category("Movement")
 ## The horizontal movement speed in pixels per second.

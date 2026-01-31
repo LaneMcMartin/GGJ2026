@@ -8,7 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://d24lwuih5kx7a" path="res://scenes/player/sprite/0008.png" id="4_je7p5"]
 [ext_resource type="Texture2D" uid="uid://wkbfxfrrsys8" path="res://scenes/player/sprite/0003.png" id="4_qek5x"]
 [ext_resource type="Texture2D" uid="uid://5gra4upl8q1k" path="res://scenes/player/sprite/0004.png" id="5_5gtgg"]
+[ext_resource type="Texture2D" uid="uid://bh6rt0pihcuvn" path="res://scenes/player/sprite/0010.png" id="5_fm80t"]
+[ext_resource type="Texture2D" uid="uid://cswjxixj44fjm" path="res://scenes/player/sprite/0011.png" id="6_gx1jg"]
 [ext_resource type="Texture2D" uid="uid://dh7att0t28aet" path="res://scenes/player/sprite/0005.png" id="6_h17s1"]
+[ext_resource type="Texture2D" uid="uid://csh0slkya0al3" path="res://scenes/player/sprite/0012.png" id="7_ugbui"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_75vfm"]
 animations = [{
@@ -28,6 +31,23 @@ animations = [{
 "loop": true,
 "name": &"air",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_fm80t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_gx1jg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ugbui")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_gx1jg")
+}],
+"loop": true,
+"name": &"climb",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -71,7 +91,7 @@ texture_filter = 1
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_75vfm")
 autoplay = "default"
-frame_progress = 0.8702314
+frame_progress = 0.9729303
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1025843108]
