@@ -3,10 +3,14 @@
 [ext_resource type="Texture2D" uid="uid://bjr5jia74ty3m" path="res://scenes/title/font sample.png" id="1_5vtrw"]
 [ext_resource type="Script" uid="uid://c5xbp0xny2817" path="res://scenes/title/title_button.gd" id="2_ds13r"]
 [ext_resource type="Script" uid="uid://c48bvyqdns1l8" path="res://scenes/title/logo_tween.gd" id="2_gl121"]
+[ext_resource type="Theme" uid="uid://3cs1r4p0rltc" path="res://assets/themes/invisible_button.tres" id="3_wfckv"]
 [ext_resource type="Script" uid="uid://ssiak0cvnwsg" path="res://scripts/custom-classes/keygroup.gd" id="4_4yl2o"]
+[ext_resource type="Texture2D" uid="uid://bkr5dact2o6jp" path="res://scenes/title/text_icons/start.png" id="4_qp135"]
 [ext_resource type="Shader" uid="uid://crjaf6ve1nb80" path="res://scripts/shaders/hue_shift.gdshader" id="5_awdk6"]
 [ext_resource type="PackedScene" uid="uid://buf77k6omvkkr" path="res://scenes/objects/spike/spike.tscn" id="6_7uqqr"]
+[ext_resource type="Texture2D" uid="uid://dgv5hqp5p846" path="res://scenes/title/text_icons/options.png" id="6_qp135"]
 [ext_resource type="PackedScene" uid="uid://lssqn0ldesc" path="res://scenes/objects/spring/spring.tscn" id="7_784tc"]
+[ext_resource type="Texture2D" uid="uid://g2qirt4pqlfc" path="res://scenes/title/text_icons/credits.png" id="7_qb06g"]
 [ext_resource type="PackedScene" uid="uid://cbeskhe10musv" path="res://scenes/objects/goal/goal.tscn" id="8_rtgr4"]
 [ext_resource type="PackedScene" uid="uid://cnleki8tyyat2" path="res://scenes/objects/ladder/ladder.tscn" id="9_agu86"]
 [ext_resource type="Texture2D" uid="uid://dwsxfnd8qih7t" path="res://assets/tilesets/3d_tiles/3d_tiles_canvas_texture.tres" id="10_bjs8b"]
@@ -163,13 +167,17 @@ theme_override_constants/margin_bottom = 40
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=2011284316]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 25
 
 [node name="Start" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1604768838]
 custom_minimum_size = Vector2(450, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("3_wfckv")
+icon = ExtResource("4_qp135")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("2_ds13r")
 
 [node name="Options" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1213002975]
@@ -177,6 +185,10 @@ custom_minimum_size = Vector2(450, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("3_wfckv")
+icon = ExtResource("6_qp135")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("2_ds13r")
 
 [node name="Credits" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1029478166]
@@ -184,6 +196,10 @@ custom_minimum_size = Vector2(450, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("3_wfckv")
+icon = ExtResource("7_qb06g")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("2_ds13r")
 
 [node name="Node2D" type="Node2D" parent="." unique_id=2112921621]

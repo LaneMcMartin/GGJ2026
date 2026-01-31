@@ -1,7 +1,11 @@
 [gd_scene format=3 uid="uid://cbb3or5xy2s23"]
 
-[ext_resource type="Texture2D" uid="uid://bjr5jia74ty3m" path="res://scenes/title/font sample.png" id="1_ac427"]
 [ext_resource type="Script" uid="uid://dpgpmdqf1ujcv" path="res://scenes/options/options.gd" id="1_qe4tn"]
+[ext_resource type="Texture2D" uid="uid://bklv3paxl4ncp" path="res://scenes/options/music_volume.png" id="2_kmbin"]
+[ext_resource type="Texture2D" uid="uid://cw64gj4h8f10m" path="res://scenes/options/sfx_volume.png" id="3_025dt"]
+[ext_resource type="Texture2D" uid="uid://d1bfdk3jjcj1q" path="res://scenes/options/shaders.png" id="4_bcrey"]
+[ext_resource type="Theme" uid="uid://3cs1r4p0rltc" path="res://assets/themes/invisible_button.tres" id="5_g56r3"]
+[ext_resource type="Texture2D" uid="uid://bcfrb24n5gbhi" path="res://scenes/options/exit.png" id="6_f2ajo"]
 
 [node name="Options" type="Control" unique_id=1889841919]
 layout_mode = 3
@@ -36,7 +40,7 @@ theme_override_constants/separation = 4
 [node name="Music font" type="TextureRect" parent="MarginContainer/Button Container/Music Volume" unique_id=1976013847]
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
-texture = ExtResource("1_ac427")
+texture = ExtResource("2_kmbin")
 expand_mode = 3
 
 [node name="Music Volume Slider" type="HSlider" parent="MarginContainer/Button Container/Music Volume" unique_id=320298058]
@@ -54,7 +58,7 @@ theme_override_constants/separation = 4
 [node name="SFX font" type="TextureRect" parent="MarginContainer/Button Container/SFX Volume" unique_id=2087516884]
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
-texture = ExtResource("1_ac427")
+texture = ExtResource("3_025dt")
 expand_mode = 3
 
 [node name="SFX Volume Slider" type="HSlider" parent="MarginContainer/Button Container/SFX Volume" unique_id=314521187]
@@ -72,7 +76,7 @@ theme_override_constants/separation = 4
 [node name="Enable Shaders Font" type="TextureRect" parent="MarginContainer/Button Container/Enable Shaders" unique_id=2033958027]
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
-texture = ExtResource("1_ac427")
+texture = ExtResource("4_bcrey")
 expand_mode = 3
 
 [node name="Enable Shaders Check" type="CheckBox" parent="MarginContainer/Button Container/Enable Shaders" unique_id=367317184]
@@ -88,23 +92,10 @@ theme_override_constants/margin_top = 30
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 size_flags_horizontal = 4
-
-[node name="Exit font" type="TextureRect" parent="MarginContainer/Button Container/MarginContainer/Exit game" unique_id=482935860]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -59.731667
-offset_top = -20.0
-offset_right = 59.731667
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_ac427")
-expand_mode = 2
-stretch_mode = 5
+theme = ExtResource("5_g56r3")
+icon = ExtResource("6_f2ajo")
+icon_alignment = 1
+expand_icon = true
 
 [connection signal="mouse_entered" from="MarginContainer/Button Container/Music Volume/Music Volume Slider" to="." method="_on_mouse_enter"]
 [connection signal="mouse_exited" from="MarginContainer/Button Container/Music Volume/Music Volume Slider" to="." method="_on_mouse_leave"]
