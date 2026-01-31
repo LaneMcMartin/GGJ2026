@@ -3,17 +3,28 @@ extends Control
 var element_tween: Tween
 var hovered_element: Control
 
-@export var show_quit_button: bool = false
+@export var show_unpause_button: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	GameManager.escape_pressed.connect(_on_exit_game_pressed)
-	find_child("Quit game").visible = show_quit_button
-	if !show_quit_button:
+	# Pause menu
+	if show_unpause_button:
+		GameManager.escape_pressed.connect(_unpause)
+	# Options screen
+	else:
+		GameManager.escape_pressed.connect(_exit_to_title)
+		
+	find_child("Unpause").visible = show_unpause_button
+	if !show_unpause_button:
 		get_node("MarginContainer").add_theme_constant_override("margin_top", 350)
 
-func _on_exit_game_pressed() -> void:
+func _exit_to_title() -> void:
+	if get_tree().paused: get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/title/title.tscn")
+	
+func _unpause() -> void:		
+	queue_free()
+	get_tree().paused = false
 
 func _on_music_volume_slider_value_changed(value: float) -> void:
 	SoundManager.set_music_volume(value)

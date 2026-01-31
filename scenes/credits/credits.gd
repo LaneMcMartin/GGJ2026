@@ -21,7 +21,6 @@ func _on_mouse_enter() -> void:
 func _on_mouse_leave() -> void:
 	if element_tween: element_tween.kill()
 	hovered_element.scale = hovered_element_scale
-	print("2", hovered_element_position,hovered_element.position)
 	hovered_element.position = hovered_element_position
 	
 func _on_exit_hovered() -> void:
@@ -34,7 +33,6 @@ func _on_exit_hovered() -> void:
 func _on_exit_unhovered() -> void:
 	if element_tween: element_tween.kill()
 	hovered_element.scale = hovered_element_scale
-	print("2", hovered_element_position,hovered_element.position)
 
 func _on_exit_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/title/title.tscn")

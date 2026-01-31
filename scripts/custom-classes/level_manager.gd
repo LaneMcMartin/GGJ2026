@@ -23,6 +23,8 @@ func _ready() -> void:
 	# Add to LevelManager group so goals can find us
 	add_to_group("LevelManager")
 	
+	GameManager.escape_pressed.connect(_on_escape_pressed)
+	
 	_load_level(_current_level_index)
 	
 	_connect_reset_key()
@@ -100,3 +102,10 @@ func does_player_collide_with_layer(tileset: PaletteTileMapLayer) -> bool:
 			return true
 	
 	return false
+
+# Open pause menu and pause game
+func _on_escape_pressed() -> void:
+	get_tree().paused = true
+	var pause_menu = preload("res://scenes/options/options.tscn").instantiate()
+	pause_menu.show_unpause_button = true
+	add_child(pause_menu)
