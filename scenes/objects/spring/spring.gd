@@ -50,6 +50,13 @@ func _physics_process(delta: float) -> void:
 		velocity.y = minf(velocity.y, max_fall_speed)
 		# Move and slide to handle physics and collisions
 		move_and_slide()
+		
+		# Check if spring is falling and crushing the player
+		for i in get_slide_collision_count():
+			var collision = get_slide_collision(i)
+			var collider = collision.get_collider()
+			if collider is Player:
+				collider._player_died()
 	
 	# Subtract delta time from the timer.
 	_debounce_timer = clampf(_debounce_timer - delta, 0.0, spring_cooldown_seconds)
