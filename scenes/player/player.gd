@@ -72,6 +72,7 @@ func get_current_direction() -> Direction:
 
 
 func _ready() -> void:
+	add_to_group("Players")
 	_current_direction = starting_direction
 	floor_snap_length = 32.0
 	update_sprite_direction()
@@ -255,8 +256,7 @@ func win_level() -> void:
 	sprite.animation_finished.connect(_fade_out)
 	current_state = State.WIN
 
-## Helper for fading out after win and calling the signal.
+## Helper for fading out after win.
 func _fade_out() -> void:
 	var tween: Tween = create_tween()
 	tween.tween_property(self, "modulate", Color(1, 1, 1, 0.1), 1.0)
-	tween.tween_callback(GameManager.level_complete.emit)
