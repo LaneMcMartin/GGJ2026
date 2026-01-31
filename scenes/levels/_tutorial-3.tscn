@@ -106,60 +106,62 @@ physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_m0iuv")
 
 [node name="NewTileset" type="Node2D" unique_id=410265806]
-position = Vector2(-48, -322)
+metadata/_edit_lock_ = true
 
 [node name="Keygroup0" type="Node2D" parent="." unique_id=1657449644]
-position = Vector2(-317, 407)
 script = ExtResource("1_13v58")
 group_id = 0
 metadata/_custom_type_script = "uid://ssiak0cvnwsg"
+metadata/_edit_lock_ = true
 
 [node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup0" unique_id=187260101]
 material = SubResource("ShaderMaterial_r44xb")
 tile_map_data = PackedByteArray("AAALAAsAAQACAAIAAAAMAAsAAQABAAAAAAANAAsAAQADAAAAAAAPAAsAAQABAAAAAAAPAAoAAQAAAAAAAAAQAAYAAQAEAAIAAAARAAYAAQAAAAAAAAASAAYAAQABAAIAAAATAAYAAQACAAIAAAAWAAYAAQABAAIAAAAVAAYAAQADAAIAAAAUAAYAAQAAAAIAAAATAAIAAQAAAAAAAAAQAAcAAQADAAEAAAAPAAkAAQAAAAIAAAAPAAgAAQAAAAIAAAAQAAgAAQABAAAAAAATAAEAAQABAAEAAAAJAAcAAQADAAEAAAAJAAgAAQACAAIAAAAJAAkAAQACAAIAAAAJAAoAAQABAAAAAAAJAAsAAQAAAAIAAAAKAAsAAQACAAAAAAAMAAoAAQADAAIAAAALAAoAAQABAAAAAAAKAAoAAQAAAAEAAAAMAAYAAQADAAEAAAAJAAYAAQACAAAAAAAKAAYAAQAAAAAAAAALAAYAAQADAAEAAAAUAAIAAQACAAAAAAAVAAIAAQAAAAAAAAAWAAIAAQAAAAIAAAANAAAAAQAAAAEAAAAOAAAAAQADAAIAAAAPAAAAAQADAAAAAAAQAAAAAQADAAAAAAARAAAAAQADAAEAAAASAAAAAQAAAAIAAAATAAAAAQABAAAAAAAVAAUAAAAAAAAAAwAXAAIAAQAAAAAAAAAXAAMAAQAAAAAAAAAXAAQAAQAAAAAAAAAXAAUAAQAAAAAAAAAXAAYAAQAAAAAAAAAJAAwAAQAAAAAAAAAKAAwAAQAAAAAAAAALAAwAAQAAAAAAAAAMAAwAAQAAAAAAAAANAAwAAQAAAAAAAAAOAAwAAQAAAAAAAAAPAAwAAQAAAAAAAAAPAAcAAQAEAAIAAAAMAAUAAQAAAAAAAAAMAAQAAQAAAAAAAAAMAAMAAQAAAAAAAAAMAAIAAQAAAAAAAAAMAAEAAQAAAAAAAAAMAAAAAQAAAAAAAAA=")
 tile_set = ExtResource("3_j6pmo")
 script = ExtResource("4_wywya")
+metadata/_edit_lock_ = true
 
 [node name="Keygroup1" type="Node2D" parent="." unique_id=1538438303]
-position = Vector2(-317, 407)
 script = ExtResource("1_13v58")
 starts_enabled = false
 metadata/_custom_type_script = "uid://ssiak0cvnwsg"
+metadata/_edit_lock_ = true
 
 [node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup1" unique_id=466081606]
 material = SubResource("ShaderMaterial_2lw6t")
-position = Vector2(0, 385)
-tile_map_data = PackedByteArray("AAATAP//AQADAAIAAAATAP7/AQADAAEAAAATAP3/AQAAAAIAAAAOAAUAAAAAAAAAAgA=")
+tile_map_data = PackedByteArray("AAAOAAsAAAAAAAAAAgATAAMAAQAAAAIAAAATAAQAAQADAAEAAAATAAUAAQADAAIAAAA=")
 tile_set = ExtResource("3_j6pmo")
 script = ExtResource("4_wywya")
+metadata/_edit_lock_ = true
 
 [node name="Keygroup2" type="Node2D" parent="." unique_id=230039721]
-position = Vector2(-317, 407)
 script = ExtResource("1_13v58")
 group_id = 2
 metadata/_custom_type_script = "uid://ssiak0cvnwsg"
+metadata/_edit_lock_ = true
 
 [node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup2" unique_id=1279972592]
 material = SubResource("ShaderMaterial_54e2k")
 tile_map_data = PackedByteArray("AAAMAAkAAQACAAIAAAAMAAgAAQAAAAAAAAAMAAcAAQABAAIAAAA=")
 tile_set = SubResource("TileSet_kj8ux")
 script = ExtResource("4_wywya")
+metadata/_edit_lock_ = true
 
 [node name="Keygroup3" type="Node2D" parent="." unique_id=1096777438]
-position = Vector2(-317, 407)
 script = ExtResource("1_13v58")
 group_id = 3
 starts_enabled = false
 metadata/_custom_type_script = "uid://ssiak0cvnwsg"
+metadata/_edit_lock_ = true
 
 [node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup3" unique_id=172123274]
 material = SubResource("ShaderMaterial_8of48")
-position = Vector2(319, 65)
 tile_set = SubResource("TileSet_ie8b6")
 script = ExtResource("4_wywya")
+metadata/_edit_lock_ = true
 
 [node name="Player" parent="." unique_id=758385320 instance=ExtResource("7_qegt1")]
-position = Vector2(419, 1017)
+position = Vector2(671, 606)
 starting_direction = 1
 rising_gravity = 653.3333333333334
 falling_gravity = 980.0
