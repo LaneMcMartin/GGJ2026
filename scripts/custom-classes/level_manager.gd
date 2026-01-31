@@ -15,9 +15,14 @@ const level_order: Array[String] = [
 	"_tutorial-7",
 ]
 
+## Duration of the countdown before level starts (in seconds).
+const COUNTDOWN_DURATION: float = 2.0
+
 var _current_level_index: int = 0
 var _current_level: Node2D = null
 var _player: Player = null
+var _transition: ColorRect = null
+var _pending_level_index: int = -1
 
 func _ready() -> void:
 	# Add to LevelManager group so goals can find us
@@ -25,12 +30,18 @@ func _ready() -> void:
 	
 	GameManager.escape_pressed.connect(_on_escape_pressed)
 	
-	_load_level(_current_level_index)
-	
+
+	# Get reference to the Transition node (sibling).
+	_transition = get_node("../Transition")
+	_transition.transition_closed.connect(_on_transition_closed)
+	_transition.transition_opened.connect(_on_transition_opened)
+
+	_load_level(_current_level_index, true)  # Skip transition for initial load
+
 	_connect_reset_key()
-	
+
 	GameManager.level_complete.connect(_level_complete)
-	
+
 	# In debug builds (or editor) conenct to debug signals.
 	_try_connect_debug_signals()
 
@@ -38,18 +49,18 @@ func _ready() -> void:
 ## Debug exclusive function: connect to level skip hotkey.
 func _try_connect_debug_signals() -> void:
 	if OS.is_debug_build():
-		GameManager.level_back.connect(func(): _load_level(_current_level_index - 1))
-		GameManager.level_forward.connect(func(): _load_level(_current_level_index + 1))
+		GameManager.level_back.connect(func(): _load_level(_current_level_index - 1, true))
+		GameManager.level_forward.connect(func(): _load_level(_current_level_index + 1, true))
 
 func _connect_reset_key() -> void:
 	GameManager.level_reset.connect(func(): _reset_level())
 
-## Load a new level.
-func _load_level(level_index: int) -> void:
+## Load a new level. If skip_transition is true, the level starts immediately (used for initial load).
+func _load_level(level_index: int, skip_transition: bool = false) -> void:
 	# Free the old level (if applicable).
 	if _current_level != null:
 		_current_level.queue_free()
-	
+
 	# Load the new one and connect to the goal. Failsafe if the level index is out of range.
 	if (level_index >= level_order.size()) or (level_index < 0):
 		_current_level_index = 0
@@ -57,27 +68,57 @@ func _load_level(level_index: int) -> void:
 		_current_level_index = level_index
 	_current_level = load(LEVEL_DIRECTORY + level_order[_current_level_index] + ".tscn").instantiate()
 	self.add_child(_current_level)
-	
+
 	_player = _current_level.get_node("Player")
-	
+
 	_connect_player_death()
 	_subscribe_to_toggled_tileset()
+
+	if skip_transition:
+		# Start immediately without transition/countdown.
+		GameManager.level_start.emit()
+	else:
+		# Disable player until countdown finishes, then open the transition.
+		_player._is_enabled = false
+		_transition.open_transition()
+
+## Called when the close transition finishes (screen is fully covered).
+func _on_transition_closed() -> void:
+	# Just wait a tiny bit to make the transition look nice.
+	await get_tree().create_timer(0.5).timeout
 	
-	# Handle starting the level.
+	# Now safe to load the pending level.
+	if _pending_level_index >= 0:
+		_load_level(_pending_level_index)
+		_pending_level_index = -1
+
+## Called when the open transition finishes (screen is fully visible).
+func _on_transition_opened() -> void:
+	# Start the countdown before enabling player.
+	_start_countdown()
+
+## Start countdown timer before level begins.
+func _start_countdown() -> void:
+	var timer: SceneTreeTimer = get_tree().create_timer(COUNTDOWN_DURATION)
+	timer.timeout.connect(_on_countdown_finished)
+
+## Called when countdown finishes - enable the player and start the level.
+func _on_countdown_finished() -> void:
+	if _player:
+		_player._is_enabled = true
 	GameManager.level_start.emit()
 	
 func _reset_level() -> void:
-	_load_level(_current_level_index)
+	_load_level(_current_level_index, true)  # Skip transition for quick restart
 		
 func _connect_player_death() -> void:
 	if _player and _player.has_signal("player_died"):
 		_player.player_died.connect(_reset_level)
 
-## Call when we got to the goal and go to the next level.
+## Call when we got to the goal and go to the next level (legacy - now uses signal flow).
 func _on_goal_reached() -> void:
 	print_debug("Level " + str(_current_level_index) + " cleared!")
-	_current_level_index += 1
-	_load_level(_current_level_index)
+	_pending_level_index = _current_level_index + 1
 
 func _subscribe_to_toggled_tileset() -> void:
 	for tileset in _get_tilesets():
@@ -117,4 +158,5 @@ func _on_escape_pressed() -> void:
 	add_child(pause_menu)
 
 func _level_complete() -> void:
-	_load_level(_current_level_index + 1)
+	# Store the next level index; actual loading happens after transition closes.
+	_pending_level_index = _current_level_index + 1
