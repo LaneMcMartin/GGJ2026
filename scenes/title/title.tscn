@@ -12,6 +12,16 @@
 [ext_resource type="Texture2D" uid="uid://dwsxfnd8qih7t" path="res://assets/tilesets/3d_tiles/3d_tiles_canvas_texture.tres" id="10_bjs8b"]
 [ext_resource type="Script" uid="uid://bt8ibkyymyd37" path="res://scripts/custom-classes/palette_tile_map_layer.gd" id="11_dawno"]
 [ext_resource type="Script" uid="uid://dfu4dbx3m51uj" path="res://scripts/custom-classes/area2d_tweener.gd" id="12_awdk6"]
+[ext_resource type="Texture2D" uid="uid://6olqmyy5tsgj" path="res://scenes/title/frames/tile000.png" id="13_ucj5f"]
+[ext_resource type="Texture2D" uid="uid://th8ikppol53e" path="res://scenes/title/frames/tile001.png" id="14_bqdq2"]
+[ext_resource type="Texture2D" uid="uid://isuko7wxjqkl" path="res://scenes/title/frames/tile002.png" id="15_wfckv"]
+[ext_resource type="Texture2D" uid="uid://cjlol64tkav33" path="res://scenes/title/frames/tile003.png" id="16_qp135"]
+[ext_resource type="Texture2D" uid="uid://bg1oflbdrd75d" path="res://scenes/title/frames/tile004.png" id="17_qb06g"]
+[ext_resource type="Texture2D" uid="uid://v3i5gm4j0r4v" path="res://scenes/title/frames/tile005.png" id="18_xuxxd"]
+[ext_resource type="Texture2D" uid="uid://y2ljjifdd4n7" path="res://scenes/title/frames/tile006.png" id="19_lq4su"]
+[ext_resource type="Texture2D" uid="uid://cn5kdc5gpb6vu" path="res://scenes/title/frames/tile007.png" id="20_iftfp"]
+[ext_resource type="Texture2D" uid="uid://t5slm0a84irh" path="res://scenes/title/frames/tile008.png" id="21_frsho"]
+[ext_resource type="Texture2D" uid="uid://dm358vudw7bln" path="res://scenes/title/frames/tile009.png" id="22_d4ue3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xraam"]
 shader = ExtResource("5_awdk6")
@@ -72,6 +82,44 @@ sources/0 = SubResource("TileSetScenesCollectionSource_1cwff")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_784tc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rtgr4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c7od3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_ucj5f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_bqdq2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_wfckv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_qp135")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_qb06g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_xuxxd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_lq4su")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_iftfp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_frsho")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_d4ue3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
 
 [node name="Title Screen" type="Control" unique_id=378913116]
 layout_mode = 3
@@ -241,6 +289,13 @@ metadata/_custom_type_script = "uid://dfu4dbx3m51uj"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Keygroup/PaletteTileMapLayer/Area2DTweener" unique_id=937619467]
 position = Vector2(-1.2230549, 1.582447)
 shape = SubResource("RectangleShape2D_rtgr4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D" unique_id=1310844731]
+z_index = -1
+sprite_frames = SubResource("SpriteFrames_c7od3")
+autoplay = "default"
+frame_progress = 0.9099952
+centered = false
 
 [connection signal="mouse_entered" from="MarginContainer/VBoxContainer/Logo" to="MarginContainer/VBoxContainer/Logo" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MarginContainer/VBoxContainer/Logo" to="MarginContainer/VBoxContainer/Logo" method="_on_mouse_exited"]
