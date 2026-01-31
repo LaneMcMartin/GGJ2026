@@ -4,6 +4,6 @@
 
 [node name="Game" type="Node2D" unique_id=2039852155]
 
-[node name="LevelManager" type="Node" parent="." unique_id=2070918230]
+[node name="LevelManager" type="Node" parent="." unique_id=20357430]
 script = ExtResource("1_80nbo")
 metadata/_custom_type_script = "uid://xaybsfmwj67b"
