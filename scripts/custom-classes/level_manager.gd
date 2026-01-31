@@ -26,6 +26,9 @@ func _ready() -> void:
 	_load_level(_current_level_index)
 	
 	_connect_reset_key()
+	
+	GameManager.level_complete.connect(_level_complete)
+	
 	# In debug builds (or editor) conenct to debug signals.
 	_try_connect_debug_signals()
 
@@ -57,6 +60,9 @@ func _load_level(level_index: int) -> void:
 	
 	_connect_player_death()
 	_subscribe_to_toggled_tileset()
+	
+	# Handle starting the level.
+	GameManager.level_start.emit()
 	
 func _reset_level() -> void:
 	_load_level(_current_level_index)
@@ -100,3 +106,6 @@ func does_player_collide_with_layer(tileset: PaletteTileMapLayer) -> bool:
 			return true
 	
 	return false
+
+func _level_complete() -> void:
+	_load_level(_current_level_index + 1)
