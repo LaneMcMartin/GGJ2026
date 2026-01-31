@@ -17,7 +17,7 @@ diffuse_texture = SubResource("AtlasTexture_ggfn8")
 normal_texture = SubResource("AtlasTexture_4vdkc")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f3rwu"]
-size = Vector2(64, 64)
+size = Vector2(64, 75.000145)
 
 [node name="Spring" type="CharacterBody2D" unique_id=449720975 node_paths=PackedStringArray("ray_cast_2d", "sprite_2d")]
 use_parent_material = true
@@ -33,6 +33,8 @@ region_enabled = true
 region_rect = Rect2(0, 0, 64, 64)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=196997962]
+position = Vector2(0, 0.50000024)
+scale = Vector2(0.8399983, 0.8399983)
 shape = SubResource("RectangleShape2D_f3rwu")
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=736620841]
