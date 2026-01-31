@@ -12,8 +12,8 @@ signal tileset_toggled
 # Hue colors for each keygroup.
 const GROUP_COLORS: Dictionary = {
 	0: 0.5, # Yellow
-	1: 0.0,  # Blue
-	2: 0.65,  # Green
+	1: 0.2,  # Pink
+	2: 0.9,  # Teal
 	3: 0.35,  # Red
 }
 

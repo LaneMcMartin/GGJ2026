@@ -143,7 +143,7 @@ func _turn_around() -> void:
 
 ## Flip the player sprite direction.
 func update_sprite_direction():
-	sprite.flip_h = (_current_direction == Direction.RIGHT)
+	sprite.flip_h = (_current_direction == Direction.LEFT)
 
 
 ## Called by the parent Keygroup when this player is toggled.
