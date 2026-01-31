@@ -24,6 +24,7 @@ enum State {
 	WALKING, FALLING, SPRING, CLIMBING
 }
 var current_state: State = State.WALKING: set = set_state
+const STATE_ANIMATIONS: Array[String] = ["default", "air", "air", "climb"]
 
 @export_category("Movement")
 ## The horizontal movement speed in pixels per second.
@@ -132,6 +133,9 @@ func set_state(new_state: State) -> bool:
 	
 	# Actually set the state.
 	current_state = new_state
+	
+	# Play new aniamtion.
+	sprite.play(STATE_ANIMATIONS[current_state])
 	return true
 	
 
@@ -143,7 +147,7 @@ func _turn_around() -> void:
 
 ## Flip the player sprite direction.
 func update_sprite_direction():
-	sprite.flip_h = (_current_direction == Direction.RIGHT)
+	sprite.flip_h = (_current_direction == Direction.LEFT)
 
 
 ## Called by the parent Keygroup when this player is toggled.

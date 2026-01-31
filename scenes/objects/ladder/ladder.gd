@@ -3,6 +3,7 @@ extends Area2D
 
 @export var ray_cast_2dr: RayCast2D
 @export var ray_cast_2dl: RayCast2D
+@export var canvas_sprite_2d: CanvasSprite2D
 
 var _is_enabled: bool = true
 
@@ -11,6 +12,7 @@ func is_enabled() -> bool:
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
+	canvas_sprite_2d.play()
 
 func _on_body_entered(body: Node2D) -> void:
 	# Don't allow climbing if ladder is masked out

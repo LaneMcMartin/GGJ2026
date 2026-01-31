@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://mttabgteklwb"]
+
+[ext_resource type="Shader" uid="uid://b2bxjoae5b67c" path="res://scripts/shaders/swirl.gdshader" id="1_o7bb7"]
+[ext_resource type="Script" uid="uid://263d4t8qfafm" path="res://scenes/backgrounds/void/void_background.gd" id="1_vrb1j"]
+[ext_resource type="Texture2D" uid="uid://16k3bev4ogil" path="res://assets/decorative/background_l1.png" id="2_vrb1j"]
+[ext_resource type="Texture2D" uid="uid://d0kr2do5od3qw" path="res://assets/decorative/background_l2.png" id="3_b4ucs"]
+[ext_resource type="Shader" uid="uid://crjaf6ve1nb80" path="res://scripts/shaders/hue_shift.gdshader" id="3_dtf2f"]
+[ext_resource type="Texture2D" uid="uid://cx5aye8ly7qf5" path="res://assets/decorative/background_l3.png" id="4_dtf2f"]
+[ext_resource type="Shader" uid="uid://bm7lqspal7tfr" path="res://scripts/shaders/blur.gdshader" id="7_dtf2f"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_e2o6t"]
+frequency = 0.005
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_e2o6t"]
+noise = SubResource("FastNoiseLite_e2o6t")
+bump_strength = 9.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_feb5d"]
+shader = ExtResource("1_o7bb7")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_e2o6t")
+shader_parameter/void_color_1 = Color(0.101960786, 0.039215688, 0.18039216, 1)
+shader_parameter/void_color_2 = Color(0.47093928, 0.19560775, 0.663836, 1)
+shader_parameter/swirl_speed = 0.30000001099011997
+shader_parameter/swirl_amount = 0.2000000095
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qna4e"]
+shader = ExtResource("3_dtf2f")
+shader_parameter/hue_shift = 0.2000000095
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_70dbq"]
+shader = ExtResource("3_dtf2f")
+shader_parameter/hue_shift = 0.90000004275
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1sxgt"]
+shader = ExtResource("3_dtf2f")
+shader_parameter/hue_shift = 0.350000016625
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x5uvs"]
+shader = ExtResource("7_dtf2f")
+shader_parameter/lod = 0.726000034485
+
+[node name="VoidBackground" type="Control" unique_id=129865862 node_paths=PackedStringArray("bg_l_1", "bg_l_2", "bg_l_3")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vrb1j")
+bg_l_1 = NodePath("CanvasLayer/CanvasModulate/BG_L1")
+bg_l_2 = NodePath("CanvasLayer/CanvasModulate/BG_L2")
+bg_l_3 = NodePath("CanvasLayer/CanvasModulate/BG_L3")
+
+[node name="CanvasLayerBG" type="CanvasLayer" parent="." unique_id=186800152]
+layer = 0
+
+[node name="VoidShader" type="ColorRect" parent="CanvasLayerBG" unique_id=1523952838]
+material = SubResource("ShaderMaterial_feb5d")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=442932685]
+layer = 0
+
+[node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer" unique_id=1718784985]
+color = Color(0.849722, 0.8417878, 0.8945391, 1)
+
+[node name="BG_L1" type="Sprite2D" parent="CanvasLayer/CanvasModulate" unique_id=1015574324]
+material = SubResource("ShaderMaterial_qna4e")
+texture = ExtResource("2_vrb1j")
+centered = false
+
+[node name="BG_L2" type="Sprite2D" parent="CanvasLayer/CanvasModulate" unique_id=2106475078]
+material = SubResource("ShaderMaterial_70dbq")
+texture = ExtResource("3_b4ucs")
+centered = false
+
+[node name="BG_L3" type="Sprite2D" parent="CanvasLayer/CanvasModulate" unique_id=1259187510]
+material = SubResource("ShaderMaterial_1sxgt")
+texture = ExtResource("4_dtf2f")
+centered = false
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1459050423]
+material = SubResource("ShaderMaterial_x5uvs")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
