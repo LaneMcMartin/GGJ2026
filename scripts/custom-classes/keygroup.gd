@@ -85,6 +85,7 @@ func apply_initial_state() -> void:
 func _apply_toggle_to_children(enabled: bool) -> void:
 	var target_alpha: float = 1.0 if enabled else 0.1
 	self.modulate.a = target_alpha
+	
 	for child in get_children():
 		_apply_toggle_to_node(child, enabled)
 		
@@ -99,7 +100,8 @@ func _apply_toggle_to_node(node: Node, enabled: bool) -> void:
 		node._on_keygroup_toggled(enabled)
 	
 	# Recursively apply to children.
-	for child in node.get_children():
+	var children = node.get_children()
+	for child in children:
 		_apply_toggle_to_node(child, enabled)
 		
 		

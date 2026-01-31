@@ -64,6 +64,10 @@ var _climbing_exit_direction: Direction = Direction.RIGHT
 var _climbing_vertical_direction: VerticalDirection = VerticalDirection.UP
 
 
+func get_current_direction() -> Direction:
+	return _current_direction
+
+
 func _ready() -> void:
 	_current_direction = starting_direction
 	floor_snap_length = 32.0
@@ -177,6 +181,10 @@ func start_climbing(exit_direction: Direction, ladder_x: float) -> void:
 
 	# Set exit direction.
 	_climbing_exit_direction = exit_direction
+	
+	# Face the exit direction so player knows which way they'll exit.
+	_current_direction = exit_direction
+	update_sprite_direction()
 
 	# Figure out if we are going up or down based on which direction has more ladder.
 	var up_collision: Object = ray_cast_2d_ladder_up.get_collider()
@@ -212,6 +220,13 @@ func resume_climbing() -> void:
 
 	var ladder_above := ray_cast_2d_ladder_up.is_colliding()
 	var ladder_below := ray_cast_2d_ladder_down.is_colliding()
+	
+	# Check if climbing up and there's a disabled ladder above.
+	if _climbing_vertical_direction == VerticalDirection.UP and ladder_above:
+		var collider_above = ray_cast_2d_ladder_up.get_collider()
+		if collider_above is Ladder and not collider_above.is_enabled():
+			stop_climbing()
+			return
 
 	if not ladder_above and not ladder_below:
 		stop_climbing()
