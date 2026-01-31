@@ -6,6 +6,9 @@ extends Area2D
 
 var _is_enabled: bool = true
 
+func is_enabled() -> bool:
+	return _is_enabled
+
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 

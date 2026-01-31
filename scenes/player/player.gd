@@ -212,6 +212,13 @@ func resume_climbing() -> void:
 
 	var ladder_above := ray_cast_2d_ladder_up.is_colliding()
 	var ladder_below := ray_cast_2d_ladder_down.is_colliding()
+	
+	# Check if climbing up and there's a disabled ladder above.
+	if _climbing_vertical_direction == VerticalDirection.UP and ladder_above:
+		var collider_above = ray_cast_2d_ladder_up.get_collider()
+		if collider_above is Ladder and not collider_above.is_enabled():
+			stop_climbing()
+			return
 
 	if not ladder_above and not ladder_below:
 		stop_climbing()
