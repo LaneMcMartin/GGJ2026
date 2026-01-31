@@ -7,7 +7,10 @@ signal level_forward
 ## Reset level with "R" key
 signal level_reset
 
-func _unhandled_input(event: InputEvent) -> void:	
+func _ready() -> void:
+	SoundManager.play_music(preload("uid://c4glypdeg4xok"))
+
+func _unhandled_input(event: InputEvent) -> void:
 	var key := event as InputEventKey
 	if key and key.pressed and not key.echo && OS.is_debug_build():
 		if key.keycode == KEY_BRACKETLEFT:

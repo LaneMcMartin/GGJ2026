@@ -1,21 +1,39 @@
 [gd_scene format=3 uid="uid://lssqn0ldesc"]
 
-[ext_resource type="Texture2D" uid="uid://8t4ddk61wi4s" path="res://scenes/objects/spring/spring_placeholder.png" id="1_6bpwo"]
 [ext_resource type="Script" uid="uid://cybrvlejpqn4v" path="res://scenes/objects/spring/spring.gd" id="1_f3rwu"]
+[ext_resource type="Texture2D" uid="uid://cwsr2unfqi48a" path="res://scenes/objects/spring/spring_color.png" id="2_nbgg6"]
+[ext_resource type="Texture2D" uid="uid://b5kq3eark16tj" path="res://scenes/objects/spring/spring_normal.png" id="3_w2xn1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ggfn8"]
+atlas = ExtResource("2_nbgg6")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4vdkc"]
+atlas = ExtResource("3_w2xn1")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_74w0e"]
+diffuse_texture = SubResource("AtlasTexture_ggfn8")
+normal_texture = SubResource("AtlasTexture_4vdkc")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f3rwu"]
-size = Vector2(16, 16)
+size = Vector2(64, 64)
 
-[node name="Spring" type="CharacterBody2D" unique_id=449720975 node_paths=PackedStringArray("ray_cast_2d")]
+[node name="Spring" type="CharacterBody2D" unique_id=449720975 node_paths=PackedStringArray("ray_cast_2d", "sprite_2d")]
+use_parent_material = true
 script = ExtResource("1_f3rwu")
 ray_cast_2d = NodePath("RayCast2D")
-applied_spring_velocity = 600.0
+sprite_2d = NodePath("Sprite2D")
+applied_spring_velocity = 900.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=154285537]
-texture = ExtResource("1_6bpwo")
+use_parent_material = true
+texture = SubResource("CanvasTexture_74w0e")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 64)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=196997962]
 shape = SubResource("RectangleShape2D_f3rwu")
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=736620841]
-target_position = Vector2(0, -16)
+target_position = Vector2(0, -64)

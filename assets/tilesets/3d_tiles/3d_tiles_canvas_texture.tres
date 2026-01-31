@@ -1,8 +1,16 @@
 [gd_resource type="CanvasTexture" format=3 uid="uid://dwsxfnd8qih7t"]
 
-[ext_resource type="Texture2D" uid="uid://crjjnwxjcwti5" path="res://assets/tilesets/3d_tiles/paintcolor.png" id="1_pnc44"]
-[ext_resource type="Texture2D" uid="uid://c0fpodwo2hw22" path="res://assets/tilesets/3d_tiles/paintnormal.png" id="2_srfpv"]
+[ext_resource type="Texture2D" uid="uid://bmowyefy5xcsc" path="res://assets/tilesets/3d_tiles/animated_paintcolor.png" id="1_pnc44"]
+[ext_resource type="Texture2D" uid="uid://bsn66x780phe0" path="res://assets/tilesets/3d_tiles/animated_paintnormal.png" id="2_pnc44"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_srfpv"]
+atlas = ExtResource("1_pnc44")
+region = Rect2(384, 0, 384, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fs6g5"]
+atlas = ExtResource("2_pnc44")
+region = Rect2(384, 0, 384, 192)
 
 [resource]
-diffuse_texture = ExtResource("1_pnc44")
-normal_texture = ExtResource("2_srfpv")
+diffuse_texture = SubResource("AtlasTexture_srfpv")
+normal_texture = SubResource("AtlasTexture_fs6g5")

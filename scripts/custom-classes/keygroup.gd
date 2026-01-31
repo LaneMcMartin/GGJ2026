@@ -1,15 +1,15 @@
 ## Any child of this class will be toggled by the key associated with it.
 ## Alternatively, if the class has a specific property, that function will be called too.
 class_name Keygroup
-extends Node
+extends Node2D
 
 # Export Settings ##
 ## Settings related to this keygroup.
 @export_category("Keygroup Settings")
-## The group ID (1-4). Determines which key toggles this group.
-@export_range(1, 4) var group_id: int = 1:
+## The group ID (0-4). Determines which key toggles this group.
+@export_range(0, 4) var group_id: int = 1:
 	set(value):
-		group_id = clampi(value, 1, 4)
+		group_id = clampi(value, 0, 4)
 		_update_children_appearance()
 		# Re-register with manager if group changes.
 		if _is_registered and not Engine.is_editor_hint():
@@ -83,6 +83,9 @@ func apply_initial_state() -> void:
 
 ## Applies the toggle state to all children.
 func _apply_toggle_to_children(enabled: bool) -> void:
+	var target_alpha: float = 1.0 if enabled else 0.1
+	self.modulate.a = target_alpha
+	
 	for child in get_children():
 		_apply_toggle_to_node(child, enabled)
 		
@@ -97,16 +100,17 @@ func _apply_toggle_to_node(node: Node, enabled: bool) -> void:
 		node._on_keygroup_toggled(enabled)
 	
 	# Recursively apply to children.
-	for child in node.get_children():
+	var children = node.get_children()
+	for child in children:
 		_apply_toggle_to_node(child, enabled)
 		
 		
 ## Default toggle behavior for nodes that don't implement _on_keygroup_toggled.
 func _apply_default_toggle(node: Node, enabled: bool) -> void:
 	# Handle visibility (CanvasItem).
-	if node is CanvasItem:
-		var target_alpha: float = 1.0 if enabled else 0.1
-		node.modulate.a = target_alpha
+	#if node is CanvasItem:
+		#var target_alpha: float = 1.0 if enabled else 0.1
+		#node.modulate.a = target_alpha
 	
 	# Handle collision (CollisionShape2D / CollisionPolygon2D).
 	if node is CollisionShape2D or node is CollisionPolygon2D:

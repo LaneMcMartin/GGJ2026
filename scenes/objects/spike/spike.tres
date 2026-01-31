@@ -1,0 +1,16 @@
+[gd_resource type="CanvasTexture" format=3 uid="uid://cyl54vuiqgafg"]
+
+[ext_resource type="Texture2D" uid="uid://nym5lw4flx6k" path="res://scenes/objects/spike/spike_color.png" id="1_kriva"]
+[ext_resource type="Texture2D" uid="uid://b2alyw1xmp1gk" path="res://scenes/objects/spike/spike_normal.png" id="2_jj4gu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eekhe"]
+atlas = ExtResource("1_kriva")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xuqdo"]
+atlas = ExtResource("2_jj4gu")
+region = Rect2(0, 0, 64, 64)
+
+[resource]
+diffuse_texture = SubResource("AtlasTexture_eekhe")
+normal_texture = SubResource("AtlasTexture_xuqdo")

@@ -4,13 +4,24 @@ class_name LevelManager
 extends Node
 
 const LEVEL_DIRECTORY: String = "res://scenes/levels/"
-const level_order: Array[String] = ["new_tileset"]
+const level_order: Array[String] = [
+	# "_tutorial-1",
+	# "_tutorial-2",
+	# "_tutorial-3",
+	# "_tutorial-4",
+	# "_tutorial-5",
+	"_tutorial-6",
+	"_tutorial-7",
+]
 
 var _current_level_index: int = 0
 var _current_level: Node2D = null
 var _player: Player = null
 
 func _ready() -> void:
+	# Add to LevelManager group so goals can find us
+	add_to_group("LevelManager")
+	
 	_load_level(_current_level_index)
 	
 	_connect_reset_key()
@@ -43,18 +54,11 @@ func _load_level(level_index: int) -> void:
 	
 	_player = _current_level.get_node("Player")
 	
-	_connect_goal()
 	_connect_player_death()
 	_subscribe_to_toggled_tileset()
 	
 func _reset_level() -> void:
 	_load_level(_current_level_index)
-
-## Finds the Goal node in the current level and connects to the goal_reached signal.
-func _connect_goal() -> void:
-	var goal: Area2D = _current_level.find_child("Goal", true, false)
-	if goal and goal.has_signal("goal_reached"):
-		goal.goal_reached.connect(_on_goal_reached)
 		
 func _connect_player_death() -> void:
 	if _player and _player.has_signal("player_died"):

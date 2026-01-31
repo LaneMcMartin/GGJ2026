@@ -1,26 +1,26 @@
 [gd_scene format=3 uid="uid://buf77k6omvkkr"]
 
 [ext_resource type="Script" uid="uid://bl2nr7pkc5mbg" path="res://scenes/objects/spike/spike.gd" id="1_a12lq"]
-[ext_resource type="Texture2D" uid="uid://ci58b1xmimnwb" path="res://scenes/objects/spike/spike16.png" id="2_yaiwd"]
+[ext_resource type="Texture2D" uid="uid://d078xun3k0b28" path="res://scenes/objects/spike/spike.tres" id="2_a12lq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yaiwd"]
-size = Vector2(15, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a12lq"]
+size = Vector2(64, 64)
 
-[node name="Spike" type="CharacterBody2D" unique_id=449720975]
+[node name="Spike" type="CharacterBody2D" unique_id=449720975 node_paths=PackedStringArray("sprite_2d")]
 script = ExtResource("1_a12lq")
+sprite_2d = NodePath("Sprite2D")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1193205342]
-position = Vector2(16.5, 15)
-shape = SubResource("RectangleShape2D_yaiwd")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=154285537]
-position = Vector2(16, 15)
-texture = ExtResource("2_yaiwd")
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1037373197]
+texture = ExtResource("2_a12lq")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 64)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1956281464]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=135551354]
-position = Vector2(16.5, 15)
-shape = SubResource("RectangleShape2D_yaiwd")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1862404781]
+shape = SubResource("RectangleShape2D_a12lq")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1812584010]
+polygon = PackedVector2Array(0, -19, -32, 32, 32, 32)
 
 [connection signal="body_entered" from="Area2D" to="." method="on_body_entered"]

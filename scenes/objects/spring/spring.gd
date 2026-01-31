@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export_category("Children")
 ## The raycast node used for collision detection with an object above the spring.
 @export var ray_cast_2d: RayCast2D
+@export var sprite_2d: Sprite2D
 
 @export_category("Variables")
 ## The applied velocity to the player.
@@ -11,8 +12,29 @@ extends CharacterBody2D
 ## The debounce time on the spring (cooldown so we can't rapidly trigger it while overlapping).
 @export var spring_cooldown_seconds: float = 1.0
 
+const FRAME_POSITIONS := [0, 64, 128]
+const CYCLE_TIME := 0.5
+
 var _debounce_timer: float = 0.0
-var _is_active: bool = true
+var _is_enabled: bool = true
+var current_frame := 0
+var timer := 0.0
+
+func _ready() -> void:
+	sprite_2d.region_enabled = true
+	# Each instance starts at a different frame
+	current_frame = randi() % FRAME_POSITIONS.size()
+	_update_region()
+	
+func _process(delta: float) -> void:
+	timer += delta
+	if timer >= CYCLE_TIME:
+		timer -= CYCLE_TIME
+		current_frame = (current_frame + 1) % FRAME_POSITIONS.size()
+		_update_region()
+
+func _update_region() -> void:
+	sprite_2d.region_rect.position.x = FRAME_POSITIONS[current_frame]
 
 ## Executed every physics frame.
 func _physics_process(delta: float) -> void:
@@ -24,11 +46,15 @@ func _physics_process(delta: float) -> void:
 		var detected_collision: Object = ray_cast_2d.get_collider()
 		if detected_collision is Player:
 			if _debounce_timer == 0.0:
-				if _is_active:
+				if _is_enabled:
 					detected_collision.velocity.y -= applied_spring_velocity
 					_debounce_timer = spring_cooldown_seconds
 
-
-## Executed according to state of Keygroup.
+## Called by Keygroup when toggled.
 func _on_keygroup_toggled(state: bool) -> void:
-	_is_active = state
+	_is_enabled = state
+	
+	# Disable all collision shapes so player can walk through disabled springs
+	for child in get_children():
+		if child is CollisionShape2D or child is CollisionPolygon2D:
+			child.disabled = not state

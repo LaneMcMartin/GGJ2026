@@ -2,10 +2,23 @@
 
 [ext_resource type="Script" uid="uid://ssiak0cvnwsg" path="res://scripts/custom-classes/keygroup.gd" id="1_fjg3i"]
 [ext_resource type="TileSet" uid="uid://nvbusorob0c6" path="res://assets/tilesets/tileset.tres" id="2_3x8ql"]
-[ext_resource type="Script" uid="uid://bt8ibkyymyd37" path="res://scripts/custom-classes/palette_tile_map_layer.gd" id="3_82wim"]
+[ext_resource type="Shader" uid="uid://crjaf6ve1nb80" path="res://scripts/shaders/hue_shift.gdshader" id="2_82wim"]
+[ext_resource type="Script" path="res://scripts/custom-classes/palette_tile_map_layer.gd" id="3_82wim"]
 [ext_resource type="PackedScene" uid="uid://lssqn0ldesc" path="res://scenes/objects/spring/spring.tscn" id="4_gduew"]
 [ext_resource type="PackedScene" uid="uid://cp0bf0rdxvw1s" path="res://scenes/player/player.tscn" id="5_rqpvy"]
 [ext_resource type="PackedScene" uid="uid://cbeskhe10musv" path="res://scenes/objects/goal/goal.tscn" id="6_i1afa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gduew"]
+shader = ExtResource("2_82wim")
+shader_parameter/hue_shift = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rqpvy"]
+shader = ExtResource("2_82wim")
+shader_parameter/hue_shift = 0.65
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i1afa"]
+shader = ExtResource("2_82wim")
+shader_parameter/hue_shift = 0.35
 
 [node name="NicoTestClone" type="Node2D" unique_id=410265806]
 
@@ -15,10 +28,10 @@ metadata/_custom_type_script = "uid://ssiak0cvnwsg"
 
 [node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup1" unique_id=1515519611]
 modulate = Color(0.6, 0.6, 1, 1)
+material = SubResource("ShaderMaterial_gduew")
 tile_map_data = PackedByteArray("AAASAA0AAAAAAAAAAAARAA0AAAAAAAAAAAAQAA0AAAAAAAAAAAAPAA0AAAAAAAAAAAAOAA0AAAAAAAAAAAANAA0AAAAAAAAAAAAMAA0AAAAAAAAAAAALAAoAAAAAAAAAAAATAAoAAAAAAAAAAAA=")
 tile_set = ExtResource("2_3x8ql")
 script = ExtResource("3_82wim")
-metadata/_custom_type_script = "uid://bt8ibkyymyd37"
 
 [node name="Keygroup2" type="Node" parent="." unique_id=1523062697]
 script = ExtResource("1_fjg3i")
@@ -27,10 +40,10 @@ metadata/_custom_type_script = "uid://ssiak0cvnwsg"
 
 [node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup2" unique_id=122192405]
 modulate = Color(0.6, 1, 0.6, 1)
+material = SubResource("ShaderMaterial_rqpvy")
 tile_map_data = PackedByteArray("AAALAAsAAAAAAAAAAAAMAAsAAAAAAAAAAAANAAsAAAAAAAAAAAAOAAsAAAAAAAAAAAAPAAsAAAAAAAAAAAAQAAsAAAAAAAAAAAARAAsAAAAAAAAAAAASAAsAAAAAAAAAAAATAAsAAAAAAAAAAAALAAUAAAAAAAAAAAALAAYAAAAAAAAAAAALAAcAAAAAAAAAAAALAAgAAAAAAAAAAAAMAAUAAAAAAAAAAAANAAUAAAAAAAAAAAAOAAUAAAAAAAAAAAAPAAUAAAAAAAAAAAAQAAUAAAAAAAAAAAARAAUAAAAAAAAAAAASAAUAAAAAAAAAAAATAAUAAAAAAAAAAAATAAYAAAAAAAAAAAATAAcAAAAAAAAAAAATAAgAAAAAAAAAAAA=")
 tile_set = ExtResource("2_3x8ql")
 script = ExtResource("3_82wim")
-metadata/_custom_type_script = "uid://bt8ibkyymyd37"
 
 [node name="Keygroup3" type="Node" parent="." unique_id=95544490]
 script = ExtResource("1_fjg3i")
@@ -39,10 +52,10 @@ metadata/_custom_type_script = "uid://ssiak0cvnwsg"
 
 [node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup3" unique_id=799479854]
 modulate = Color(1, 0.6, 0.6, 1)
+material = SubResource("ShaderMaterial_i1afa")
 tile_map_data = PackedByteArray("AAALAAkAAAAAAAAAAAAMAAkAAAAAAAAAAAANAAkAAAAAAAAAAAAOAAkAAAAAAAAAAAAPAAkAAAAAAAAAAAAQAAkAAAAAAAAAAAARAAkAAAAAAAAAAAASAAkAAAAAAAAAAAATAAkAAAAAAAAAAAA=")
 tile_set = ExtResource("2_3x8ql")
 script = ExtResource("3_82wim")
-metadata/_custom_type_script = "uid://bt8ibkyymyd37"
 
 [node name="Spring" parent="Keygroup3" unique_id=449720975 instance=ExtResource("4_gduew")]
 position = Vector2(496, 432)
