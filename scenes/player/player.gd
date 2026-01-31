@@ -21,10 +21,10 @@ enum VerticalDirection {
 
 ## The movement states the player can be in.
 enum State {
-	WALKING, FALLING, SPRING, CLIMBING
+	WALKING, FALLING, SPRING, CLIMBING, WIN
 }
 var current_state: State = State.WALKING: set = set_state
-const STATE_ANIMATIONS: Array[String] = ["default", "air", "air", "climb"]
+const STATE_ANIMATIONS: Array[String] = ["default", "air", "air", "climb", "win"]
 
 @export_category("Movement")
 ## The horizontal movement speed in pixels per second.
@@ -228,7 +228,7 @@ func resume_climbing() -> void:
 	# Check if climbing up and there's a disabled ladder above.
 	if _climbing_vertical_direction == VerticalDirection.UP and ladder_above:
 		var collider_above = ray_cast_2d_ladder_up.get_collider()
-		if collider_above is Ladder and not collider_above.is_enabled():
+		if collider_above is Ladder and not collider_above._is_enabled():
 			stop_climbing()
 			return
 
@@ -240,3 +240,16 @@ func stop_climbing() -> void:
 	_current_direction = _climbing_exit_direction
 	update_sprite_direction()
 	current_state = State.WALKING
+
+## Enter special state where we win the level.
+func win_level() -> void:
+	# Stop movement and play animation.
+	_is_enabled = false
+	sprite.animation_finished.connect(_fade_out)
+	current_state = State.WIN
+
+## Helper for fading out after win and calling the signal.
+func _fade_out() -> void:
+	var tween: Tween = create_tween()
+	tween.tween_property(self, "modulate", Color(1, 1, 1, 0.1), 1.0)
+	tween.tween_callback(GameManager.level_complete.emit)

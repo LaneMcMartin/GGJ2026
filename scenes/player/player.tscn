@@ -12,6 +12,14 @@
 [ext_resource type="Texture2D" uid="uid://cswjxixj44fjm" path="res://scenes/player/sprite/0011.png" id="6_gx1jg"]
 [ext_resource type="Texture2D" uid="uid://dh7att0t28aet" path="res://scenes/player/sprite/0005.png" id="6_h17s1"]
 [ext_resource type="Texture2D" uid="uid://csh0slkya0al3" path="res://scenes/player/sprite/0012.png" id="7_ugbui"]
+[ext_resource type="Texture2D" uid="uid://bkd8pvw6icm0r" path="res://scenes/player/sprite/0021.png" id="13_8ydkj"]
+[ext_resource type="Texture2D" uid="uid://h1038h13kgnx" path="res://scenes/player/sprite/0014.png" id="13_lgqa7"]
+[ext_resource type="Texture2D" uid="uid://dts8kff2r7xbi" path="res://scenes/player/sprite/0015.png" id="14_8ydkj"]
+[ext_resource type="Texture2D" uid="uid://rlppkathouh1" path="res://scenes/player/sprite/0016.png" id="15_3j4b4"]
+[ext_resource type="Texture2D" uid="uid://c45jddi5kqgbf" path="res://scenes/player/sprite/0017.png" id="16_yj68g"]
+[ext_resource type="Texture2D" uid="uid://cfm4ixpg87qow" path="res://scenes/player/sprite/0018.png" id="17_ioxgp"]
+[ext_resource type="Texture2D" uid="uid://dwu7bnwqf6uu7" path="res://scenes/player/sprite/0019.png" id="18_cnsyf"]
+[ext_resource type="Texture2D" uid="uid://bvug406gif65g" path="res://scenes/player/sprite/0020.png" id="19_007i1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_75vfm"]
 animations = [{
@@ -68,6 +76,47 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_lgqa7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_8ydkj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_3j4b4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_yj68g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_ioxgp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_cnsyf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_007i1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_yj68g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_ioxgp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_cnsyf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_3j4b4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_8ydkj")
+}],
+"loop": false,
+"name": &"win",
+"speed": 10.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dovo2"]
@@ -90,8 +139,8 @@ sprite = NodePath("AnimatedSprite2D")
 texture_filter = 1
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_75vfm")
+animation = &"win"
 autoplay = "default"
-frame_progress = 0.9729303
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1025843108]

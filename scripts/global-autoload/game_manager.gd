@@ -4,10 +4,14 @@ extends Node
 ## Debug switch level back and forward with "[" and "]" keys.
 signal level_back
 signal level_forward
-## Reset level with "R" key
+## Reset level with "R" key.
 signal level_reset
 ## Handle escape based on the context
 signal escape_pressed
+## Completed level.
+signal level_complete
+## Started level.
+signal level_start
 
 func _ready() -> void:
 	SoundManager.play_music(preload("uid://c4glypdeg4xok"))

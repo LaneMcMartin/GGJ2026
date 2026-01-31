@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://g8pcw1cl25jd"]
+
+[ext_resource type="Shader" uid="uid://ojdqfeoj6mx6" path="res://scripts/shaders/transition.gdshader" id="1_wlg0m"]
+[ext_resource type="Script" uid="uid://bto4ighfiplek" path="res://scenes/transition/transition.gd" id="2_kg44o"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fc0e3"]
+shader = ExtResource("1_wlg0m")
+shader_parameter/use_sprite_alpha = true
+shader_parameter/use_transition_texture = false
+shader_parameter/transition_type = 3
+shader_parameter/position = Vector2(0.5, 0.5)
+shader_parameter/invert = false
+shader_parameter/grid_size = Vector2(1, 1)
+shader_parameter/rotation_angle = 0.0
+shader_parameter/stagger = Vector2(0, 0)
+shader_parameter/stagger_frequency = Vector2i(2, 2)
+shader_parameter/flip_frequency = Vector2i(1, 1)
+shader_parameter/basic_feather = 0.0
+shader_parameter/use_mask_size = false
+shader_parameter/mask_size = Vector2(100, 100)
+shader_parameter/edges = 6
+shader_parameter/shape_feather = 0.1
+shader_parameter/sectors = 1
+shader_parameter/clock_feather = 0.0
+shader_parameter/progress = 0.0
+shader_parameter/progress_bias = Vector2(0, 0)
+
+[node name="Transition" type="ColorRect" unique_id=439914581]
+material = SubResource("ShaderMaterial_fc0e3")
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
+script = ExtResource("2_kg44o")

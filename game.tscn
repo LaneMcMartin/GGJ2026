@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://xaybsfmwj67b" path="res://scripts/custom-classes/level_manager.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://mttabgteklwb" path="res://scenes/backgrounds/void/void_background.tscn" id="2_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://g8pcw1cl25jd" path="res://scenes/transition/transition.tscn" id="2_feb5d"]
 
 [node name="Game" type="Node2D" unique_id=2039852155]
 
@@ -10,6 +11,8 @@
 [node name="LevelManager" type="Node" parent="CanvasLayer" unique_id=20357430]
 script = ExtResource("1_80nbo")
 metadata/_custom_type_script = "uid://xaybsfmwj67b"
+
+[node name="Transition" parent="CanvasLayer" unique_id=439914581 instance=ExtResource("2_feb5d")]
 
 [node name="BackgroundManager" type="Control" parent="." unique_id=1444786819]
 layout_mode = 3

@@ -28,6 +28,7 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
-		var level_manager = get_tree().get_first_node_in_group("LevelManager")
-		if level_manager:
-			level_manager._on_goal_reached()
+		# Snap player to the exit.
+		body.win_level()
+		var tween: Tween = create_tween()
+		tween.tween_property(body, "global_position", self.global_position, 0.25)
