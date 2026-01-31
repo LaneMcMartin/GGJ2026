@@ -3,6 +3,75 @@
 [ext_resource type="Texture2D" uid="uid://bjr5jia74ty3m" path="res://scenes/title/font sample.png" id="1_5vtrw"]
 [ext_resource type="Script" uid="uid://c5xbp0xny2817" path="res://scenes/title/title_button.gd" id="2_ds13r"]
 [ext_resource type="Script" uid="uid://c48bvyqdns1l8" path="res://scenes/title/logo_tween.gd" id="2_gl121"]
+[ext_resource type="Script" uid="uid://ssiak0cvnwsg" path="res://scripts/custom-classes/keygroup.gd" id="4_4yl2o"]
+[ext_resource type="Shader" uid="uid://crjaf6ve1nb80" path="res://scripts/shaders/hue_shift.gdshader" id="5_awdk6"]
+[ext_resource type="PackedScene" uid="uid://buf77k6omvkkr" path="res://scenes/objects/spike/spike.tscn" id="6_7uqqr"]
+[ext_resource type="PackedScene" uid="uid://lssqn0ldesc" path="res://scenes/objects/spring/spring.tscn" id="7_784tc"]
+[ext_resource type="PackedScene" uid="uid://cbeskhe10musv" path="res://scenes/objects/goal/goal.tscn" id="8_rtgr4"]
+[ext_resource type="PackedScene" uid="uid://cnleki8tyyat2" path="res://scenes/objects/ladder/ladder.tscn" id="9_agu86"]
+[ext_resource type="Texture2D" uid="uid://dwsxfnd8qih7t" path="res://assets/tilesets/3d_tiles/3d_tiles_canvas_texture.tres" id="10_bjs8b"]
+[ext_resource type="Script" uid="uid://bt8ibkyymyd37" path="res://scripts/custom-classes/palette_tile_map_layer.gd" id="11_dawno"]
+[ext_resource type="Script" uid="uid://dfu4dbx3m51uj" path="res://scripts/custom-classes/area2d_tweener.gd" id="12_awdk6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xraam"]
+shader = ExtResource("5_awdk6")
+shader_parameter/hue_shift = 0.4850000230375
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_1cwff"]
+scenes/1/scene = ExtResource("6_7uqqr")
+scenes/2/scene = ExtResource("7_784tc")
+scenes/3/scene = ExtResource("8_rtgr4")
+scenes/4/scene = ExtResource("9_agu86")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hgyff"]
+texture = ExtResource("10_bjs8b")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+4:1/0 = 0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32)
+5:1/0 = 0
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, -32, 32)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+3:2/0 = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+4:2/0 = 0
+4:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(32, -32, 32, 32, -32, 32)
+5:2/0 = 0
+5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, 32, -32, 32)
+
+[sub_resource type="TileSet" id="TileSet_ucj5f"]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetAtlasSource_hgyff")
+sources/0 = SubResource("TileSetScenesCollectionSource_1cwff")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_awdk6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7uqqr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_784tc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rtgr4"]
 
 [node name="Title Screen" type="Control" unique_id=378913116]
 layout_mode = 3
@@ -11,6 +80,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1514527782]
 layout_mode = 1
@@ -68,6 +138,118 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("2_ds13r")
 
+[node name="Node2D" type="Node2D" parent="." unique_id=2112921621]
+
+[node name="Keygroup4" type="Node2D" parent="Node2D" unique_id=998367662]
+position = Vector2(541.47687, 1035.2703)
+rotation = -3.12763
+scale = Vector2(0.9999997, 0.9999997)
+script = ExtResource("4_4yl2o")
+metadata/_custom_type_script = "uid://ssiak0cvnwsg"
+
+[node name="PaletteTileMapLayer" type="TileMapLayer" parent="Node2D/Keygroup4" unique_id=258355292]
+material = SubResource("ShaderMaterial_xraam")
+position = Vector2(-1174.6577, 356.7058)
+rotation = -0.6719518
+scale = Vector2(2.5, 2.5)
+tile_map_data = PackedByteArray(0, 0, 255, 255, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_ucj5f")
+script = ExtResource("11_dawno")
+metadata/_custom_type_script = "uid://bt8ibkyymyd37"
+
+[node name="Area2DTweener" type="Area2D" parent="Node2D/Keygroup4/PaletteTileMapLayer" unique_id=1003439711]
+position = Vector2(-31.798313, 30.022495)
+script = ExtResource("12_awdk6")
+metadata/_custom_type_script = "uid://dfu4dbx3m51uj"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Keygroup4/PaletteTileMapLayer/Area2DTweener" unique_id=1892105935]
+position = Vector2(-1.2230549, 1.582447)
+shape = SubResource("RectangleShape2D_awdk6")
+
+[node name="Keygroup3" type="Node2D" parent="Node2D" unique_id=1315568713]
+position = Vector2(792, 245)
+rotation = 1.5777776
+scale = Vector2(0.9999999, 0.9999999)
+script = ExtResource("4_4yl2o")
+group_id = 3
+metadata/_custom_type_script = "uid://ssiak0cvnwsg"
+
+[node name="PaletteTileMapLayer" type="TileMapLayer" parent="Node2D/Keygroup3" unique_id=288399684]
+material = SubResource("ShaderMaterial_xraam")
+position = Vector2(549.8438, 262.16785)
+rotation = 0.3159046
+scale = Vector2(2, 2)
+tile_map_data = PackedByteArray(0, 0, 255, 255, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_ucj5f")
+script = ExtResource("11_dawno")
+metadata/_custom_type_script = "uid://bt8ibkyymyd37"
+
+[node name="Area2DTweener" type="Area2D" parent="Node2D/Keygroup3/PaletteTileMapLayer" unique_id=1498180939]
+position = Vector2(-31.798313, 30.022495)
+script = ExtResource("12_awdk6")
+metadata/_custom_type_script = "uid://dfu4dbx3m51uj"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Keygroup3/PaletteTileMapLayer/Area2DTweener" unique_id=1116412956]
+position = Vector2(-1.2230549, 1.582447)
+shape = SubResource("RectangleShape2D_7uqqr")
+
+[node name="Keygroup2" type="Node2D" parent="Node2D" unique_id=546185760]
+rotation = 0.7888888
+scale = Vector2(0.99999994, 0.99999994)
+script = ExtResource("4_4yl2o")
+group_id = 2
+metadata/_custom_type_script = "uid://ssiak0cvnwsg"
+
+[node name="PaletteTileMapLayer" type="TileMapLayer" parent="Node2D/Keygroup2" unique_id=2012647459]
+material = SubResource("ShaderMaterial_xraam")
+position = Vector2(946.0316, 381.36618)
+rotation = 0.43458697
+scale = Vector2(4, 4)
+tile_map_data = PackedByteArray(0, 0, 255, 255, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_ucj5f")
+script = ExtResource("11_dawno")
+metadata/_custom_type_script = "uid://bt8ibkyymyd37"
+
+[node name="Area2DTweener" type="Area2D" parent="Node2D/Keygroup2/PaletteTileMapLayer" unique_id=343992928]
+position = Vector2(-31.798313, 30.022495)
+script = ExtResource("12_awdk6")
+metadata/_custom_type_script = "uid://dfu4dbx3m51uj"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Keygroup2/PaletteTileMapLayer/Area2DTweener" unique_id=356336879]
+position = Vector2(-1.2230549, 1.582447)
+shape = SubResource("RectangleShape2D_784tc")
+
+[node name="Keygroup" type="Node2D" parent="Node2D" unique_id=954466620]
+rotation = 0.3944444
+script = ExtResource("4_4yl2o")
+metadata/_custom_type_script = "uid://ssiak0cvnwsg"
+
+[node name="PaletteTileMapLayer" type="TileMapLayer" parent="Node2D/Keygroup" unique_id=773790144]
+material = SubResource("ShaderMaterial_xraam")
+position = Vector2(1837.5935, 63.71399)
+scale = Vector2(4.25, 4.25)
+tile_map_data = PackedByteArray(0, 0, 255, 255, 0, 0, 1, 0, 2, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_ucj5f")
+script = ExtResource("11_dawno")
+metadata/_custom_type_script = "uid://bt8ibkyymyd37"
+
+[node name="Area2DTweener" type="Area2D" parent="Node2D/Keygroup/PaletteTileMapLayer" unique_id=1924190980]
+position = Vector2(-31.798313, 30.022495)
+script = ExtResource("12_awdk6")
+metadata/_custom_type_script = "uid://dfu4dbx3m51uj"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Keygroup/PaletteTileMapLayer/Area2DTweener" unique_id=937619467]
+position = Vector2(-1.2230549, 1.582447)
+shape = SubResource("RectangleShape2D_rtgr4")
+
 [connection signal="mouse_entered" from="MarginContainer/VBoxContainer/Logo" to="MarginContainer/VBoxContainer/Logo" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MarginContainer/VBoxContainer/Logo" to="MarginContainer/VBoxContainer/Logo" method="_on_mouse_exited"]
 [connection signal="start_pressed" from="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Start" to="MarginContainer/VBoxContainer/Logo" method="_on_title_button_pressed"]
+[connection signal="mouse_entered" from="Node2D/Keygroup4/PaletteTileMapLayer/Area2DTweener" to="Node2D/Keygroup4/PaletteTileMapLayer/Area2DTweener" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Node2D/Keygroup4/PaletteTileMapLayer/Area2DTweener" to="Node2D/Keygroup4/PaletteTileMapLayer/Area2DTweener" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Node2D/Keygroup3/PaletteTileMapLayer/Area2DTweener" to="Node2D/Keygroup3/PaletteTileMapLayer/Area2DTweener" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Node2D/Keygroup3/PaletteTileMapLayer/Area2DTweener" to="Node2D/Keygroup3/PaletteTileMapLayer/Area2DTweener" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Node2D/Keygroup2/PaletteTileMapLayer/Area2DTweener" to="Node2D/Keygroup2/PaletteTileMapLayer/Area2DTweener" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Node2D/Keygroup2/PaletteTileMapLayer/Area2DTweener" to="Node2D/Keygroup2/PaletteTileMapLayer/Area2DTweener" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Node2D/Keygroup/PaletteTileMapLayer/Area2DTweener" to="Node2D/Keygroup/PaletteTileMapLayer/Area2DTweener" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Node2D/Keygroup/PaletteTileMapLayer/Area2DTweener" to="Node2D/Keygroup/PaletteTileMapLayer/Area2DTweener" method="_on_mouse_exited"]
