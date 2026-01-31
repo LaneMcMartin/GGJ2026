@@ -24,6 +24,7 @@ enum State {
 	WALKING, FALLING, SPRING, CLIMBING
 }
 var current_state: State = State.WALKING: set = set_state
+const STATE_ANIMATIONS: Array[String] = ["default", "air", "air", "default"]
 
 @export_category("Movement")
 ## The horizontal movement speed in pixels per second.
@@ -132,6 +133,9 @@ func set_state(new_state: State) -> bool:
 	
 	# Actually set the state.
 	current_state = new_state
+	
+	# Play new aniamtion.
+	sprite.play(STATE_ANIMATIONS[current_state])
 	return true
 	
 

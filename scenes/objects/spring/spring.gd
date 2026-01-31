@@ -68,6 +68,7 @@ func _physics_process(delta: float) -> void:
 			if _debounce_timer == 0.0:
 				if _is_enabled:
 					detected_collision.velocity.y -= applied_spring_velocity
+					detected_collision.current_state = Player.State.SPRING
 					_debounce_timer = spring_cooldown_seconds
 
 ## Called by Keygroup when toggled.
