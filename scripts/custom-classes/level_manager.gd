@@ -5,12 +5,13 @@ extends Node
 
 const LEVEL_DIRECTORY: String = "res://scenes/levels/"
 const level_order: Array[String] = [
-	# "_tutorial-1",
-	# "_tutorial-2",
-	# "_tutorial-3",
-	# "_tutorial-4",
-	# "_tutorial-5",
+	"_tutorial-1",
+	"_tutorial-2",
+	"_tutorial-3",
+	"_tutorial-4",
+	"_tutorial-5",
 	"_tutorial-6",
+	"_tutorial-falling-spring",
 	"_tutorial-7",
 ]
 
