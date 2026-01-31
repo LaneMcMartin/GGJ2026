@@ -26,7 +26,6 @@ var _transition: ColorRect = null
 var _pending_level_index: int = -1
 var _players: Array[Player] = []
 var _goals_reached: int = 0
-var _winning_players: Array[Player] = []
 
 func _ready() -> void:
 	# Add to LevelManager group so goals can find us
@@ -75,7 +74,6 @@ func _load_level(level_index: int, skip_transition: bool = false) -> void:
 	
 	# Reset win tracking.
 	_goals_reached = 0
-	_winning_players.clear()
 	
 	# Find all players in the level.
 	_players.clear()
@@ -93,7 +91,8 @@ func _load_level(level_index: int, skip_transition: bool = false) -> void:
 	else:
 		# Disable player until countdown finishes, then open the transition.
 		for player in _players:
-			player._is_enabled = false
+			if player: # null check for array elements
+				player._is_enabled = false
 		_transition.open_transition()
 
 ## Called when the close transition finishes (screen is fully covered).
@@ -119,7 +118,7 @@ func _start_countdown() -> void:
 ## Called when countdown finishes - enable the player and start the level.
 func _on_countdown_finished() -> void:
 	for player in _players:
-		if player:
+		if player: # null check for array elements
 			player._is_enabled = true
 	GameManager.level_start.emit()
 	
@@ -134,9 +133,8 @@ func _connect_player_deaths() -> void:
 
 ## Called when a player reaches any goal.
 func on_player_reached_goal(player: Player, _goal: Node2D) -> void:
-	# Increment counter and track this player.
+	# Increment counter.
 	_goals_reached += 1
-	_winning_players.append(player)
 	
 	# Check if all players have reached a goal.
 	if _goals_reached >= _players.size():
@@ -175,7 +173,7 @@ func _on_tileset_toggled(tileset) -> void:
 func does_player_collide_with_layer(tileset: PaletteTileMapLayer) -> bool:
 	# Check if any player collides with the toggled tileset.
 	for player in _players:
-		if not player:
+		if not player: # null check for array elements
 			continue
 		
 		# Get player's position in tilemap coordinates.
