@@ -25,11 +25,11 @@ shader_parameter/swirl_amount = 0.2000000095
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qna4e"]
 shader = ExtResource("3_dtf2f")
-shader_parameter/hue_shift = 0.0
+shader_parameter/hue_shift = 0.2000000095
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_70dbq"]
 shader = ExtResource("3_dtf2f")
-shader_parameter/hue_shift = 0.650000030875
+shader_parameter/hue_shift = 0.90000004275
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1sxgt"]
 shader = ExtResource("3_dtf2f")
@@ -37,7 +37,7 @@ shader_parameter/hue_shift = 0.350000016625
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x5uvs"]
 shader = ExtResource("7_dtf2f")
-shader_parameter/lod = 0.50000002375
+shader_parameter/lod = 0.726000034485
 
 [node name="VoidBackground" type="Control" unique_id=129865862 node_paths=PackedStringArray("bg_l_1", "bg_l_2", "bg_l_3")]
 layout_mode = 3
@@ -66,7 +66,7 @@ grow_vertical = 2
 layer = 0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer" unique_id=1718784985]
-color = Color(0.8796667, 0.81, 1, 1)
+color = Color(0.849722, 0.8417878, 0.8945391, 1)
 
 [node name="BG_L1" type="Sprite2D" parent="CanvasLayer/CanvasModulate" unique_id=1015574324]
 material = SubResource("ShaderMaterial_qna4e")

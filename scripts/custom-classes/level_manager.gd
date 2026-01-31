@@ -45,7 +45,7 @@ func _load_level(level_index: int) -> void:
 	if _current_level != null:
 		_current_level.queue_free()
 	
-	# Load the new one and conenct to the goal. Failsafe if the level index is out of range.
+	# Load the new one and connect to the goal. Failsafe if the level index is out of range.
 	if (level_index >= level_order.size()) or (level_index < 0):
 		_current_level_index = 0
 	else:
