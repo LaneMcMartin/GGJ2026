@@ -20,6 +20,7 @@ extends CharacterBody2D
 
 const FRAME_POSITIONS := [0, 64, 128]
 const CYCLE_TIME := 0.5
+const SPRING_FX = preload("uid://d01cqd7erptys")
 
 var _debounce_timer: float = 0.0
 var _is_enabled: bool = true
@@ -69,6 +70,7 @@ func _physics_process(delta: float) -> void:
 				if _is_enabled:
 					detected_collision.velocity.y -= applied_spring_velocity
 					detected_collision.current_state = Player.State.SPRING
+					SoundManager.play_sound_with_pitch(SPRING_FX, randf_range(0.9, 1.1))
 					_debounce_timer = spring_cooldown_seconds
 
 ## Called by Keygroup when toggled.

@@ -26,6 +26,8 @@ enum State {
 var current_state: State = State.WALKING: set = set_state
 const STATE_ANIMATIONS: Array[String] = ["default", "air", "air", "climb", "win"]
 
+const LEVEL_CLEAR_FX = preload("uid://b1few3okeb6gx")
+
 @export_category("Movement")
 ## The horizontal movement speed in pixels per second.
 @export_range(50.0, 250.0, 10.0) var speed: float = 200.0
@@ -133,6 +135,11 @@ func set_state(new_state: State) -> bool:
 	
 	# Actually set the state.
 	current_state = new_state
+	
+	# Conditional per-state stuff.
+	if current_state == State.WIN:
+		# Play sound.
+		SoundManager.play_sound(LEVEL_CLEAR_FX)
 	
 	# Play new aniamtion.
 	sprite.play(STATE_ANIMATIONS[current_state])
