@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://dibgftuqytt5g"]
+
+[ext_resource type="Script" uid="uid://dlofvpck60g2u" path="res://scenes/objects/one_way_platform/one_way_platform.gd" id="1_2kljv"]
+[ext_resource type="Texture2D" uid="uid://bsgax6rjn2jdh" path="res://scenes/objects/one_way_platform/oneway_color.png" id="1_b104c"]
+[ext_resource type="Texture2D" uid="uid://cw3xvvln3tyon" path="res://scenes/objects/one_way_platform/oneway_normal.png" id="2_2kljv"]
+[ext_resource type="Script" uid="uid://cjjlkmrc4srxy" path="res://scripts/custom-classes/canvas_sprite_2d.gd" id="4_u2qoo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dgfjy"]
+size = Vector2(64, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_180sp"]
+size = Vector2(64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2qoo"]
+atlas = ExtResource("1_b104c")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_isadf"]
+atlas = ExtResource("2_2kljv")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_qe2tl"]
+diffuse_texture = SubResource("AtlasTexture_u2qoo")
+normal_texture = SubResource("AtlasTexture_isadf")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qe2tl"]
+atlas = ExtResource("1_b104c")
+region = Rect2(0, 0, 64, 64)
+
+[node name="OneWayPlatform" type="StaticBody2D" unique_id=1765243923 node_paths=PackedStringArray("area_2d", "canvas_sprite_2d", "preview_sprite")]
+script = ExtResource("1_2kljv")
+area_2d = NodePath("Area2D")
+canvas_sprite_2d = NodePath("CanvasSprite2D")
+preview_sprite = NodePath("PreviewSprite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=707586650]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_dgfjy")
+one_way_collision = true
+one_way_collision_margin = 4.0
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1731946717]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1169855413]
+position = Vector2(0, -24)
+shape = SubResource("RectangleShape2D_180sp")
+
+[node name="CanvasSprite2D" type="Sprite2D" parent="." unique_id=516808384]
+visible = false
+position = Vector2(0, -50)
+texture = SubResource("CanvasTexture_qe2tl")
+region_enabled = true
+region_rect = Rect2(0, 0, 64, 64)
+script = ExtResource("4_u2qoo")
+number_of_frames = 5
+time_per_frame = 0.1
+loop = false
+
+[node name="PreviewSprite" type="Sprite2D" parent="." unique_id=1113032188]
+position = Vector2(0, -50)
+texture = SubResource("AtlasTexture_qe2tl")
