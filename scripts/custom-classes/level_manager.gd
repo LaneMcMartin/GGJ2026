@@ -100,4 +100,3 @@ func does_player_collide_with_layer(tileset: PaletteTileMapLayer) -> bool:
 			return true
 	
 	return false
-	

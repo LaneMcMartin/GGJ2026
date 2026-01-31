@@ -5,19 +5,10 @@ extends StaticBody2D
 
 @export var area_2d: Area2D
 @export var canvas_sprite_2d: CanvasSprite2D
-@export var preview_sprite: Sprite2D
 
 func _ready() -> void:
 	area_2d.body_entered.connect(_on_body_entered)
 	area_2d.body_exited.connect(_on_body_exited)
-	
-	# Use the preview sprite if in editor.
-	if Engine.is_editor_hint():
-		canvas_sprite_2d.hide()
-		preview_sprite.show()
-	else:
-		canvas_sprite_2d.show()
-		preview_sprite.hide()
 	
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
