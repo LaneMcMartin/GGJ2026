@@ -13,7 +13,6 @@ func _on_mouse_enter() -> void:
 	hovered_element.pivot_offset = hovered_element.size / 2
 	hovered_element_scale = hovered_element.scale
 	hovered_element_position = hovered_element.position
-	print("1", hovered_element_position,hovered_element.position)
 	element_tween = create_tween().set_ease(Tween.EASE_OUT)
 	element_tween.set_trans(Tween.TRANS_ELASTIC)
 	element_tween.tween_property(hovered_element, "scale", Vector2(hovered_element_scale.x * 1.15, hovered_element_scale.y * 1.15), 0.25)

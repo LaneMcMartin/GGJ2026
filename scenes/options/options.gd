@@ -8,11 +8,11 @@ var hovered_element: Control
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Pause menu
-	if show_unpause_button:
-		GameManager.escape_pressed.connect(_unpause)
-	# Options screen
-	else:
-		GameManager.escape_pressed.connect(_exit_to_title)
+	#if show_unpause_button:
+		#GameManager.escape_pressed.connect(_unpause)
+	## Options screen
+	#else:
+		#GameManager.escape_pressed.connect(_exit_to_title)
 		
 	find_child("Unpause").visible = show_unpause_button
 	if !show_unpause_button:
@@ -23,8 +23,8 @@ func _exit_to_title() -> void:
 	get_tree().change_scene_to_file("res://scenes/title/title.tscn")
 	
 func _unpause() -> void:		
-	queue_free()
 	get_tree().paused = false
+	queue_free()
 
 func _on_music_volume_slider_value_changed(value: float) -> void:
 	SoundManager.set_music_volume(value)
@@ -42,3 +42,14 @@ func _on_mouse_enter() -> void:
 func _on_mouse_leave() -> void:
 	if element_tween: element_tween.kill()
 	hovered_element.scale = Vector2(1.0, 1.0)
+	
+func _input(event: InputEvent) -> void:
+	var key := event as InputEventKey
+	if key and key.pressed and not key.echo:
+		if key.keycode == KEY_ESCAPE:
+			get_viewport().set_input_as_handled() 
+			if show_unpause_button:
+				_unpause()
+			# Options screen
+			else:
+				_exit_to_title()
