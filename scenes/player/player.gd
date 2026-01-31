@@ -64,6 +64,10 @@ var _climbing_exit_direction: Direction = Direction.RIGHT
 var _climbing_vertical_direction: VerticalDirection = VerticalDirection.UP
 
 
+func get_current_direction() -> Direction:
+	return _current_direction
+
+
 func _ready() -> void:
 	_current_direction = starting_direction
 	floor_snap_length = 32.0
