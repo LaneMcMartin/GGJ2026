@@ -3,6 +3,7 @@
 class_name LevelManager
 extends Node
 
+const LEVEL_CLEAR_FX = preload("uid://b1few3okeb6gx")
 const LEVEL_DIRECTORY: String = "res://scenes/levels/"
 const level_order: Array[String] = [
 	"_tutorial-1",
@@ -128,7 +129,8 @@ func _reset_level() -> void:
 func _connect_player_deaths() -> void:
 	for player in _players:
 		if player and player.has_signal("player_died"):
-			player.player_died.connect(_reset_level)
+			if not player.player_died.is_connected(_reset_level):
+				player.player_died.connect(_reset_level)
 
 ## Called when a player reaches any goal.
 func on_player_reached_goal(player: Player, _goal: Node2D) -> void:
@@ -142,6 +144,9 @@ func on_player_reached_goal(player: Player, _goal: Node2D) -> void:
 
 ## Called when all players have reached goals - triggers final win sequence.
 func _all_players_won() -> void:
+	# Play level clear sound.
+	SoundManager.play_sound(LEVEL_CLEAR_FX)
+	
 	# Wait for fade animations to complete (~2.2 seconds: 1.2s win anim + 1s fade).
 	await get_tree().create_timer(2.2).timeout
 	
