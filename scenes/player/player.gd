@@ -181,6 +181,10 @@ func start_climbing(exit_direction: Direction, ladder_x: float) -> void:
 
 	# Set exit direction.
 	_climbing_exit_direction = exit_direction
+	
+	# Face the exit direction so player knows which way they'll exit.
+	_current_direction = exit_direction
+	update_sprite_direction()
 
 	# Figure out if we are going up or down based on which direction has more ladder.
 	var up_collision: Object = ray_cast_2d_ladder_up.get_collider()
