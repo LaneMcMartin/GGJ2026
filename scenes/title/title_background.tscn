@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://b5y6knc366bb8"]
+
+[ext_resource type="Texture2D" uid="uid://6olqmyy5tsgj" path="res://scenes/title/frames/tile000.png" id="1_alk6o"]
+[ext_resource type="Texture2D" uid="uid://th8ikppol53e" path="res://scenes/title/frames/tile001.png" id="2_54j4w"]
+[ext_resource type="Texture2D" uid="uid://isuko7wxjqkl" path="res://scenes/title/frames/tile002.png" id="3_qo0nh"]
+[ext_resource type="Texture2D" uid="uid://cjlol64tkav33" path="res://scenes/title/frames/tile003.png" id="4_5w42k"]
+[ext_resource type="Texture2D" uid="uid://bg1oflbdrd75d" path="res://scenes/title/frames/tile004.png" id="5_cd7hg"]
+[ext_resource type="Texture2D" uid="uid://v3i5gm4j0r4v" path="res://scenes/title/frames/tile005.png" id="6_qspjw"]
+[ext_resource type="Texture2D" uid="uid://y2ljjifdd4n7" path="res://scenes/title/frames/tile006.png" id="7_rqwt5"]
+[ext_resource type="Texture2D" uid="uid://cn5kdc5gpb6vu" path="res://scenes/title/frames/tile007.png" id="8_acvli"]
+[ext_resource type="Texture2D" uid="uid://t5slm0a84irh" path="res://scenes/title/frames/tile008.png" id="9_vvqq3"]
+[ext_resource type="Texture2D" uid="uid://dm358vudw7bln" path="res://scenes/title/frames/tile009.png" id="10_g07ly"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c7od3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_alk6o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_54j4w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qo0nh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_5w42k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_cd7hg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_qspjw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_rqwt5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_acvli")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_vvqq3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_g07ly")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="Title Background" type="AnimatedSprite2D" unique_id=1148979379]
+z_index = -1
+sprite_frames = SubResource("SpriteFrames_c7od3")
+autoplay = "default"
+frame_progress = 0.9099952
+centered = false

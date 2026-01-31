@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d1bfdk3jjcj1q" path="res://scenes/options/shaders.png" id="4_bcrey"]
 [ext_resource type="Theme" uid="uid://3cs1r4p0rltc" path="res://assets/themes/invisible_button.tres" id="5_g56r3"]
 [ext_resource type="Texture2D" uid="uid://bcfrb24n5gbhi" path="res://scenes/options/exit.png" id="6_f2ajo"]
+[ext_resource type="PackedScene" uid="uid://b5y6knc366bb8" path="res://scenes/title/title_background.tscn" id="7_f2ajo"]
 
 [node name="Options" type="Control" unique_id=1889841919]
 layout_mode = 3
@@ -71,24 +72,28 @@ step = 0.01
 [node name="Enable Shaders" type="HBoxContainer" parent="MarginContainer/Button Container" unique_id=932044254]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+size_flags_vertical = 4
 theme_override_constants/separation = 4
 
 [node name="Enable Shaders Font" type="TextureRect" parent="MarginContainer/Button Container/Enable Shaders" unique_id=2033958027]
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource("4_bcrey")
-expand_mode = 3
+expand_mode = 5
+stretch_mode = 5
 
 [node name="Enable Shaders Check" type="CheckBox" parent="MarginContainer/Button Container/Enable Shaders" unique_id=367317184]
-custom_minimum_size = Vector2(100, 100)
+custom_minimum_size = Vector2(20, 100)
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Button Container" unique_id=977032604]
+[node name="Back" type="MarginContainer" parent="MarginContainer/Button Container" unique_id=977032604]
 layout_mode = 2
 theme_override_constants/margin_top = 30
 
-[node name="Exit game" type="Button" parent="MarginContainer/Button Container/MarginContainer" unique_id=2034654639]
+[node name="Close menu" type="Button" parent="MarginContainer/Button Container/Back" unique_id=2034654639]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -97,12 +102,36 @@ icon = ExtResource("6_f2ajo")
 icon_alignment = 1
 expand_icon = true
 
+[node name="Quit Game" type="MarginContainer" parent="MarginContainer/Button Container" unique_id=1925582543]
+layout_mode = 2
+theme_override_constants/margin_top = 30
+
+[node name="Quit game" type="Button" parent="MarginContainer/Button Container/Quit Game" unique_id=789500337]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("5_g56r3")
+icon = ExtResource("6_f2ajo")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Title Background" parent="." unique_id=1148979379 instance=ExtResource("7_f2ajo")]
+
+[connection signal="mouse_entered" from="MarginContainer/Button Container/Music Volume/Music font" to="." method="_on_mouse_enter"]
+[connection signal="mouse_exited" from="MarginContainer/Button Container/Music Volume/Music font" to="." method="_on_mouse_leave"]
 [connection signal="mouse_entered" from="MarginContainer/Button Container/Music Volume/Music Volume Slider" to="." method="_on_mouse_enter"]
 [connection signal="mouse_exited" from="MarginContainer/Button Container/Music Volume/Music Volume Slider" to="." method="_on_mouse_leave"]
 [connection signal="value_changed" from="MarginContainer/Button Container/Music Volume/Music Volume Slider" to="." method="_on_music_volume_slider_value_changed"]
+[connection signal="mouse_entered" from="MarginContainer/Button Container/SFX Volume/SFX font" to="." method="_on_mouse_enter"]
+[connection signal="mouse_exited" from="MarginContainer/Button Container/SFX Volume/SFX font" to="." method="_on_mouse_leave"]
 [connection signal="mouse_entered" from="MarginContainer/Button Container/SFX Volume/SFX Volume Slider" to="." method="_on_mouse_enter"]
 [connection signal="mouse_exited" from="MarginContainer/Button Container/SFX Volume/SFX Volume Slider" to="." method="_on_mouse_leave"]
 [connection signal="value_changed" from="MarginContainer/Button Container/SFX Volume/SFX Volume Slider" to="." method="_on_sfx_volume_slider_value_changed"]
-[connection signal="mouse_entered" from="MarginContainer/Button Container/MarginContainer/Exit game" to="." method="_on_mouse_enter"]
-[connection signal="mouse_exited" from="MarginContainer/Button Container/MarginContainer/Exit game" to="." method="_on_mouse_leave"]
-[connection signal="pressed" from="MarginContainer/Button Container/MarginContainer/Exit game" to="." method="_on_exit_game_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/Button Container/Enable Shaders/Enable Shaders Font" to="." method="_on_mouse_enter"]
+[connection signal="mouse_exited" from="MarginContainer/Button Container/Enable Shaders/Enable Shaders Font" to="." method="_on_mouse_leave"]
+[connection signal="mouse_entered" from="MarginContainer/Button Container/Back/Close menu" to="." method="_on_mouse_enter"]
+[connection signal="mouse_exited" from="MarginContainer/Button Container/Back/Close menu" to="." method="_on_mouse_leave"]
+[connection signal="pressed" from="MarginContainer/Button Container/Back/Close menu" to="." method="_on_exit_game_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/Button Container/Quit Game/Quit game" to="." method="_on_mouse_enter"]
+[connection signal="mouse_exited" from="MarginContainer/Button Container/Quit Game/Quit game" to="." method="_on_mouse_leave"]
+[connection signal="pressed" from="MarginContainer/Button Container/Quit Game/Quit game" to="." method="_on_exit_game_pressed"]

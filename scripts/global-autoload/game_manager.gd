@@ -6,6 +6,8 @@ signal level_back
 signal level_forward
 ## Reset level with "R" key
 signal level_reset
+## Handle escape based on the context
+signal escape_pressed
 
 func _ready() -> void:
 	SoundManager.play_music(preload("uid://c4glypdeg4xok"))
@@ -19,3 +21,5 @@ func _unhandled_input(event: InputEvent) -> void:
 			level_forward.emit()
 		elif key.keycode == KEY_R:
 			level_reset.emit()
+		elif key.keycode == KEY_ESCAPE:
+			escape_pressed.emit()

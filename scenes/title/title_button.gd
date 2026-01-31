@@ -3,8 +3,6 @@ extends Button
 var tween: Tween
 
 signal start_pressed
-signal options_pressed
-signal credits_pressed
 
 func _ready() -> void:
 	pivot_offset = size * Vector2(0.5, 1.0)
@@ -28,14 +26,7 @@ func _on_mouse_enter() -> void:
 	tween.set_trans(Tween.TRANS_ELASTIC)
 	tween.tween_property(self, "scale", Vector2(1.15, 1.15), 0.25)
 	
-func _on_button_down() -> void:
-	if self.name == "Start":
-		start_pressed.emit()
-	elif self.name == "Options":
-		options_pressed.emit()
-	elif self.name == "Credits":
-		credits_pressed.emit()
-		
+func _tween_button() -> void:
 	self.disabled = true
 	pivot_offset = size / 2
 	tween.set_trans(Tween.TRANS_ELASTIC)
@@ -45,6 +36,7 @@ func _on_button_down() -> void:
 	
 	await tween.finished
 	
+func _fade_to_black() -> void:
 	# Create a fade overlay
 	var fade = ColorRect.new()
 	fade.color = Color.BLACK
@@ -58,15 +50,25 @@ func _on_button_down() -> void:
 	
 	await fade_tween.finished
 	
+func _on_button_down() -> void:
+	if self.name == "Start":
+		start_pressed.emit()
+		await _tween_button()
+		await _fade_to_black()
+	elif self.name == "Options":
+		_tween_button()
+	elif self.name == "Credits":
+		_tween_button()
+	
 	_execute_on_click()
 
-# TODO: Hook up these buttons
 func _execute_on_click() -> void:
 	var level_manager = get_tree().get_first_node_in_group("LevelManager")
 	if self.name == "Start":
 		get_tree().change_scene_to_file("res://game.tscn")
 	elif self.name == "Options":
-		options_pressed.emit()
+		get_tree().change_scene_to_file("res://scenes/options/options.tscn")
 	elif self.name == "Credits":
-		credits_pressed.emit()
+		get_tree().change_scene_to_file("res://scenes/credits/credits.tscn")
+
 	

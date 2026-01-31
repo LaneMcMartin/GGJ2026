@@ -25,7 +25,6 @@ func _on_mouse_exited() -> void:
 	
 # Exaggerate the logo when an option is selected
 func _on_title_button_pressed() -> void:
-	print("START PRESSED")
 	var click_tween = create_tween().set_ease(Tween.EASE_OUT)
 	click_tween.set_trans(Tween.TRANS_ELASTIC)
 	click_tween.tween_property(self, "scale", Vector2(1.3, 1.3), 0.2)

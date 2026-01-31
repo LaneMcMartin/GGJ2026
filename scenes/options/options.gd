@@ -3,9 +3,14 @@ extends Control
 var element_tween: Tween
 var hovered_element: Control
 
+@export var show_quit_button: bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	GameManager.escape_pressed.connect(_on_exit_game_pressed)
+	find_child("Quit game").visible = show_quit_button
+	if !show_quit_button:
+		get_node("MarginContainer").add_theme_constant_override("margin_top", 350)
 
 func _on_exit_game_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/title/title.tscn")
