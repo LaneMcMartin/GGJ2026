@@ -12,6 +12,12 @@ extends CharacterBody2D
 ## The debounce time on the spring (cooldown so we can't rapidly trigger it while overlapping).
 @export var spring_cooldown_seconds: float = 1.0
 
+@export_category("Physics")
+## Gravity strength in pixels per second squared.
+@export var gravity: float = 1500.0
+## Maximum fall speed to prevent infinite acceleration.
+@export var max_fall_speed: float = 1500.0
+
 const FRAME_POSITIONS := [0, 64, 128]
 const CYCLE_TIME := 0.5
 
@@ -38,6 +44,13 @@ func _update_region() -> void:
 
 ## Executed every physics frame.
 func _physics_process(delta: float) -> void:
+	if (_is_enabled):
+		# Apply gravity
+		velocity.y += gravity * delta
+		velocity.y = minf(velocity.y, max_fall_speed)
+		# Move and slide to handle physics and collisions
+		move_and_slide()
+	
 	# Subtract delta time from the timer.
 	_debounce_timer = clampf(_debounce_timer - delta, 0.0, spring_cooldown_seconds)
 	
