@@ -6,16 +6,16 @@ extends Node
 const LEVEL_CLEAR_FX = preload("uid://b1few3okeb6gx")
 const LEVEL_DIRECTORY: String = "res://scenes/levels/"
 const level_order: Array[String] = [
-	# "level-1.1-toggling",
-	# "level-2.1-spikes",
-	# "level-3.1-springs",
-	# "level-3.2-springs-with-spikes",
-	# "level-3.3-falling-spring",
-	# "level-4.1-ladders",
-	# "level-4.2-ladders-with-spikes",
-	# "level-4.3-ladder-and-trampoline",
-	# "level-5.1-two-players",
-	# "level-5.2-two-players-harder",
+	"level-1.1-toggling",
+	"level-2.1-spikes",
+	"level-3.1-springs",
+	"level-3.2-springs-with-spikes",
+	"level-3.3-falling-spring",
+	"level-4.1-ladders",
+	"level-4.2-ladders-with-spikes",
+	"level-4.3-ladder-and-trampoline",
+	"level-5.1-two-players",
+	"level-5.2-two-players-harder",
 	"level-5.3-where-we-droppin"
 
 ]
