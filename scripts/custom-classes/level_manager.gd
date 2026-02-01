@@ -3,6 +3,7 @@
 class_name LevelManager
 extends Node
 
+const LEVEL_CLEAR_FX = preload("uid://b1few3okeb6gx")
 const LEVEL_DIRECTORY: String = "res://scenes/levels/"
 const level_order: Array[String] = [
 	"_tutorial-1",
@@ -13,6 +14,7 @@ const level_order: Array[String] = [
 	"_tutorial-6",
 	"_tutorial-falling-spring",
 	"_tutorial-7",
+	"_tutorial-8-multi-characters",
 ]
 
 ## Duration of the countdown before level starts (in seconds).
@@ -20,9 +22,10 @@ const COUNTDOWN_DURATION: float = 2.0
 
 var _current_level_index: int = 0
 var _current_level: Node2D = null
-var _player: Player = null
 var _transition: ColorRect = null
 var _pending_level_index: int = -1
+var _players: Array[Player] = []
+var _goals_reached: int = 0
 
 func _ready() -> void:
 	# Add to LevelManager group so goals can find us
@@ -68,10 +71,18 @@ func _load_level(level_index: int, skip_transition: bool = false) -> void:
 		_current_level_index = level_index
 	_current_level = load(LEVEL_DIRECTORY + level_order[_current_level_index] + ".tscn").instantiate()
 	self.add_child(_current_level)
-
-	_player = _current_level.get_node("Player")
-
-	_connect_player_death()
+	
+	# Reset win tracking.
+	_goals_reached = 0
+	
+	# Find all players in the level.
+	_players.clear()
+	await get_tree().process_frame  # Wait for level to be fully added to tree.
+	for player in get_tree().get_nodes_in_group("Players"):
+		if player is Player:
+			_players.append(player)
+	
+	_connect_player_deaths()
 	_subscribe_to_toggled_tileset()
 
 	if skip_transition:
@@ -79,7 +90,9 @@ func _load_level(level_index: int, skip_transition: bool = false) -> void:
 		GameManager.level_start.emit()
 	else:
 		# Disable player until countdown finishes, then open the transition.
-		_player._is_enabled = false
+		for player in _players:
+			if player: # null check for array elements
+				player._is_enabled = false
 		_transition.open_transition()
 
 ## Called when the close transition finishes (screen is fully covered).
@@ -104,16 +117,39 @@ func _start_countdown() -> void:
 
 ## Called when countdown finishes - enable the player and start the level.
 func _on_countdown_finished() -> void:
-	if _player:
-		_player._is_enabled = true
+	for player in _players:
+		if player: # null check for array elements
+			player._is_enabled = true
 	GameManager.level_start.emit()
 	
 func _reset_level() -> void:
 	_load_level(_current_level_index, true)  # Skip transition for quick restart
 		
-func _connect_player_death() -> void:
-	if _player and _player.has_signal("player_died"):
-		_player.player_died.connect(_reset_level)
+func _connect_player_deaths() -> void:
+	for player in _players:
+		if player and player.has_signal("player_died"):
+			if not player.player_died.is_connected(_reset_level):
+				player.player_died.connect(_reset_level)
+
+## Called when a player reaches any goal.
+func on_player_reached_goal(player: Player, _goal: Node2D) -> void:
+	# Increment counter.
+	_goals_reached += 1
+	
+	# Check if all players have reached a goal.
+	if _goals_reached >= _players.size():
+		_all_players_won()
+
+## Called when all players have reached goals - triggers final win sequence.
+func _all_players_won() -> void:
+	# Play level clear sound.
+	SoundManager.play_sound(LEVEL_CLEAR_FX)
+	
+	# Wait for fade animations to complete (~2.2 seconds: 1.2s win anim + 1s fade).
+	await get_tree().create_timer(2.2).timeout
+	
+	# Trigger level completion.
+	GameManager.level_complete.emit()
 
 ## Call when we got to the goal and go to the next level (legacy - now uses signal flow).
 func _on_goal_reached() -> void:
@@ -135,18 +171,23 @@ func _on_tileset_toggled(tileset) -> void:
 		_reset_level()
 
 func does_player_collide_with_layer(tileset: PaletteTileMapLayer) -> bool:
-	# Get player's position in tilemap coordinates
-	var player_tile_pos = tileset.local_to_map(_player.global_position)
-	
-	# Check if there's a tile at the player's position
-	var tile_data = tileset.get_cell_tile_data(player_tile_pos)
-	
-	# If there's a tile and it has collision, player would die
-	if tile_data != null:
-		# Check if this tile has collision shapes
-		var collision_layer = tile_data.get_collision_polygons_count(0)
-		if collision_layer > 0:
-			return true
+	# Check if any player collides with the toggled tileset.
+	for player in _players:
+		if not player: # null check for array elements
+			continue
+		
+		# Get player's position in tilemap coordinates.
+		var player_tile_pos = tileset.local_to_map(player.global_position)
+		
+		# Check if there's a tile at the player's position.
+		var tile_data = tileset.get_cell_tile_data(player_tile_pos)
+		
+		# If there's a tile and it has collision, player would die.
+		if tile_data != null:
+			# Check if this tile has collision shapes.
+			var collision_layer = tile_data.get_collision_polygons_count(0)
+			if collision_layer > 0:
+				return true
 	
 	return false
 
