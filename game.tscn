@@ -13,6 +13,7 @@ script = ExtResource("1_80nbo")
 metadata/_custom_type_script = "uid://xaybsfmwj67b"
 
 [node name="Transition" parent="CanvasLayer" unique_id=439914581 instance=ExtResource("2_feb5d")]
+mouse_filter = 2
 
 [node name="BackgroundManager" type="Control" parent="." unique_id=1444786819]
 layout_mode = 3
