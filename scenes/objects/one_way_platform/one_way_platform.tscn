@@ -16,6 +16,7 @@ diffuse_texture = ExtResource("1_b104c")
 normal_texture = ExtResource("2_2kljv")
 
 [node name="OneWayPlatform" type="StaticBody2D" unique_id=1765243923 node_paths=PackedStringArray("area_2d", "canvas_sprite_2d")]
+z_index = 1
 use_parent_material = true
 script = ExtResource("1_2kljv")
 area_2d = NodePath("Area2D")
