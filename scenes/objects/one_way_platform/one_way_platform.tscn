@@ -9,7 +9,7 @@
 size = Vector2(64, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_180sp"]
-size = Vector2(64, 16)
+size = Vector2(46, 16)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_qe2tl"]
 diffuse_texture = ExtResource("1_b104c")

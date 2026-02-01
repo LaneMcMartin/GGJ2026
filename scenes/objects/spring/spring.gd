@@ -68,7 +68,8 @@ func _physics_process(delta: float) -> void:
 		if detected_collision is Player:
 			if _debounce_timer == 0.0:
 				if _is_enabled:
-					detected_collision.velocity.y -= applied_spring_velocity
+					var launch_direction := _get_launch_direction()
+					detected_collision.velocity += launch_direction * applied_spring_velocity
 					detected_collision.current_state = Player.State.SPRING
 					SoundManager.play_sound_with_pitch(SPRING_FX, randf_range(0.9, 1.1))
 					_debounce_timer = spring_cooldown_seconds
@@ -81,3 +82,7 @@ func _on_keygroup_toggled(state: bool) -> void:
 	for child in get_children():
 		if child is CollisionShape2D or child is CollisionPolygon2D:
 			child.disabled = not state
+
+## Figure ut which way to impulse the colliding body.
+func _get_launch_direction() -> Vector2:
+	return Vector2.UP.rotated(rotation)

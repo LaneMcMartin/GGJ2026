@@ -17,7 +17,6 @@ const level_order: Array[String] = [
 	"level-5.1-two-players",
 	"level-5.2-two-players-harder",
 	"level-5.3-where-we-droppin"
-
 ]
 
 ## Duration of the countdown before level starts (in seconds).
@@ -184,8 +183,8 @@ func does_player_collide_with_layer(tileset: PaletteTileMapLayer) -> bool:
 		if not player: # null check for array elements
 			continue
 		
-		# Skip safe players (they've reached a goal and can't die).
-		if player.is_safe:
+		# Skip disabled players (they've reached a goal and can't die).
+		if not player._is_enabled:
 			continue
 		
 		# Get player's position in tilemap coordinates.
