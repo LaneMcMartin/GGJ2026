@@ -39,6 +39,10 @@ func _on_body_entered(body: Node2D) -> void:
 		# Make player safe (unkillable).
 		body.is_safe = true
 		
+		# Disable collision so safe players don't collide with other players.
+		if body.collision_shape:
+			body.collision_shape.disabled = true
+		
 		# Start win animation and fade player out.
 		body.win_level()
 		

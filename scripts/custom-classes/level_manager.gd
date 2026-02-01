@@ -6,15 +6,17 @@ extends Node
 const LEVEL_CLEAR_FX = preload("uid://b1few3okeb6gx")
 const LEVEL_DIRECTORY: String = "res://scenes/levels/"
 const level_order: Array[String] = [
-	"_tutorial-1",
-	"_tutorial-2",
-	"_tutorial-3",
-	"_tutorial-4",
-	"_tutorial-5",
-	"_tutorial-6",
-	"_tutorial-falling-spring",
-	"_tutorial-7",
-	"_tutorial-8-multi-characters",
+	# "level-1.1-toggling",
+	# "level-2.1-spikes",
+	# "level-3.1-springs",
+	# "level-3.2-springs-with-spikes",
+	# "level-3.3-falling-spring",
+	# "level-4.1-ladders",
+	# "level-4.2-ladders-with-spikes",
+	# "level-4.3-ladder-and-trampoline",
+	# "level-5.1-two-players",
+	"level-5.2-two-players-harder"
+
 ]
 
 ## Duration of the countdown before level starts (in seconds).
