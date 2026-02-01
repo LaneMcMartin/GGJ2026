@@ -6,7 +6,7 @@ extends Node
 const LEVEL_CLEAR_FX = preload("uid://b1few3okeb6gx")
 const LEVEL_DIRECTORY: String = "res://scenes/levels/"
 const level_order: Array[String] = [
-	"level-1.1-toggling",
+	# "level-1.1-toggling",
 	"level-2.1-spikes",
 	"level-3.1-springs",
 	"level-3.2-springs-with-spikes",
@@ -21,6 +21,8 @@ const level_order: Array[String] = [
 
 ## Duration of the countdown before level starts (in seconds).
 const COUNTDOWN_DURATION: float = 2.0
+## Duration of death animation sequence (in seconds).
+const DEATH_ANIMATION_DURATION: float = 2.0
 
 var _current_level_index: int = 0
 var _current_level: Node2D = null
@@ -28,6 +30,10 @@ var _transition: ColorRect = null
 var _pending_level_index: int = -1
 var _players: Array[Player] = []
 var _goals_reached: int = 0
+var _camera: Camera2D = null
+var _death_vignette: ColorRect = null
+var _is_death_animation_playing: bool = false
+var _dead_player: Player = null
 
 func _ready() -> void:
 	# Add to LevelManager group so goals can find us
@@ -40,6 +46,14 @@ func _ready() -> void:
 	_transition = get_node("../Transition")
 	_transition.transition_closed.connect(_on_transition_closed)
 	_transition.transition_opened.connect(_on_transition_opened)
+	
+	# Get references to Camera2D and DeathVignette.
+	# Use get_viewport().get_camera_2d() to get the actual active camera
+	await get_tree().process_frame  # Wait a frame to ensure camera is ready
+	_camera = get_viewport().get_camera_2d()
+	if not _camera:
+		push_error("No active Camera2D found in viewport!")
+	_death_vignette = get_node("../DeathVignette")
 
 	_load_level(_current_level_index, true)  # Skip transition for initial load
 
@@ -129,14 +143,26 @@ func _on_countdown_finished() -> void:
 			player._is_enabled = true
 	GameManager.level_start.emit()
 	
-func _reset_level() -> void:
+func _reset_level(dead_player: Player = null) -> void:
+	# Don't reset if death animation is already playing
+	if _is_death_animation_playing:
+		return
+	
+	# Store which player died
+	_dead_player = dead_player
+	
+	# Play death animation before resetting
+	await _play_death_animation()
+	
 	_load_level(_current_level_index, true)  # Skip transition for quick restart
 		
 func _connect_player_deaths() -> void:
 	for player in _players:
 		if player and player.has_signal("player_died"):
-			if not player.player_died.is_connected(_reset_level):
-				player.player_died.connect(_reset_level)
+			# Use lambda to pass which player died
+			var death_callback = func(): _reset_level(player)
+			if not player.player_died.is_connected(death_callback):
+				player.player_died.connect(death_callback)
 
 ## Called when a player reaches any goal.
 func on_player_reached_goal(player: Player, _goal: Node2D) -> void:
@@ -242,3 +268,50 @@ func _on_escape_pressed() -> void:
 func _level_complete() -> void:
 	# Store the next level index; actual loading happens after transition closes.
 	_pending_level_index = _current_level_index + 1
+
+## Play an intense death animation with slow motion, camera zoom, and red vignette.
+func _play_death_animation() -> void:
+	_is_death_animation_playing = true
+	
+	# Use the dead player we stored
+	var dead_player: Player = _dead_player
+	
+	# Store original camera values
+	var original_zoom := _camera.zoom
+	var original_position := _camera.global_position
+	
+	# Slow down time
+	Engine.time_scale = 0.1
+	
+	# Show vignette
+	_death_vignette.visible = true
+	
+	# Create tweens for the animation (set process mode to physics to work with time scale)
+	var camera_tween := create_tween()
+	camera_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+	var vignette_tween := create_tween()
+	vignette_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+	
+	# Zoom in on the dead player (if found)
+	if dead_player:
+		camera_tween.set_ease(Tween.EASE_OUT)
+		camera_tween.set_trans(Tween.TRANS_CUBIC)
+		camera_tween.tween_property(_camera, "global_position", dead_player.global_position, 0.1)
+		camera_tween.parallel().tween_property(_camera, "zoom", Vector2(2.5, 2.5), 0.1)
+	
+	# Fade in the red vignette (faster)
+	vignette_tween.set_ease(Tween.EASE_IN)
+	vignette_tween.set_trans(Tween.TRANS_SINE)
+	vignette_tween.tween_property(_death_vignette.material, "shader_parameter/intensity", 1, 0.1)
+	
+	# Wait for the full animation duration (adjusted for time scale)
+	await get_tree().create_timer(DEATH_ANIMATION_DURATION * Engine.time_scale).timeout
+	
+	# Reset everything
+	Engine.time_scale = 1.0
+	_death_vignette.visible = false
+	_death_vignette.material.set_shader_parameter("intensity", 0.0)
+	_camera.zoom = original_zoom
+	_camera.global_position = original_position
+	
+	_is_death_animation_playing = false
