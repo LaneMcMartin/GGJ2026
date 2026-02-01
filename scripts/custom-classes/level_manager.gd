@@ -4,6 +4,7 @@ class_name LevelManager
 extends Node
 
 const LEVEL_CLEAR_FX = preload("uid://b1few3okeb6gx")
+const DEATH_SOUND = preload("uid://ce0u4hpyygfql")
 const LEVEL_DIRECTORY: String = "res://scenes/levels/"
 const level_order: Array[String] = [
 	"level-1.1-toggling",
@@ -26,8 +27,14 @@ var _current_level_index: int = 0
 var _current_level: Node2D = null
 var _transition: ColorRect = null
 var _pending_level_index: int = -1
+
+# Player references (to support multi-player levels)
 var _players: Array[Player] = []
 var _goals_reached: int = 0
+
+# Death effect (before level restarts)
+var _death_effect: DeathEffect = null
+var _is_death_animation_playing: bool = false
 
 func _ready() -> void:
 	# Add to LevelManager group so goals can find us
@@ -36,10 +43,15 @@ func _ready() -> void:
 	GameManager.escape_pressed.connect(_on_escape_pressed)
 	
 
-	# Get reference to the Transition node (sibling).
+	# Get references to UI elements
 	_transition = get_node("../Transition")
 	_transition.transition_closed.connect(_on_transition_closed)
 	_transition.transition_opened.connect(_on_transition_opened)
+	
+	# Create the death effect handler
+	var canvas_layer = get_parent()
+	var death_vignette = get_node("../../UILayer/DeathVignette")
+	_death_effect = DeathEffect.new(canvas_layer, death_vignette)
 
 	_load_level(_current_level_index, true)  # Skip transition for initial load
 
@@ -129,14 +141,24 @@ func _on_countdown_finished() -> void:
 			player._is_enabled = true
 	GameManager.level_start.emit()
 	
-func _reset_level() -> void:
+func _reset_level(dead_player: Player = null) -> void:
+	# Prevent multiple resets at once
+	if _is_death_animation_playing:
+		return
+
+	# Play death animation before resetting
+	_is_death_animation_playing = true
+	await _death_effect.play_death_animation(dead_player)
+	_is_death_animation_playing = false
 	_load_level(_current_level_index, true)  # Skip transition for quick restart
 		
 func _connect_player_deaths() -> void:
 	for player in _players:
 		if player and player.has_signal("player_died"):
-			if not player.player_died.is_connected(_reset_level):
-				player.player_died.connect(_reset_level)
+			# Use lambda to pass which player died
+			var death_callback = func(): _reset_level(player)
+			if not player.player_died.is_connected(death_callback):
+				player.player_died.connect(death_callback)
 
 ## Called when a player reaches any goal.
 func on_player_reached_goal(player: Player, _goal: Node2D) -> void:
@@ -171,13 +193,24 @@ func _get_tilesets() -> Array[Node]:
 	return get_tree().get_nodes_in_group("Tilesets")
 
 func _on_tileset_toggled(tileset) -> void:
-	if does_player_collide_with_layer(tileset):
+	# Only kill player if the tileset was just ENABLED (appeared)
+	# Don't kill when it's DISABLED (disappeared)
+	if not tileset._is_enabled:
+		return
+	
+	var crushed_player = get_player_colliding_with_layer(tileset)
+	if crushed_player:
 		for ts in _get_tilesets():
 			if ts.tileset_toggled.is_connected(_on_tileset_toggled):
 				ts.tileset_toggled.disconnect(_on_tileset_toggled)
-		_reset_level()
+		# Trigger death animation on the player
+		crushed_player._player_died()
+		# Wait a frame for death state to be set
+		await get_tree().process_frame
+		# Now reset with the dead player
+		_reset_level(crushed_player)
 
-func does_player_collide_with_layer(tileset: PaletteTileMapLayer) -> bool:
+func get_player_colliding_with_layer(tileset: PaletteTileMapLayer) -> Player:
 	# Check if any player collides with the toggled tileset.
 	for player in _players:
 		if not player: # null check for array elements
@@ -211,7 +244,7 @@ func does_player_collide_with_layer(tileset: PaletteTileMapLayer) -> bool:
 			var player_tile_pos = tileset.local_to_map(player.global_position)
 			var tile_data = tileset.get_cell_tile_data(player_tile_pos)
 			if tile_data != null and tile_data.get_collision_polygons_count(0) > 0:
-				return true
+				return player
 			continue
 		
 		# Get the tile coordinates that the player's collision rect overlaps
@@ -228,9 +261,9 @@ func does_player_collide_with_layer(tileset: PaletteTileMapLayer) -> bool:
 				if tile_data != null:
 					var collision_count = tile_data.get_collision_polygons_count(0)
 					if collision_count > 0:
-						return true
+						return player
 	
-	return false
+	return null
 
 # Open pause menu and pause game
 func _on_escape_pressed() -> void:

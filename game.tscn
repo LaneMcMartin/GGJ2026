@@ -3,8 +3,18 @@
 [ext_resource type="Script" uid="uid://xaybsfmwj67b" path="res://scripts/custom-classes/level_manager.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://mttabgteklwb" path="res://scenes/backgrounds/void/void_background.tscn" id="2_e2o6t"]
 [ext_resource type="PackedScene" uid="uid://g8pcw1cl25jd" path="res://scenes/transition/transition.tscn" id="2_feb5d"]
+[ext_resource type="Shader" path="res://scripts/shaders/death_vignette.gdshader" id="4_vignette"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_death_vignette"]
+shader = ExtResource("4_vignette")
+shader_parameter/intensity = 0.0
+shader_parameter/vignette_color = Color(1, 0, 0, 1)
 
 [node name="Game" type="Node2D" unique_id=2039852155]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=3547890112]
+position = Vector2(960, 540)
+enabled = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1945218282]
 
@@ -13,6 +23,18 @@ script = ExtResource("1_80nbo")
 metadata/_custom_type_script = "uid://xaybsfmwj67b"
 
 [node name="Transition" parent="CanvasLayer" unique_id=439914581 instance=ExtResource("2_feb5d")]
+mouse_filter = 2
+
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=9999999999]
+
+[node name="DeathVignette" type="ColorRect" parent="UILayer" unique_id=1234567890]
+visible = false
+material = SubResource("ShaderMaterial_death_vignette")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 
 [node name="BackgroundManager" type="Control" parent="." unique_id=1444786819]

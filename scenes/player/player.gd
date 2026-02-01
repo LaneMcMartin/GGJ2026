@@ -6,7 +6,6 @@ extends CharacterBody2D
 
 # Emitted when the player exits the screen
 signal player_died
-const DEATH_SOUND = preload("uid://ce0u4hpyygfql")
 
 ## The direction the player is moving.
 enum Direction {
@@ -22,10 +21,10 @@ enum VerticalDirection {
 
 ## The movement states the player can be in.
 enum State {
-	WALKING, FALLING, SPRING, CLIMBING, WIN, PAUSED
+	WALKING, FALLING, SPRING, CLIMBING, WIN, PAUSED, DEATH
 }
 var current_state: State = State.WALKING: set = set_state
-const STATE_ANIMATIONS: Array[String] = ["default", "air", "air", "climb", "win", "default"]
+const STATE_ANIMATIONS: Array[String] = ["default", "air", "air", "climb", "win", "default", "death"]
 const FOOTSTEP_SOUND = preload("uid://dx63s0t2a135h")
 ## Frames in the walking animation where footsteps should play.
 const FOOTSTEP_FRAMES: Array[int] = [1, 4]  # Adjust these based on your animation
@@ -101,8 +100,8 @@ func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	
-	# Don't move if disabled.
-	if not _is_enabled:
+	# Don't move if disabled or dead.
+	if not _is_enabled or current_state == State.DEATH:
 		return
 	
 	# Handle pause timer.
@@ -133,7 +132,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	# Check for wall collision and turn around.
-	if is_on_wall():
+	if is_on_wall() and (current_state != State.DEATH):
 		_turn_around()
 		
 	# Check for ground collision.
@@ -157,6 +156,10 @@ func align_to_slope(delta: float, rotation_speed: float = 10.0) -> void:
 func set_state(new_state: State) -> bool:
 	# Don't transition if the states match.
 	if current_state == new_state:
+		return false
+	
+	# Once dead, stay dead (can't change to any other state)
+	if current_state == State.DEATH:
 		return false
 	
 	# Actually set the state.
@@ -224,7 +227,11 @@ func _player_died():
 	if not _is_enabled:
 		print_debug("Tried to kill a player who is disabled and cannot die. Ignoring.")
 		return
-	SoundManager.play_sound_with_pitch(DEATH_SOUND, randf_range(0.9, 1.1))
+	
+	# Set death state to trigger death animation (and lock state)
+	set_state(State.DEATH)
+	
+	# Don't play sound here - it will be played in the death animation
 	player_died.emit()
 
 
