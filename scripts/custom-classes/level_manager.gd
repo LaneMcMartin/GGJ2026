@@ -15,7 +15,8 @@ const level_order: Array[String] = [
 	"level-4.2-ladders-with-spikes",
 	"level-4.3-ladder-and-trampoline",
 	"level-5.1-two-players",
-	"level-5.2-two-players-harder"
+	"level-5.2-two-players-harder",
+	"level-5.3-where-we-droppin"
 
 ]
 
