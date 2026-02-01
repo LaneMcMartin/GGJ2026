@@ -52,6 +52,7 @@ layout_mode = 2
 size_flags_horizontal = 10
 max_value = 1.0
 step = 0.01
+value = 1.0
 
 [node name="SFX Volume" type="HBoxContainer" parent="MarginContainer/Button Container" unique_id=148994208]
 custom_minimum_size = Vector2(0, 100)
@@ -70,6 +71,7 @@ layout_mode = 2
 size_flags_horizontal = 10
 max_value = 1.0
 step = 0.01
+value = 1.0
 
 [node name="Enable Shaders" type="HBoxContainer" parent="MarginContainer/Button Container" unique_id=932044254]
 custom_minimum_size = Vector2(0, 100)
