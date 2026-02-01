@@ -50,6 +50,7 @@ animations = [{
 }]
 
 [node name="Title Background" type="AnimatedSprite2D" unique_id=1148979379]
+self_modulate = Color(0.61339027, 0.61339027, 0.61339027, 1)
 z_index = -1
 sprite_frames = SubResource("SpriteFrames_c7od3")
 autoplay = "default"
