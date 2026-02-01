@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://r7uatp4qpxwc" path="res://scenes/options/checked.png" id="5_n6pvc"]
 [ext_resource type="Texture2D" uid="uid://bcfrb24n5gbhi" path="res://scenes/options/exit.png" id="6_f2ajo"]
 [ext_resource type="PackedScene" uid="uid://b5y6knc366bb8" path="res://scenes/title/title_background.tscn" id="7_f2ajo"]
+[ext_resource type="Texture2D" uid="uid://lpidkumvs3ij" path="res://scenes/options/resume.png" id="9_meopn"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_meopn"]
 color = Color(0.3396053, 0.5426322, 1, 1)
@@ -124,7 +125,7 @@ custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("5_g56r3")
-icon = ExtResource("6_f2ajo")
+icon = ExtResource("9_meopn")
 icon_alignment = 1
 expand_icon = true
 

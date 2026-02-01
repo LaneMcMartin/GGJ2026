@@ -70,16 +70,19 @@ color = Color(0.849722, 0.8417878, 0.8945391, 1)
 
 [node name="BG_L1" type="Sprite2D" parent="CanvasLayer/CanvasModulate" unique_id=1015574324]
 material = SubResource("ShaderMaterial_qna4e")
+position = Vector2(0, 106)
 texture = ExtResource("2_vrb1j")
 centered = false
 
 [node name="BG_L2" type="Sprite2D" parent="CanvasLayer/CanvasModulate" unique_id=2106475078]
 material = SubResource("ShaderMaterial_70dbq")
+position = Vector2(0, 106)
 texture = ExtResource("3_b4ucs")
 centered = false
 
 [node name="BG_L3" type="Sprite2D" parent="CanvasLayer/CanvasModulate" unique_id=1259187510]
 material = SubResource("ShaderMaterial_1sxgt")
+position = Vector2(0, 106)
 texture = ExtResource("4_dtf2f")
 centered = false
 
