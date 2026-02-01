@@ -89,10 +89,13 @@ func _ready() -> void:
 	floor_snap_length = 32.0
 	update_sprite_direction()
 	
+	# Reset velocity on spawn/respawn
+	velocity = Vector2.ZERO
+	
 	# Connect to animation frame changes for footstep sounds.
 	if sprite:
 		sprite.frame_changed.connect(_on_sprite_frame_changed)
-
+		
 func _physics_process(delta: float) -> void:
 	# Don't run physics in editor.
 	if Engine.is_editor_hint():

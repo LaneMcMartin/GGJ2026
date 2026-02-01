@@ -1,17 +1,14 @@
 ## Spring block that will be affected by gravity and will launch anything above it.
 extends CharacterBody2D
-
 @export_category("Children")
 ## The raycast node used for collision detection with an object above the spring.
 @export var ray_cast_2d: RayCast2D
 @export var sprite_2d: Sprite2D
-
 @export_category("Variables")
 ## The applied velocity to the player.
 @export_range(50.0, 1000.0, 10.0) var applied_spring_velocity: float = 1000.0
 ## The debounce time on the spring (cooldown so we can't rapidly trigger it while overlapping).
 @export var spring_cooldown_seconds: float = 1.0
-
 @export_category("Physics")
 ## Gravity strength in pixels per second squared.
 @export var gravity: float = 1500.0
@@ -24,14 +21,27 @@ const SPRING_FX = preload("uid://d01cqd7erptys")
 
 var _debounce_timer: float = 0.0
 var _is_enabled: bool = true
+var _allow_gravity: bool = false  # NEW: Only controls gravity, not bounce
 var current_frame := 0
 var timer := 0.0
 
 func _ready() -> void:
+	# Reset all physics state
+	velocity = Vector2.ZERO
+	_allow_gravity = false
+	
 	sprite_2d.region_enabled = true
 	# Each instance starts at a different frame
 	current_frame = randi() % FRAME_POSITIONS.size()
 	_update_region()
+	
+	# Wait for level to actually start before enabling gravity
+	GameManager.level_start.connect(_on_level_start, CONNECT_ONE_SHOT)
+
+func _on_level_start() -> void:
+	# Wait one frame to ensure physics is fully stable
+	await get_tree().process_frame
+	_allow_gravity = true
 	
 func _process(delta: float) -> void:
 	timer += delta
@@ -39,13 +49,14 @@ func _process(delta: float) -> void:
 		timer -= CYCLE_TIME
 		current_frame = (current_frame + 1) % FRAME_POSITIONS.size()
 		_update_region()
-
+		
 func _update_region() -> void:
 	sprite_2d.region_rect.position.x = FRAME_POSITIONS[current_frame]
-
+	
 ## Executed every physics frame.
 func _physics_process(delta: float) -> void:
-	if (_is_enabled):
+	# Only apply gravity/movement if level has started AND spring is enabled
+	if _allow_gravity and _is_enabled:
 		# Apply gravity
 		velocity.y += gravity * delta
 		velocity.y = minf(velocity.y, max_fall_speed)
@@ -63,7 +74,7 @@ func _physics_process(delta: float) -> void:
 				var normal = collision.get_normal()
 				
 				# Normal pointing up (0, -1) = spring resting on ground (OK)
-				# Normal pointing down (0`, 1) = spring being pushed down from above (CRUSHED)
+				# Normal pointing down (0, 1) = spring being pushed down from above (CRUSHED)
 				# Normal pointing sideways = spring being pushed from side (CRUSHED)
 				if normal.y > -0.7:  # If not pointing strongly upward, we're crushed
 					_destroy_spring()
@@ -72,18 +83,22 @@ func _physics_process(delta: float) -> void:
 	# Subtract delta time from the timer.
 	_debounce_timer = clampf(_debounce_timer - delta, 0.0, spring_cooldown_seconds)
 	
-	# Bounce the player if it touched the raycast and the debounce timer is done.
+	# Bounce functionality works ALWAYS (even before level starts, even if gravity disabled)
 	if ray_cast_2d.is_colliding():
 		var detected_collision: Object = ray_cast_2d.get_collider()
 		if detected_collision is Player:
 			if _debounce_timer == 0.0:
 				if _is_enabled:
 					var launch_direction := _get_launch_direction()
-					detected_collision.velocity += launch_direction * applied_spring_velocity
+					# SET velocity instead of adding to it - prevents accumulation
+					var horizontal_velocity = detected_collision.velocity.x
+					detected_collision.velocity = launch_direction * applied_spring_velocity
+					# Preserve horizontal movement
+					detected_collision.velocity.x = horizontal_velocity
 					detected_collision.current_state = Player.State.SPRING
 					SoundManager.play_sound_with_pitch(SPRING_FX, randf_range(0.9, 1.1))
 					_debounce_timer = spring_cooldown_seconds
-
+					
 ## Called by Keygroup when toggled.
 func _on_keygroup_toggled(state: bool) -> void:
 	_is_enabled = state
@@ -92,8 +107,8 @@ func _on_keygroup_toggled(state: bool) -> void:
 	for child in get_children():
 		if child is CollisionShape2D or child is CollisionPolygon2D:
 			child.disabled = not state
-
-## Figure ut which way to impulse the colliding body.
+			
+## Figure out which way to impulse the colliding body.
 func _get_launch_direction() -> Vector2:
 	return Vector2.UP.rotated(rotation)
 	
