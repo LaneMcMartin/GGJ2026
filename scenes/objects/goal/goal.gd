@@ -36,10 +36,10 @@ func _on_body_entered(body: Node2D) -> void:
 		if body.current_state == body.State.WIN:
 			return
 		
-		# Make player safe (unkillable).
-		body.is_safe = true
+		# Disable player (makes them unkillable and non-collidable).
+		body._is_enabled = false
 		
-		# Disable collision so safe players don't collide with other players.
+		# Disable collision so disabled players don't collide with other players.
 		if body.collision_shape:
 			body.collision_shape.disabled = true
 		

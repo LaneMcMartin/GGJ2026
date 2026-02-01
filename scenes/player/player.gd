@@ -22,10 +22,10 @@ enum VerticalDirection {
 
 ## The movement states the player can be in.
 enum State {
-	WALKING, FALLING, SPRING, CLIMBING, WIN
+	WALKING, FALLING, SPRING, CLIMBING, WIN, PAUSED
 }
 var current_state: State = State.WALKING: set = set_state
-const STATE_ANIMATIONS: Array[String] = ["default", "air", "air", "climb", "win"]
+const STATE_ANIMATIONS: Array[String] = ["default", "air", "air", "climb", "win", "default"]
 const FOOTSTEP_SOUND = preload("uid://cwasq5wipo2gn")
 ## Frames in the walking animation where footsteps should play.
 const FOOTSTEP_FRAMES: Array[int] = [1, 4]  # Adjust these based on your animation
@@ -64,12 +64,19 @@ var _current_direction: int = Direction.LEFT
 ## Whether the player is currently enabled (can move).
 var _is_enabled: bool = true
 
-## Whether the player is safe (has reached a goal and cannot die).
-var is_safe: bool = false
-
 ## The climbing exit direction.
 var _climbing_exit_direction: Direction = Direction.RIGHT
 var _climbing_vertical_direction: VerticalDirection = VerticalDirection.UP
+
+## We limit how often a player can turn around within a second.
+# If the player turns around more than WALK_MAX_TURNS_PER_SEC, they will pause
+# their walk for WALK_PAUSE_DURATION_SEC seconds.
+# This can happen when many players are in a small space and keep bumping into each
+# other and turning around repeatedly.
+var _turn_around_times: Array[float] = []
+var _walk_pause_time_left_sec: float = 0.0
+const WALK_MAX_TURNS_PER_SEC: int = 5
+const WALK_PAUSE_DURATION_SEC: float = 0.5
 
 
 func get_current_direction() -> Direction:
@@ -93,6 +100,15 @@ func _physics_process(delta: float) -> void:
 	
 	# Don't move if disabled.
 	if not _is_enabled:
+		return
+	
+	# Handle pause timer.
+	if current_state == State.PAUSED:
+		_walk_pause_time_left_sec -= delta
+		if _walk_pause_time_left_sec <= 0.0:
+			current_state = State.WALKING
+		velocity = Vector2.ZERO
+		move_and_slide()
 		return
 		
 	# If climbing, run that specific movement instead.
@@ -153,6 +169,22 @@ func set_state(new_state: State) -> bool:
 
 ## Reverses the player's direction.
 func _turn_around() -> void:
+	var current_time := Time.get_ticks_msec() / 1000.0
+	
+	# Add current turn time.
+	_turn_around_times.append(current_time)
+	
+	# Remove turn times older than 1 second.
+	_turn_around_times = _turn_around_times.filter(func(time): return current_time - time <= 1.0)
+	
+	# Check if we've turned around too many times.
+	if _turn_around_times.size() > WALK_MAX_TURNS_PER_SEC and current_state == State.WALKING:
+		# Pause for the configured duration.
+		current_state = State.PAUSED
+		_walk_pause_time_left_sec = WALK_PAUSE_DURATION_SEC
+		_turn_around_times.clear()
+		return
+	
 	_current_direction *= -1
 	update_sprite_direction()
 
@@ -188,9 +220,9 @@ func _on_keygroup_toggled(enabled: bool) -> void:
 		
 		
 func _player_died():
-	# Players who are "safe" (eg: have reached a goal) cannot die.1
-	if is_safe:
-		print_debug("Tried to kill a player who is \"safe\" and cannot die. Ignoring.")
+	# Players who are disabled (eg: have reached a goal) cannot die.
+	if not _is_enabled:
+		print_debug("Tried to kill a player who is disabled and cannot die. Ignoring.")
 		return
 	SoundManager.play_sound_with_pitch(DEATH_SOUND, randf_range(0.9, 1.1))
 	player_died.emit()
