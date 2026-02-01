@@ -4,6 +4,7 @@ class_name LevelManager
 extends Node
 
 const LEVEL_CLEAR_FX = preload("uid://b1few3okeb6gx")
+const DEATH_SOUND = preload("uid://ce0u4hpyygfql")
 const LEVEL_DIRECTORY: String = "res://scenes/levels/"
 const level_order: Array[String] = [
 	# "level-1.1-toggling",
@@ -30,7 +31,7 @@ var _transition: ColorRect = null
 var _pending_level_index: int = -1
 var _players: Array[Player] = []
 var _goals_reached: int = 0
-var _camera: Camera2D = null
+var _canvas_layer: CanvasLayer = null
 var _death_vignette: ColorRect = null
 var _is_death_animation_playing: bool = false
 var _dead_player: Player = null
@@ -42,18 +43,12 @@ func _ready() -> void:
 	GameManager.escape_pressed.connect(_on_escape_pressed)
 	
 
-	# Get reference to the Transition node (sibling).
+	# Get references to UI elements
+	_canvas_layer = get_parent()
 	_transition = get_node("../Transition")
 	_transition.transition_closed.connect(_on_transition_closed)
 	_transition.transition_opened.connect(_on_transition_opened)
-	
-	# Get references to Camera2D and DeathVignette.
-	# Use get_viewport().get_camera_2d() to get the actual active camera
-	await get_tree().process_frame  # Wait a frame to ensure camera is ready
-	_camera = get_viewport().get_camera_2d()
-	if not _camera:
-		push_error("No active Camera2D found in viewport!")
-	_death_vignette = get_node("../DeathVignette")
+	_death_vignette = get_node("../../UILayer/DeathVignette")
 
 	_load_level(_current_level_index, true)  # Skip transition for initial load
 
@@ -153,6 +148,10 @@ func _reset_level(dead_player: Player = null) -> void:
 	
 	# Play death animation before resetting
 	await _play_death_animation()
+	
+	# Extra safety: ensure time scale is reset
+	Engine.time_scale = 1.0
+	_canvas_layer.transform = Transform2D.IDENTITY
 	
 	_load_level(_current_level_index, true)  # Skip transition for quick restart
 		
@@ -269,49 +268,63 @@ func _level_complete() -> void:
 	# Store the next level index; actual loading happens after transition closes.
 	_pending_level_index = _current_level_index + 1
 
-## Play an intense death animation with slow motion, camera zoom, and red vignette.
+## Play an intense death animation with slow motion, zoom, and red vignette.
 func _play_death_animation() -> void:
 	_is_death_animation_playing = true
 	
-	# Use the dead player we stored
-	var dead_player: Player = _dead_player
+	# Play death sound once at the start
+	SoundManager.play_sound_with_pitch(DEATH_SOUND, randf_range(0.9, 1.1))
 	
-	# Store original camera values
-	var original_zoom := _camera.zoom
-	var original_position := _camera.global_position
+	# Use the dead player we stored
+	var dead_player := _dead_player
+	
+	# Store original CanvasLayer transform
+	var original_transform := _canvas_layer.transform
+	var viewport_size := get_viewport().get_visible_rect().size
 	
 	# Slow down time
-	Engine.time_scale = 0.1
+	Engine.time_scale = 0.05
 	
 	# Show vignette
 	_death_vignette.visible = true
 	
-	# Create tweens for the animation (set process mode to physics to work with time scale)
-	var camera_tween := create_tween()
-	camera_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+	# Create tweens - use IDLE mode and compensate for time scale
+	var transform_tween := create_tween()
+	transform_tween.set_process_mode(Tween.TWEEN_PROCESS_IDLE)
+	transform_tween.set_speed_scale(1.0 / Engine.time_scale)  # Compensate for slow motion
+	
 	var vignette_tween := create_tween()
-	vignette_tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+	vignette_tween.set_process_mode(Tween.TWEEN_PROCESS_IDLE)
+	vignette_tween.set_speed_scale(1.0 / Engine.time_scale)  # Compensate for slow motion
 	
-	# Zoom in on the dead player (if found)
+	# Zoom in on the dead player by scaling and translating the CanvasLayer
 	if dead_player:
-		camera_tween.set_ease(Tween.EASE_OUT)
-		camera_tween.set_trans(Tween.TRANS_CUBIC)
-		camera_tween.tween_property(_camera, "global_position", dead_player.global_position, 0.1)
-		camera_tween.parallel().tween_property(_camera, "zoom", Vector2(2.5, 2.5), 0.1)
+		var zoom_factor := 1.5
+		var player_screen_pos := dead_player.global_position
+		
+		# Calculate transform: scale around player position
+		var new_transform := Transform2D()
+		new_transform = new_transform.scaled(Vector2(zoom_factor, zoom_factor))
+		# Translate to keep player centered
+		var offset := viewport_size / 2.0 - player_screen_pos * zoom_factor
+		new_transform.origin = offset
+		
+		transform_tween.tween_property(_canvas_layer, "transform", new_transform, 0.75).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	
-	# Fade in the red vignette (faster)
-	vignette_tween.set_ease(Tween.EASE_IN)
-	vignette_tween.set_trans(Tween.TRANS_SINE)
-	vignette_tween.tween_property(_death_vignette.material, "shader_parameter/intensity", 1, 0.1)
+	# Fade in the red vignette
+	vignette_tween.tween_property(_death_vignette.material, "shader_parameter/intensity", 0.6, 0.5).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
 	
-	# Wait for the full animation duration (adjusted for time scale)
-	await get_tree().create_timer(DEATH_ANIMATION_DURATION * Engine.time_scale).timeout
+	# Wait for the full animation duration (in real time, ignore time scale)
+	var timer = get_tree().create_timer(DEATH_ANIMATION_DURATION, true, false, true)
+	await timer.timeout
 	
 	# Reset everything
 	Engine.time_scale = 1.0
 	_death_vignette.visible = false
+	# Extra safety: wait one frame to ensure everything is processed
+	await get_tree().process_frame
+	
 	_death_vignette.material.set_shader_parameter("intensity", 0.0)
-	_camera.zoom = original_zoom
-	_camera.global_position = original_position
+	_canvas_layer.transform = Transform2D.IDENTITY  # Reset to no zoom/pan
 	
 	_is_death_animation_playing = false

@@ -25,7 +25,9 @@ metadata/_custom_type_script = "uid://xaybsfmwj67b"
 [node name="Transition" parent="CanvasLayer" unique_id=439914581 instance=ExtResource("2_feb5d")]
 mouse_filter = 2
 
-[node name="DeathVignette" type="ColorRect" parent="CanvasLayer" unique_id=1234567890]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=9999999999]
+
+[node name="DeathVignette" type="ColorRect" parent="UILayer" unique_id=1234567890]
 visible = false
 material = SubResource("ShaderMaterial_death_vignette")
 anchors_preset = 15

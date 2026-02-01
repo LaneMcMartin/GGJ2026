@@ -224,7 +224,10 @@ func _player_died():
 	if not _is_enabled:
 		print_debug("Tried to kill a player who is disabled and cannot die. Ignoring.")
 		return
-	SoundManager.play_sound_with_pitch(DEATH_SOUND, randf_range(0.9, 1.1))
+	# Set death sprite frame
+	sprite.stop()
+	sprite.set_frame_and_progress(6, 0.0)  # Frame 6 is 0006.png (0-indexed)
+	# Don't play sound here - it will be played in the death animation
 	player_died.emit()
 
 
