@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://cw64gj4h8f10m" path="res://scenes/options/sfx_volume.png" id="3_025dt"]
 [ext_resource type="Texture2D" uid="uid://d1bfdk3jjcj1q" path="res://scenes/options/shaders.png" id="4_bcrey"]
 [ext_resource type="Theme" uid="uid://3cs1r4p0rltc" path="res://assets/themes/invisible_button.tres" id="5_g56r3"]
+[ext_resource type="Texture2D" uid="uid://dt5y7a7r1moq3" path="res://scenes/options/unchecked.png" id="5_jqxdp"]
+[ext_resource type="Texture2D" uid="uid://r7uatp4qpxwc" path="res://scenes/options/checked.png" id="5_n6pvc"]
 [ext_resource type="Texture2D" uid="uid://bcfrb24n5gbhi" path="res://scenes/options/exit.png" id="6_f2ajo"]
 [ext_resource type="PackedScene" uid="uid://b5y6knc366bb8" path="res://scenes/title/title_background.tscn" id="7_f2ajo"]
 
@@ -92,6 +94,9 @@ stretch_mode = 5
 custom_minimum_size = Vector2(20, 100)
 layout_mode = 2
 size_flags_horizontal = 10
+theme_override_icons/checked = ExtResource("5_n6pvc")
+theme_override_icons/unchecked = ExtResource("5_jqxdp")
+icon_alignment = 1
 
 [node name="Unpause" type="MarginContainer" parent="MarginContainer/Button Container" unique_id=977032604]
 layout_mode = 2
@@ -133,6 +138,7 @@ expand_icon = true
 [connection signal="value_changed" from="MarginContainer/Button Container/SFX Volume/SFX Volume Slider" to="." method="_on_sfx_volume_slider_value_changed"]
 [connection signal="mouse_entered" from="MarginContainer/Button Container/Enable Shaders/Enable Shaders Font" to="." method="_on_mouse_enter"]
 [connection signal="mouse_exited" from="MarginContainer/Button Container/Enable Shaders/Enable Shaders Font" to="." method="_on_mouse_leave"]
+[connection signal="toggled" from="MarginContainer/Button Container/Enable Shaders/Enable Shaders Check" to="." method="_on_enable_shaders_check_toggled"]
 [connection signal="mouse_entered" from="MarginContainer/Button Container/Unpause/Unpause" to="." method="_on_mouse_enter"]
 [connection signal="mouse_exited" from="MarginContainer/Button Container/Unpause/Unpause" to="." method="_on_mouse_leave"]
 [connection signal="pressed" from="MarginContainer/Button Container/Unpause/Unpause" to="." method="_unpause"]
