@@ -10,8 +10,8 @@ func _ready():
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.set_ease(Tween.EASE_IN_OUT)
 	
-	tween.tween_property(self, "rotation_degrees", 4, 2.0)
-	tween.tween_property(self, "rotation_degrees", -4, 2.0)
+	tween.tween_property(self, "rotation_degrees", 2, 2.0)
+	tween.tween_property(self, "rotation_degrees", -2, 2.0)
 	
 func _on_mouse_entered() -> void:
 	var hover_tween = create_tween().set_ease(Tween.EASE_OUT)
