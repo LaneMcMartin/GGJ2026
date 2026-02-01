@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dpgpmdqf1ujcv" path="res://scenes/options/options.gd" id="1_qe4tn"]
 [ext_resource type="Texture2D" uid="uid://bklv3paxl4ncp" path="res://scenes/options/music_volume.png" id="2_kmbin"]
+[ext_resource type="Texture2D" uid="uid://dykd2fydgiqs7" path="res://scenes/options/sliderball.png" id="3_2ba0u"]
 [ext_resource type="Texture2D" uid="uid://cw64gj4h8f10m" path="res://scenes/options/sfx_volume.png" id="3_025dt"]
 [ext_resource type="Texture2D" uid="uid://d1bfdk3jjcj1q" path="res://scenes/options/shaders.png" id="4_bcrey"]
 [ext_resource type="Theme" uid="uid://3cs1r4p0rltc" path="res://assets/themes/invisible_button.tres" id="5_g56r3"]
@@ -9,6 +10,14 @@
 [ext_resource type="Texture2D" uid="uid://r7uatp4qpxwc" path="res://scenes/options/checked.png" id="5_n6pvc"]
 [ext_resource type="Texture2D" uid="uid://bcfrb24n5gbhi" path="res://scenes/options/exit.png" id="6_f2ajo"]
 [ext_resource type="PackedScene" uid="uid://b5y6knc366bb8" path="res://scenes/title/title_background.tscn" id="7_f2ajo"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_meopn"]
+color = Color(0.3396053, 0.5426322, 1, 1)
+thickness = 2
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_2ba0u"]
+color = Color(0.49411765, 0.64705884, 1, 1)
+thickness = 2
 
 [node name="Options" type="Control" unique_id=1889841919]
 process_mode = 3
@@ -52,6 +61,10 @@ expand_mode = 3
 custom_minimum_size = Vector2(350, 100)
 layout_mode = 2
 size_flags_horizontal = 10
+theme_override_icons/grabber = ExtResource("3_2ba0u")
+theme_override_icons/grabber_highlight = ExtResource("3_2ba0u")
+theme_override_icons/grabber_disabled = ExtResource("3_2ba0u")
+theme_override_styles/slider = SubResource("StyleBoxLine_meopn")
 max_value = 1.0
 step = 0.01
 value = 1.0
@@ -71,6 +84,10 @@ expand_mode = 3
 custom_minimum_size = Vector2(350, 100)
 layout_mode = 2
 size_flags_horizontal = 10
+theme_override_icons/grabber = ExtResource("3_2ba0u")
+theme_override_icons/grabber_highlight = ExtResource("3_2ba0u")
+theme_override_icons/grabber_disabled = ExtResource("3_2ba0u")
+theme_override_styles/slider = SubResource("StyleBoxLine_2ba0u")
 max_value = 1.0
 step = 0.01
 value = 1.0
