@@ -63,6 +63,9 @@ var _current_direction: int = Direction.LEFT
 ## Whether the player is currently enabled (can move).
 var _is_enabled: bool = true
 
+## Whether the player is safe (has reached a goal and cannot die).
+var is_safe: bool = false
+
 ## The climbing exit direction.
 var _climbing_exit_direction: Direction = Direction.RIGHT
 var _climbing_vertical_direction: VerticalDirection = VerticalDirection.UP
@@ -184,6 +187,10 @@ func _on_keygroup_toggled(enabled: bool) -> void:
 		
 		
 func _player_died():
+	# Players who are "safe" (eg: have reached a goal) cannot die.
+	if is_safe:
+		print_debug("Tried to kill a player who is \"safe\" and cannot die. Ignoring.")
+		return
 	player_died.emit()
 
 

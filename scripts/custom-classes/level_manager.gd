@@ -6,14 +6,14 @@ extends Node
 const LEVEL_CLEAR_FX = preload("uid://b1few3okeb6gx")
 const LEVEL_DIRECTORY: String = "res://scenes/levels/"
 const level_order: Array[String] = [
-	# "_tutorial-1",
-	# "_tutorial-2",
-	# "_tutorial-3",
-	# "_tutorial-4",
-	# "_tutorial-5",
-	# "_tutorial-6",
-	# "_tutorial-falling-spring",
-	# "_tutorial-7",
+	"_tutorial-1",
+	"_tutorial-2",
+	"_tutorial-3",
+	"_tutorial-4",
+	"_tutorial-5",
+	"_tutorial-6",
+	"_tutorial-falling-spring",
+	"_tutorial-7",
 	"_tutorial-8-multi-characters",
 ]
 
@@ -174,6 +174,10 @@ func does_player_collide_with_layer(tileset: PaletteTileMapLayer) -> bool:
 	# Check if any player collides with the toggled tileset.
 	for player in _players:
 		if not player: # null check for array elements
+			continue
+		
+		# Skip safe players (they've reached a goal and can't die).
+		if player.is_safe:
 			continue
 		
 		# Get player's position in tilemap coordinates.

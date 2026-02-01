@@ -120,7 +120,7 @@ sources/1 = SubResource("TileSetAtlasSource_m0iuv")
 metadata/_edit_lock_ = true
 
 [node name="Keygroup0" type="Node2D" parent="." unique_id=1657449644]
-position = Vector2(-9, 160)
+position = Vector2(-9, 157)
 script = ExtResource("1_1kado")
 group_id = 0
 metadata/_custom_type_script = "uid://ssiak0cvnwsg"
@@ -133,7 +133,7 @@ script = ExtResource("4_du7ae")
 metadata/_edit_lock_ = true
 
 [node name="Keygroup1" type="Node2D" parent="." unique_id=1538438303]
-position = Vector2(-9, 160)
+position = Vector2(-9, 157)
 script = ExtResource("1_1kado")
 metadata/_custom_type_script = "uid://ssiak0cvnwsg"
 
@@ -151,13 +151,13 @@ metadata/_edit_lock_ = true
 
 [node name="PaletteTileMapLayer" type="TileMapLayer" parent="Keygroup2" unique_id=1279972592]
 material = SubResource("ShaderMaterial_54e2k")
-position = Vector2(-9, 160)
+position = Vector2(-9, 157)
 tile_map_data = PackedByteArray("AAASAAUAAQAAAAAAAAATAAUAAQAAAAAAAAAUAAUAAQAAAAAAAAAVAAUAAQAAAAAAAAARAAUAAQAEAAIAAAATAAQAAQACAAAAAAAUAAQAAQACAAAAAAAVAAQAAQACAAAAAAASAAQAAQAEAAIAAAAMAAcAAQAAAAAAAAAMAAgAAQAAAAAAAAAMAAkAAQAAAAAAAAA=")
 tile_set = SubResource("TileSet_kj8ux")
 script = ExtResource("4_du7ae")
 
 [node name="Keygroup3" type="Node2D" parent="." unique_id=1096777438]
-position = Vector2(-9, 160)
+position = Vector2(-9, 157)
 script = ExtResource("1_1kado")
 group_id = 3
 starts_enabled = false
@@ -170,13 +170,13 @@ script = ExtResource("4_du7ae")
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." unique_id=758385320 instance=ExtResource("10_xisso")]
-position = Vector2(533, 511)
+position = Vector2(533, 508)
 starting_direction = 1
 rising_gravity = 653.3333333333334
 falling_gravity = 980.0
 
 [node name="Player2" parent="." unique_id=131656960 instance=ExtResource("10_xisso")]
-position = Vector2(534, 767)
+position = Vector2(534, 764)
 starting_direction = 1
 rising_gravity = 653.3333333333334
 falling_gravity = 980.0

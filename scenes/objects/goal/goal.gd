@@ -36,6 +36,9 @@ func _on_body_entered(body: Node2D) -> void:
 		if body.current_state == body.State.WIN:
 			return
 		
+		# Make player safe (unkillable).
+		body.is_safe = true
+		
 		# Start win animation and fade player out.
 		body.win_level()
 		
