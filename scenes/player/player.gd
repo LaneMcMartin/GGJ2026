@@ -25,6 +25,9 @@ enum State {
 }
 var current_state: State = State.WALKING: set = set_state
 const STATE_ANIMATIONS: Array[String] = ["default", "air", "air", "climb", "win"]
+const FOOTSTEP_SOUND = preload("uid://cwasq5wipo2gn")
+## Frames in the walking animation where footsteps should play.
+const FOOTSTEP_FRAMES: Array[int] = [1, 4]  # Adjust these based on your animation
 
 @export_category("Movement")
 ## The horizontal movement speed in pixels per second.
@@ -74,6 +77,10 @@ func _ready() -> void:
 	_current_direction = starting_direction
 	floor_snap_length = 32.0
 	update_sprite_direction()
+	
+	# Connect to animation frame changes for footstep sounds.
+	if sprite:
+		sprite.frame_changed.connect(_on_sprite_frame_changed)
 
 func _physics_process(delta: float) -> void:
 	# Don't run physics in editor.
@@ -150,6 +157,14 @@ func _turn_around() -> void:
 func update_sprite_direction():
 	sprite.flip_h = (_current_direction == Direction.LEFT)
 
+## Called when the sprite animation frame changes.
+func _on_sprite_frame_changed() -> void:
+	# Only play footsteps when walking and on the ground.
+	if current_state == State.WALKING and is_on_floor():
+		var current_frame = sprite.frame
+		if current_frame in FOOTSTEP_FRAMES:
+			var player = SoundManager.play_sound(FOOTSTEP_SOUND)
+			player.volume_db = 6.0  # Increase volume (default is 0)
 
 ## Called by the parent Keygroup when this player is toggled.
 func _on_keygroup_toggled(enabled: bool) -> void:
