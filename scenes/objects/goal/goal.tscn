@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b4eexmcbyfses" path="res://scenes/objects/goal/goal.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://dusbbtg0sdl7g" path="res://scenes/objects/goal/goalsprite.png" id="2_snpuw"]
 [ext_resource type="Texture2D" uid="uid://q5l17iqan583" path="res://scenes/objects/goal/goalnormal.png" id="3_yfjey"]
+[ext_resource type="PackedScene" uid="uid://cq2l8lcqd2yfd" path="res://scenes/particles/star_particles.tscn" id="4_dfvxj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yfjey"]
 atlas = ExtResource("2_snpuw")
@@ -19,9 +20,10 @@ normal_texture = SubResource("AtlasTexture_dfvxj")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_snpuw"]
 size = Vector2(64, 94)
 
-[node name="Goal" type="Area2D" unique_id=613892377 node_paths=PackedStringArray("sprite_2d")]
+[node name="Goal" type="Area2D" unique_id=613892377 node_paths=PackedStringArray("sprite_2d", "star_particles")]
 script = ExtResource("1_script")
 sprite_2d = NodePath("Sprite2D")
+star_particles = NodePath("StarParticles")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1908564816]
 position = Vector2(1, -63)
@@ -32,3 +34,6 @@ region_rect = Rect2(0, 0, 128, 192)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=999836773]
 position = Vector2(0, -15)
 shape = SubResource("RectangleShape2D_snpuw")
+
+[node name="StarParticles" parent="." unique_id=36689638 instance=ExtResource("4_dfvxj")]
+position = Vector2(0, -57)

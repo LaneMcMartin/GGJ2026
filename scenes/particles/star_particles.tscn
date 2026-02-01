@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://cq2l8lcqd2yfd"]
+
+[ext_resource type="Texture2D" uid="uid://sv4o2l020s61" path="res://scenes/objects/goal/star.png" id="1_ulpeg"]
+
+[sub_resource type="Curve" id="Curve_4dtd8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qpnt3"]
+curve = SubResource("Curve_4dtd8")
+
+[sub_resource type="Curve" id="Curve_dfvxj"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 0.9775281), 0.0, 0.0, 0, 0, Vector2(1, 0.011235952), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4rks7"]
+curve = SubResource("Curve_dfvxj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4rks7"]
+particle_flag_disable_z = true
+angle_min = -129.4
+angle_max = 61.900013
+direction = Vector3(0, -1, 0)
+spread = 87.0
+flatness = 1.0
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+angular_velocity_min = 16.869984
+angular_velocity_max = 157.49998
+angular_velocity_curve = SubResource("CurveTexture_4rks7")
+gravity = Vector3(0, 98, 0)
+tangential_accel_min = -20.310001
+tangential_accel_max = 15.629997
+scale_min = 0.5
+scale_max = 0.75
+alpha_curve = SubResource("CurveTexture_qpnt3")
+
+[node name="StarParticles" type="GPUParticles2D" unique_id=36689638]
+emitting = false
+amount = 6
+texture = ExtResource("1_ulpeg")
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_4rks7")
