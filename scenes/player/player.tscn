@@ -126,6 +126,7 @@ height = 64.0
 [node name="Player" type="CharacterBody2D" unique_id=758385320 node_paths=PackedStringArray("collision_shape", "ray_cast_2d_ladder_up", "ray_cast_2d_ladder_down", "sprite")]
 floor_constant_speed = true
 floor_snap_length = 32.0
+safe_margin = 0.5
 script = ExtResource("1_8afob")
 rising_gravity = 2500.0
 falling_gravity = 4500.0
