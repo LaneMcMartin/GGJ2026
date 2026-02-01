@@ -131,6 +131,12 @@ func _physics_process(delta: float) -> void:
 	
 	# Check for wall collision and turn around.
 	if is_on_wall():
+		# Debug: Check what we're colliding with.
+		for i in range(get_slide_collision_count()):
+			var collision := get_slide_collision(i)
+			var collider := collision.get_collider()
+			print_debug("[PLAYER] Hit wall - Collider: ", collider.get_class() if collider else "null", 
+				" State: ", State.keys()[current_state])
 		_turn_around()
 		
 	# Check for ground collision.
@@ -155,9 +161,6 @@ func set_state(new_state: State) -> bool:
 	# Don't transition if the states match.
 	if current_state == new_state:
 		return false
-	
-	# Can do stuff conditionally based off previous state...
-	#var previous_state = current_state # TODO
 	
 	# Actually set the state.
 	current_state = new_state
@@ -300,8 +303,19 @@ func stop_climbing() -> void:
 
 ## Enter special state where we win the level.
 func win_level() -> void:
-	# Stop movement and play animation.
+	# Disable player (makes them unkillable and non-collidable).
 	_is_enabled = false
+	
+	# Disable collision shape.
+	if collision_shape:
+		collision_shape.disabled = true
+	
+	# Move to a collision layer that nothing else collides with (layer 32).
+	# This prevents won players from blocking active players.
+	collision_layer = 0  # Not on any layer
+	collision_mask = 0   # Doesn't collide with anything
+	
+	# Stop movement and play animation.
 	sprite.animation_finished.connect(_fade_out)
 	current_state = State.WIN
 
