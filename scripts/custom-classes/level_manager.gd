@@ -73,29 +73,34 @@ func _load_level(level_index: int, skip_transition: bool = false) -> void:
 	else:
 		_current_level_index = level_index
 	_current_level = load(LEVEL_DIRECTORY + level_order[_current_level_index] + ".tscn").instantiate()
-	self.add_child(_current_level)
 	
 	# Reset win tracking.
 	_goals_reached = 0
 	
-	# Find all players in the level.
+	# Find all players in the SCENE before adding to tree
 	_players.clear()
-	await get_tree().process_frame  # Wait for level to be fully added to tree.
-	for player in get_tree().get_nodes_in_group("Players"):
+	for player in _current_level.find_children("*", "Player", true, false):
 		if player is Player:
 			_players.append(player)
+			# Disable BEFORE adding to scene tree so _ready() doesn't start movement
+			player._is_enabled = false
+	
+	# NOW add the level (players are already disabled)
+	self.add_child(_current_level)
+	
+	await get_tree().process_frame  # Wait for level to be fully added to tree.
 	
 	_connect_player_deaths()
 	_subscribe_to_toggled_tileset()
 
 	if skip_transition:
-		# Start immediately without transition/countdown.
+		# Re-enable players and start immediately
+		for player in _players:
+			if player:
+				player._is_enabled = true
 		GameManager.level_start.emit()
 	else:
-		# Disable player until countdown finishes, then open the transition.
-		for player in _players:
-			if player: # null check for array elements
-				player._is_enabled = false
+		# Keep players disabled until countdown finishes
 		_transition.open_transition()
 
 ## Called when the close transition finishes (screen is fully covered).
