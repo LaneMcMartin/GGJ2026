@@ -131,12 +131,6 @@ func _physics_process(delta: float) -> void:
 	
 	# Check for wall collision and turn around.
 	if is_on_wall():
-		# Debug: Check what we're colliding with.
-		for i in range(get_slide_collision_count()):
-			var collision := get_slide_collision(i)
-			var collider := collision.get_collider()
-			print_debug("[PLAYER] Hit wall - Collider: ", collider.get_class() if collider else "null", 
-				" State: ", State.keys()[current_state])
 		_turn_around()
 		
 	# Check for ground collision.

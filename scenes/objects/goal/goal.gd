@@ -32,15 +32,9 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:
-		print_debug("[GOAL] Player entered goal area - State: ", body.State.keys()[body.current_state], 
-			" Enabled: ", body._is_enabled, " Position: ", body.global_position)
-		
 		# Check if player already won (to prevent double-counting).
 		if body.current_state == body.State.WIN:
-			print_debug("[GOAL] Player already won, skipping")
 			return
-		
-		print_debug("[GOAL] Player winning the level!")
 		
 		# Start win animation and fade player out.
 		body.win_level()
