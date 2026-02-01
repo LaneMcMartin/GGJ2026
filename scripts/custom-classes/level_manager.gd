@@ -187,18 +187,48 @@ func does_player_collide_with_layer(tileset: PaletteTileMapLayer) -> bool:
 		if not player._is_enabled:
 			continue
 		
-		# Get player's position in tilemap coordinates.
-		var player_tile_pos = tileset.local_to_map(player.global_position)
+		# Get the player's collision shape
+		var collision_shape = player.collision_shape
+		if not collision_shape or not collision_shape.shape:
+			continue
+			
+		# Get the shape's extents (assuming it's a RectangleShape2D or similar)
+		var shape = collision_shape.shape
+		var player_rect: Rect2
 		
-		# Check if there's a tile at the player's position.
-		var tile_data = tileset.get_cell_tile_data(player_tile_pos)
-		
-		# If there's a tile and it has collision, player would die.
-		if tile_data != null:
-			# Check if this tile has collision shapes.
-			var collision_layer = tile_data.get_collision_polygons_count(0)
-			if collision_layer > 0:
+		if shape is RectangleShape2D:
+			var extents = shape.size / 2.0
+			var center = player.global_position + collision_shape.position
+			player_rect = Rect2(center - extents, shape.size)
+		elif shape is CapsuleShape2D:
+			# Approximate capsule as rectangle
+			var radius = shape.radius
+			var height = shape.height
+			var center = player.global_position + collision_shape.position
+			player_rect = Rect2(center - Vector2(radius, height/2), Vector2(radius * 2, height))
+		else:
+			# Fallback: just check the player's position
+			var player_tile_pos = tileset.local_to_map(player.global_position)
+			var tile_data = tileset.get_cell_tile_data(player_tile_pos)
+			if tile_data != null and tile_data.get_collision_polygons_count(0) > 0:
 				return true
+			continue
+		
+		# Get the tile coordinates that the player's collision rect overlaps
+		var top_left = tileset.local_to_map(tileset.to_local(player_rect.position))
+		var bottom_right = tileset.local_to_map(tileset.to_local(player_rect.position + player_rect.size))
+		
+		# Check all tiles in this range
+		for x in range(top_left.x, bottom_right.x + 1):
+			for y in range(top_left.y, bottom_right.y + 1):
+				var tile_pos = Vector2i(x, y)
+				var tile_data = tileset.get_cell_tile_data(tile_pos)
+				
+				# If there's a tile with collision, player would be crushed
+				if tile_data != null:
+					var collision_count = tile_data.get_collision_polygons_count(0)
+					if collision_count > 0:
+						return true
 	
 	return false
 
