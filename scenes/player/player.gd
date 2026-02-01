@@ -22,10 +22,10 @@ enum VerticalDirection {
 
 ## The movement states the player can be in.
 enum State {
-	WALKING, FALLING, SPRING, CLIMBING, WIN, PAUSED
+	WALKING, FALLING, SPRING, CLIMBING, WIN, PAUSED, DEATH
 }
 var current_state: State = State.WALKING: set = set_state
-const STATE_ANIMATIONS: Array[String] = ["default", "air", "air", "climb", "win", "default"]
+const STATE_ANIMATIONS: Array[String] = ["default", "air", "air", "climb", "win", "default", "death"]
 const FOOTSTEP_SOUND = preload("uid://dx63s0t2a135h")
 ## Frames in the walking animation where footsteps should play.
 const FOOTSTEP_FRAMES: Array[int] = [1, 4]  # Adjust these based on your animation
@@ -159,6 +159,10 @@ func set_state(new_state: State) -> bool:
 	if current_state == new_state:
 		return false
 	
+	# Once dead, stay dead (can't change to any other state)
+	if current_state == State.DEATH:
+		return false
+	
 	# Actually set the state.
 	current_state = new_state
 	
@@ -224,9 +228,10 @@ func _player_died():
 	if not _is_enabled:
 		print_debug("Tried to kill a player who is disabled and cannot die. Ignoring.")
 		return
-	# Set death sprite frame
-	sprite.stop()
-	sprite.set_frame_and_progress(6, 0.0)  # Frame 6 is 0006.png (0-indexed)
+	
+	# Set death state to trigger death animation (and lock state)
+	set_state(State.DEATH)
+	
 	# Don't play sound here - it will be played in the death animation
 	player_died.emit()
 
