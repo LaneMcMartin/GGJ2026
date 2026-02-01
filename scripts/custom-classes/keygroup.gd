@@ -83,9 +83,6 @@ func apply_initial_state() -> void:
 
 ## Applies the toggle state to all children.
 func _apply_toggle_to_children(enabled: bool) -> void:
-	var target_alpha: float = 1.0 if enabled else 0.1
-	self.modulate.a = target_alpha
-	
 	for child in get_children():
 		_apply_toggle_to_node(child, enabled)
 		
@@ -108,9 +105,9 @@ func _apply_toggle_to_node(node: Node, enabled: bool) -> void:
 ## Default toggle behavior for nodes that don't implement _on_keygroup_toggled.
 func _apply_default_toggle(node: Node, enabled: bool) -> void:
 	# Handle visibility (CanvasItem).
-	#if node is CanvasItem:
-		#var target_alpha: float = 1.0 if enabled else 0.1
-		#node.modulate.a = target_alpha
+	if (node is CanvasItem) and (node is not GPUParticles2D):
+		var target_alpha: float = 1.0 if enabled else 0.1
+		node.modulate.a = target_alpha
 	
 	# Handle collision (CollisionShape2D / CollisionPolygon2D).
 	if node is CollisionShape2D or node is CollisionPolygon2D:

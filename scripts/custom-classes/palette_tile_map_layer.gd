@@ -6,6 +6,7 @@ extends TileMapLayer
 
 const HUE_SHIFT_MATERIAL = preload("uid://dj5g3bffvpah4")
 const _3D_TILES = preload("uid://cjk0ssha1qje4")
+const NUMBER_PARTICLE = preload("uid://6r68tbwnhnlk")
 
 signal tileset_toggled
 
@@ -85,6 +86,8 @@ func _ready() -> void:
 	# Connect to child_entered_tree to handle scene tiles
 	child_entered_tree.connect(_on_child_entered_tree)
 
+	call_deferred("spawn_particles_on_tiles")
+
 
 ## Count time and cycle the frames by calling the region script.
 func _process(delta: float) -> void:
@@ -128,3 +131,12 @@ func _on_child_entered_tree(node: Node) -> void:
 	# Apply current enabled state to newly instantiated scene tiles
 	if node.has_method("_on_keygroup_toggled"):
 		node._on_keygroup_toggled(_is_enabled)
+
+## Add number particles to tiles.
+func spawn_particles_on_tiles() -> void:
+	for cell in get_used_cells():
+		var particles: NumberParticle = NUMBER_PARTICLE.instantiate()
+		var new_position = to_global(map_to_local(cell))
+		get_parent().add_child(particles)
+		particles.set_number(_keygroup.group_id)
+		particles.global_position = new_position
