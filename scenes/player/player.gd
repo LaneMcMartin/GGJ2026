@@ -6,7 +6,6 @@ extends CharacterBody2D
 
 # Emitted when the player exits the screen
 signal player_died
-const DEATH_SOUND = preload("uid://ce0u4hpyygfql")
 
 ## The direction the player is moving.
 enum Direction {

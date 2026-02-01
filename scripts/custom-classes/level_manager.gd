@@ -7,7 +7,7 @@ const LEVEL_CLEAR_FX = preload("uid://b1few3okeb6gx")
 const DEATH_SOUND = preload("uid://ce0u4hpyygfql")
 const LEVEL_DIRECTORY: String = "res://scenes/levels/"
 const level_order: Array[String] = [
-	# "level-1.1-toggling",
+	"level-1.1-toggling",
 	"level-2.1-spikes",
 	"level-3.1-springs",
 	"level-3.2-springs-with-spikes",
@@ -22,8 +22,6 @@ const level_order: Array[String] = [
 
 ## Duration of the countdown before level starts (in seconds).
 const COUNTDOWN_DURATION: float = 2.0
-## Duration of death animation sequence (in seconds).
-const DEATH_ANIMATION_DURATION: float = 2.0
 
 var _current_level_index: int = 0
 var _current_level: Node2D = null
@@ -35,6 +33,7 @@ var _canvas_layer: CanvasLayer = null
 var _death_vignette: ColorRect = null
 var _is_death_animation_playing: bool = false
 var _dead_player: Player = null
+var _death_effect: DeathEffect = null
 
 func _ready() -> void:
 	# Add to LevelManager group so goals can find us
@@ -49,6 +48,9 @@ func _ready() -> void:
 	_transition.transition_closed.connect(_on_transition_closed)
 	_transition.transition_opened.connect(_on_transition_opened)
 	_death_vignette = get_node("../../UILayer/DeathVignette")
+	
+	# Create the death effect handler
+	_death_effect = DeathEffect.new(_canvas_layer, _death_vignette)
 
 	_load_level(_current_level_index, true)  # Skip transition for initial load
 
@@ -148,10 +150,6 @@ func _reset_level(dead_player: Player = null) -> void:
 	
 	# Play death animation before resetting
 	await _play_death_animation()
-	
-	# Extra safety: ensure time scale is reset
-	Engine.time_scale = 1.0
-	_canvas_layer.transform = Transform2D.IDENTITY
 	
 	_load_level(_current_level_index, true)  # Skip transition for quick restart
 		
@@ -279,63 +277,11 @@ func _level_complete() -> void:
 	# Store the next level index; actual loading happens after transition closes.
 	_pending_level_index = _current_level_index + 1
 
-## Play an intense death animation with slow motion, zoom, and red vignette.
+## Play game-wide death effects using the DeathEffect class.
 func _play_death_animation() -> void:
 	_is_death_animation_playing = true
 	
-	# Play death sound once at the start
-	SoundManager.play_sound_with_pitch(DEATH_SOUND, randf_range(0.9, 1.1))
-	
-	# Use the dead player we stored
-	var dead_player := _dead_player
-	
-	# Store original CanvasLayer transform
-	var original_transform := _canvas_layer.transform
-	var viewport_size := get_viewport().get_visible_rect().size
-	
-	# Slow down time
-	Engine.time_scale = 0.1
-	
-	# Show vignette
-	_death_vignette.visible = true
-	
-	# Create tweens - use IDLE mode and compensate for time scale
-	var transform_tween := create_tween()
-	transform_tween.set_process_mode(Tween.TWEEN_PROCESS_IDLE)
-	transform_tween.set_speed_scale(1.0 / Engine.time_scale)  # Compensate for slow motion
-	
-	var vignette_tween := create_tween()
-	vignette_tween.set_process_mode(Tween.TWEEN_PROCESS_IDLE)
-	vignette_tween.set_speed_scale(1.0 / Engine.time_scale)  # Compensate for slow motion
-	
-	# Zoom in on the dead player by scaling and translating the CanvasLayer
-	if dead_player:
-		var zoom_factor := 1.5
-		var player_screen_pos := dead_player.global_position
-		
-		# Calculate transform: scale around player position
-		var new_transform := Transform2D()
-		new_transform = new_transform.scaled(Vector2(zoom_factor, zoom_factor))
-		# Translate to keep player centered
-		var offset := viewport_size / 2.0 - player_screen_pos * zoom_factor
-		new_transform.origin = offset
-		
-		transform_tween.tween_property(_canvas_layer, "transform", new_transform, 0.75).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-	
-	# Fade in the red vignette
-	vignette_tween.tween_property(_death_vignette.material, "shader_parameter/intensity", 0.6, 0.5).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
-	
-	# Wait for the full animation duration (in real time, ignore time scale)
-	var timer = get_tree().create_timer(DEATH_ANIMATION_DURATION, true, false, true)
-	await timer.timeout
-	
-	# Reset everything
-	Engine.time_scale = 1.0
-	_death_vignette.visible = false
-	# Extra safety: wait one frame to ensure everything is processed
-	await get_tree().process_frame
-	
-	_death_vignette.material.set_shader_parameter("intensity", 0.0)
-	_canvas_layer.transform = Transform2D.IDENTITY  # Reset to no zoom/pan
+	# Use the death effect handler
+	await _death_effect.play_death_animation(_dead_player)
 	
 	_is_death_animation_playing = false
