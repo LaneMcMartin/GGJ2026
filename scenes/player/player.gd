@@ -6,6 +6,7 @@ extends CharacterBody2D
 
 # Emitted when the player exits the screen
 signal player_died
+const DEATH_SOUND = preload("uid://ce0u4hpyygfql")
 
 ## The direction the player is moving.
 enum Direction {
@@ -187,10 +188,11 @@ func _on_keygroup_toggled(enabled: bool) -> void:
 		
 		
 func _player_died():
-	# Players who are "safe" (eg: have reached a goal) cannot die.
+	# Players who are "safe" (eg: have reached a goal) cannot die.1
 	if is_safe:
 		print_debug("Tried to kill a player who is \"safe\" and cannot die. Ignoring.")
 		return
+	SoundManager.play_sound_with_pitch(DEATH_SOUND, randf_range(0.9, 1.1))
 	player_died.emit()
 
 
