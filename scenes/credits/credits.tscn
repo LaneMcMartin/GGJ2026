@@ -3,13 +3,17 @@
 [ext_resource type="Script" uid="uid://cnsxf72tt67s8" path="res://scenes/credits/credits.gd" id="1_17l06"]
 [ext_resource type="Texture2D" uid="uid://c7ok4gtd2drad" path="res://scenes/credits/cody.png" id="1_icb2l"]
 [ext_resource type="Texture2D" uid="uid://c14y1ea28aswk" path="res://scenes/credits/kate.png" id="2_17l06"]
+[ext_resource type="Texture2D" uid="uid://d4ht6ho8qiyns" path="res://scenes/credits/code.png" id="2_spr88"]
 [ext_resource type="Texture2D" uid="uid://cl8kwn17s03ym" path="res://scenes/credits/lane.png" id="3_t15ab"]
 [ext_resource type="Texture2D" uid="uid://qrg3mq77c56t" path="res://scenes/credits/logan.png" id="4_lwbe5"]
 [ext_resource type="Texture2D" uid="uid://cq53o01qmxvph" path="res://scenes/credits/nico.png" id="5_mxqwe"]
 [ext_resource type="PackedScene" uid="uid://b5y6knc366bb8" path="res://scenes/title/title_background.tscn" id="6_wprml"]
+[ext_resource type="Texture2D" uid="uid://djniqvsn7aw86" path="res://scenes/credits/art.png" id="7_5jxok"]
 [ext_resource type="Script" uid="uid://cq2flt7istc8m" path="res://scenes/credits/resting_tween.gd" id="7_mxqwe"]
 [ext_resource type="Theme" uid="uid://3cs1r4p0rltc" path="res://assets/themes/invisible_button.tres" id="8_lwbe5"]
+[ext_resource type="Texture2D" uid="uid://be1u51agqh5vi" path="res://scenes/credits/sound.png" id="8_nejev"]
 [ext_resource type="Texture2D" uid="uid://bcfrb24n5gbhi" path="res://scenes/options/exit.png" id="8_t15ab"]
+[ext_resource type="Texture2D" uid="uid://d1ttuqs31dmer" path="res://scenes/credits/design.png" id="10_tmer2"]
 
 [node name="Credits" type="Control" unique_id=1547948896]
 layout_mode = 3
@@ -50,7 +54,7 @@ size_flags_stretch_ratio = 3.0
 [node name="Programming Text" type="TextureRect" parent="MarginContainer/VBoxContainer/Programming/Programming" unique_id=2119633541]
 layout_mode = 2
 size_flags_vertical = 3
-texture = ExtResource("2_17l06")
+texture = ExtResource("2_spr88")
 expand_mode = 1
 stretch_mode = 5
 script = ExtResource("7_mxqwe")
@@ -112,7 +116,7 @@ size_flags_vertical = 4
 [node name="Art Text" type="TextureRect" parent="MarginContainer/VBoxContainer/Art/Art" unique_id=53213065]
 layout_mode = 2
 size_flags_vertical = 3
-texture = ExtResource("2_17l06")
+texture = ExtResource("7_5jxok")
 expand_mode = 1
 stretch_mode = 5
 script = ExtResource("7_mxqwe")
@@ -144,7 +148,7 @@ size_flags_vertical = 4
 [node name="Sound Text" type="TextureRect" parent="MarginContainer/VBoxContainer/Sound/Sound" unique_id=1988939224]
 layout_mode = 2
 size_flags_vertical = 3
-texture = ExtResource("2_17l06")
+texture = ExtResource("8_nejev")
 expand_mode = 1
 stretch_mode = 5
 script = ExtResource("7_mxqwe")
@@ -176,7 +180,7 @@ size_flags_stretch_ratio = 3.0
 [node name="Level Design Text" type="TextureRect" parent="MarginContainer/VBoxContainer/Level Design/Level Design" unique_id=964475118]
 layout_mode = 2
 size_flags_vertical = 3
-texture = ExtResource("2_17l06")
+texture = ExtResource("10_tmer2")
 expand_mode = 1
 stretch_mode = 5
 script = ExtResource("7_mxqwe")
