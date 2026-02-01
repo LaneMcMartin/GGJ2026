@@ -101,8 +101,8 @@ func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	
-	# Don't move if disabled.
-	if not _is_enabled:
+	# Don't move if disabled or dead.
+	if not _is_enabled or current_state == State.DEATH:
 		return
 	
 	# Handle pause timer.

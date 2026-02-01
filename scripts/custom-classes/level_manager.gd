@@ -196,6 +196,11 @@ func _get_tilesets() -> Array[Node]:
 	return get_tree().get_nodes_in_group("Tilesets")
 
 func _on_tileset_toggled(tileset) -> void:
+	# Only kill player if the tileset was just ENABLED (appeared)
+	# Don't kill when it's DISABLED (disappeared)
+	if not tileset._is_enabled:
+		return
+	
 	var crushed_player = get_player_colliding_with_layer(tileset)
 	if crushed_player:
 		for ts in _get_tilesets():
@@ -289,7 +294,7 @@ func _play_death_animation() -> void:
 	var viewport_size := get_viewport().get_visible_rect().size
 	
 	# Slow down time
-	Engine.time_scale = 0.05
+	Engine.time_scale = 0.1
 	
 	# Show vignette
 	_death_vignette.visible = true
