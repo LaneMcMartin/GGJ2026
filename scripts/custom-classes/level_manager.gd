@@ -196,13 +196,19 @@ func _get_tilesets() -> Array[Node]:
 	return get_tree().get_nodes_in_group("Tilesets")
 
 func _on_tileset_toggled(tileset) -> void:
-	if does_player_collide_with_layer(tileset):
+	var crushed_player = get_player_colliding_with_layer(tileset)
+	if crushed_player:
 		for ts in _get_tilesets():
 			if ts.tileset_toggled.is_connected(_on_tileset_toggled):
 				ts.tileset_toggled.disconnect(_on_tileset_toggled)
-		_reset_level()
+		# Trigger death animation on the player
+		crushed_player._player_died()
+		# Wait a frame for death state to be set
+		await get_tree().process_frame
+		# Now reset with the dead player
+		_reset_level(crushed_player)
 
-func does_player_collide_with_layer(tileset: PaletteTileMapLayer) -> bool:
+func get_player_colliding_with_layer(tileset: PaletteTileMapLayer) -> Player:
 	# Check if any player collides with the toggled tileset.
 	for player in _players:
 		if not player: # null check for array elements
@@ -236,7 +242,7 @@ func does_player_collide_with_layer(tileset: PaletteTileMapLayer) -> bool:
 			var player_tile_pos = tileset.local_to_map(player.global_position)
 			var tile_data = tileset.get_cell_tile_data(player_tile_pos)
 			if tile_data != null and tile_data.get_collision_polygons_count(0) > 0:
-				return true
+				return player
 			continue
 		
 		# Get the tile coordinates that the player's collision rect overlaps
@@ -253,9 +259,9 @@ func does_player_collide_with_layer(tileset: PaletteTileMapLayer) -> bool:
 				if tile_data != null:
 					var collision_count = tile_data.get_collision_polygons_count(0)
 					if collision_count > 0:
-						return true
+						return player
 	
-	return false
+	return null
 
 # Open pause menu and pause game
 func _on_escape_pressed() -> void:

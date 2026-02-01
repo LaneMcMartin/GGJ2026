@@ -133,7 +133,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	# Check for wall collision and turn around.
-	if is_on_wall():
+	if is_on_wall() and (current_state != State.DEATH):
 		_turn_around()
 		
 	# Check for ground collision.
