@@ -16,6 +16,7 @@ diffuse_texture = ExtResource("1_b104c")
 normal_texture = ExtResource("2_2kljv")
 
 [node name="OneWayPlatform" type="StaticBody2D" unique_id=1765243923 node_paths=PackedStringArray("area_2d", "canvas_sprite_2d")]
+use_parent_material = true
 script = ExtResource("1_2kljv")
 area_2d = NodePath("Area2D")
 canvas_sprite_2d = NodePath("CanvasSprite2D")
@@ -33,6 +34,7 @@ position = Vector2(0, -24)
 shape = SubResource("RectangleShape2D_180sp")
 
 [node name="CanvasSprite2D" type="Sprite2D" parent="." unique_id=516808384]
+use_parent_material = true
 position = Vector2(0, -50)
 texture = SubResource("CanvasTexture_qe2tl")
 hframes = 5
