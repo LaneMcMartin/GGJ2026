@@ -23,34 +23,15 @@ const CYCLE_TIME := 0.5
 const SPRING_FX = preload("uid://d01cqd7erptys")
 
 var _debounce_timer: float = 0.0
-var _is_enabled: bool = false
+var _is_enabled: bool = true
 var current_frame := 0
 var timer := 0.0
-var _physics_ready: bool = false
-var _initial_position: Vector2
 
 func _ready() -> void:
-	# Store spawn position
-	_initial_position = global_position
-	
-	# CRITICAL: Reset all physics state
-	velocity = Vector2.ZERO
-	
 	sprite_2d.region_enabled = true
+	# Each instance starts at a different frame
 	current_frame = randi() % FRAME_POSITIONS.size()
 	_update_region()
-	
-	# Wait for level to actually start
-	GameManager.level_start.connect(_on_level_start)
-	
-func _on_level_start() -> void:
-	# Reset to initial position in case it moved
-	global_position = _initial_position
-	velocity = Vector2.ZERO
-	
-	await get_tree().process_frame
-	_physics_ready = true
-	_is_enabled = true
 	
 func _process(delta: float) -> void:
 	timer += delta
@@ -64,15 +45,11 @@ func _update_region() -> void:
 
 ## Executed every physics frame.
 func _physics_process(delta: float) -> void:
-	if not _physics_ready:
-		return
-		
 	if (_is_enabled):
 		# Apply gravity
 		velocity.y += gravity * delta
 		velocity.y = minf(velocity.y, max_fall_speed)
-		
-		# DEBUG: Log position before and after move
+		# Move and slide to handle physics and collisions
 		move_and_slide()
 		
 		# Check if spring is falling and crushing the player
