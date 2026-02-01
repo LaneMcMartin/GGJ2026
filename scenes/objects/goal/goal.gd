@@ -5,6 +5,7 @@ extends Area2D
 signal player_reached_goal(player: Player, goal: Node2D)
 
 @export var sprite_2d: Sprite2D
+@export var star_particles: GPUParticles2D
 
 const FRAME_POSITIONS := [0, 128, 256]
 const CYCLE_TIME := 0.5
@@ -38,6 +39,9 @@ func _on_body_entered(body: Node2D) -> void:
 		
 		# Start win animation and fade player out.
 		body.win_level()
+		
+		# Play particles.
+		star_particles.emitting = true
 		
 		# Tween player to goal center.
 		var tween: Tween = create_tween()
