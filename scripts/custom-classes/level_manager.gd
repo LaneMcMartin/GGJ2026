@@ -17,7 +17,6 @@ const level_order: Array[String] = [
 	"level-5.1-two-players",
 	"level-5.2-two-players-harder",
 	"level-5.3-where-we-droppin"
-
 ]
 
 ## Duration of the countdown before level starts (in seconds).

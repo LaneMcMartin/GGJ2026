@@ -26,7 +26,7 @@ enum State {
 }
 var current_state: State = State.WALKING: set = set_state
 const STATE_ANIMATIONS: Array[String] = ["default", "air", "air", "climb", "win"]
-const FOOTSTEP_SOUND = preload("uid://cwasq5wipo2gn")
+const FOOTSTEP_SOUND = preload("uid://dx63s0t2a135h")
 ## Frames in the walking animation where footsteps should play.
 const FOOTSTEP_FRAMES: Array[int] = [1, 4]  # Adjust these based on your animation
 
