@@ -81,6 +81,16 @@ func _physics_process(delta: float) -> void:
 			var collider = collision.get_collider()
 			if collider is Player:
 				collider._player_died()
+			elif collider is TileMapLayer:
+				# Check if we're being crushed (pushed downward from above)
+				var normal = collision.get_normal()
+				
+				# Normal pointing up (0, -1) = spring resting on ground (OK)
+				# Normal pointing down (0`, 1) = spring being pushed down from above (CRUSHED)
+				# Normal pointing sideways = spring being pushed from side (CRUSHED)
+				if normal.y > -0.7:  # If not pointing strongly upward, we're crushed
+					_destroy_spring()
+					return
 	
 	# Subtract delta time from the timer.
 	_debounce_timer = clampf(_debounce_timer - delta, 0.0, spring_cooldown_seconds)
@@ -109,3 +119,6 @@ func _on_keygroup_toggled(state: bool) -> void:
 ## Figure ut which way to impulse the colliding body.
 func _get_launch_direction() -> Vector2:
 	return Vector2.UP.rotated(rotation)
+	
+func _destroy_spring() -> void:
+	queue_free()
