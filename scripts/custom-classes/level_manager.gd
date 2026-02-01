@@ -27,13 +27,14 @@ var _current_level_index: int = 0
 var _current_level: Node2D = null
 var _transition: ColorRect = null
 var _pending_level_index: int = -1
+
+# Player references (to support multi-player levels)
 var _players: Array[Player] = []
 var _goals_reached: int = 0
-var _canvas_layer: CanvasLayer = null
-var _death_vignette: ColorRect = null
-var _is_death_animation_playing: bool = false
-var _dead_player: Player = null
+
+# Death effect (before level restarts)
 var _death_effect: DeathEffect = null
+var _is_death_animation_playing: bool = false
 
 func _ready() -> void:
 	# Add to LevelManager group so goals can find us
@@ -43,14 +44,14 @@ func _ready() -> void:
 	
 
 	# Get references to UI elements
-	_canvas_layer = get_parent()
 	_transition = get_node("../Transition")
 	_transition.transition_closed.connect(_on_transition_closed)
 	_transition.transition_opened.connect(_on_transition_opened)
-	_death_vignette = get_node("../../UILayer/DeathVignette")
 	
 	# Create the death effect handler
-	_death_effect = DeathEffect.new(_canvas_layer, _death_vignette)
+	var canvas_layer = get_parent()
+	var death_vignette = get_node("../../UILayer/DeathVignette")
+	_death_effect = DeathEffect.new(canvas_layer, death_vignette)
 
 	_load_level(_current_level_index, true)  # Skip transition for initial load
 
@@ -141,16 +142,14 @@ func _on_countdown_finished() -> void:
 	GameManager.level_start.emit()
 	
 func _reset_level(dead_player: Player = null) -> void:
-	# Don't reset if death animation is already playing
+	# Prevent multiple resets at once
 	if _is_death_animation_playing:
 		return
-	
-	# Store which player died
-	_dead_player = dead_player
-	
+
 	# Play death animation before resetting
-	await _play_death_animation()
-	
+	_is_death_animation_playing = true
+	await _death_effect.play_death_animation(dead_player)
+	_is_death_animation_playing = false
 	_load_level(_current_level_index, true)  # Skip transition for quick restart
 		
 func _connect_player_deaths() -> void:
@@ -276,12 +275,3 @@ func _on_escape_pressed() -> void:
 func _level_complete() -> void:
 	# Store the next level index; actual loading happens after transition closes.
 	_pending_level_index = _current_level_index + 1
-
-## Play game-wide death effects using the DeathEffect class.
-func _play_death_animation() -> void:
-	_is_death_animation_playing = true
-	
-	# Use the death effect handler
-	await _death_effect.play_death_animation(_dead_player)
-	
-	_is_death_animation_playing = false
