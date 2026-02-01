@@ -1,6 +1,9 @@
 ## Keygroup Manager. This script is an Autoload - it is automatically loaded in all of the time.
 extends Node
 
+# Sound for keygroup toggle.
+const MASKUNMASK = preload("uid://mycf6otnqiun")
+
 ## Emitted when a keygroup's enabled state changes.
 ## Keygroup nodes listen to this to update their children.
 signal keygroup_toggled(group_id: int, is_enabled: bool)
@@ -90,9 +93,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	# Handle keygroup toggle inputs.
 	if event.is_action_pressed("toggle_group_1"):
 		toggle_group(1)
+		SoundManager.play_sound_with_pitch(MASKUNMASK, 0.9)
 	elif event.is_action_pressed("toggle_group_2"):
 		toggle_group(2)
+		SoundManager.play_sound_with_pitch(MASKUNMASK, 1.0)
 	elif event.is_action_pressed("toggle_group_3"):
 		toggle_group(3)
+		SoundManager.play_sound_with_pitch(MASKUNMASK, 1.1)
 	elif event.is_action_pressed("toggle_group_4"):
 		toggle_group(4)
